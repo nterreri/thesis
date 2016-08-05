@@ -2,61 +2,41 @@
 \usepackage{syntonly}
 %\syntaxonly
 \author{Niccol\'o Terreri}
-\title{A chatbot architecture for eHealth systems}
+\title{A Conversational Ahatbot Architecture for eHealth Systems}
 \begin{document}
 \maketitle
 \tableofcontents
 
 \chapter{Introduction}
 \section{PEACH}
-%\chapter{The Problem Domain}
+\subsection{The chatbot application team}
+\subsubsection{The search engine}
+\subsubsection{The restful server}
+
+\chapter{Background Research}
 \section{The electronic Health Needs Assessment questionnaire}
 \subsection{Macmillan Cancer Support}
 \subsection{The Concerns Checklist}
 \section{Patient Data for Research in the UK}
 \subsection{Data Protection Act 1998}
 \subsection{Freedom of Information Act 2000}
-
-\chapter{The Solution Domain}
 \section{Natural Language Processing}
 \subsection{Sentiment analysis}
 \subsection{Text categorization}
-\subsection{Other machine learning tasks in NLP}
-\section{Intelligence Chatbots}
-\subsection{Externally Hosted APIs}
-\subsection{The Artificial intelligence Markup Language}
-
-\section{The Conversational UI}
-\subsection{A hybrid model}
-
-\subsection{Topic management}
-\subsection{Report generation}
-
-\chapter{System Design}
-\section{Software Architecture}
-\subsection{The Internet is an IO device}
-\subsection{Deployability across chat clients}
-\section{A Chatbot Interface}
-\subsection{Preprocessing}
-\subsection{User and topic management}
-\subsection{Postprocessing}
-\subsection{Integration with the search engine}
-
-\chapter{System Implementation}
-\section{Open Source NLP libraries}
-\subsection{Natural Language Tool-Kit}
-\subsection{Stanford CoreNLP}
-\section{Python}
+\subsection{Open Source NLP libraries}
+\subsubsection{Natural Language Tool-Kit}
+\subsubsection{Stanford CoreNLP}
 \section{Categorizing text with the NLTK}
 \subsection{Supervised learning}
 \subsection{Development, feature extraction and evaluation}
 \subsection{Uncertainty bounds}
 \subsection{Expected probability}
+\subsection{The limits of the NLTK and CoreNLP}
 \subsection{Conversations and sequence classification}
 \subsection{Hidden Markov Models}
-\subsection{The limits of the NLTK and CoreNLP}
 \section{The Chatbot Brain}
-\subsection{AiML}
+\subsection{Externally Hosted APIs}
+\subsection{The Artificial intelligence Markup Language}
 \subsection{ChatScript}
 \subsection{RiveScript}
 \subsection{SuperScript}
@@ -68,18 +48,49 @@
 \subsection{Alternatives}
 \subsection{Streaming data into a RiveScript interpreter}
 
-\chapter{Introduction}
-
-\chapter{Background Research}
-
 \chapter{Requirements Gathering}
+\section{The Conversational UI}
+\subsection{A hybrid model}
+\subsection{The conversation}
+\subsection{Topic management}
+\subsection{Report generation}
+\section{Requirements Listing}
 
 \chapter{System Design and Implementation}
+\section{Software Architecture}
+\subsection{The Internet is an IO device}
+\subsection{Priciples of Software Design}
+\subsection{Deployability across chat clients}
+\section{The internal structure}
+\subsection{Preprocessing}
+\subsubsection{Tokenization}
+\subsubsection{Stopwords}
+\subsubsection{Stemming}
+\subsubsection{Categorization}
+\subsection{User and topic management}
+\subsection{The RiveScript interpreter}
+\subsection{Postprocessing}
+\subsubsection{Decorating the response}
+\subsection{Integration with the external search engine}
 
-\chapter{System Testing and Categorization Evaluation}
+\chapter{System Testing and Evaluation}
+\section{Test Driven Development}
+\subsubsection{Unit tests}
+\subsubsection{Integration tests}
+\section{Evaluating a categorizer}
+\subsubsection{K-fold evaluation}
+\subsubsection{Evaluating a sequence classifier}
 
 \chapter{Conclusion}
+\section{Project Results}
+\section{Team Retrospective}
+\section{Future Work}
 
 \appendix
-appendices go here
+\chapter{System Manual}
+\chapter{User Manual}
+\chapter{Tests Listing}
+\chapter{Categorizer Evaluation}
+\chapter{Code Listing}
+
 \end{document}
