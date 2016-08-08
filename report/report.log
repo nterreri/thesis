@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=latex 2016.6.6)  5 AUG 2016 11:14
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=latex 2016.6.6)  5 AUG 2016 15:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -88,7 +88,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [9
 
 ]
-Overfull \vbox (71.06668pt too high) has occurred while \output is active []
+Overfull \vbox (93.31668pt too high) has occurred while \output is active []
 
 
 [10]
@@ -129,4 +129,4 @@ Here is how much of TeX's memory you used:
  14 hyphenation exceptions out of 8191
  23i,7n,19p,150b,189s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on report.dvi (17 pages, 20352 bytes).
+Output written on report.dvi (17 pages, 20412 bytes).
