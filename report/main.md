@@ -10,9 +10,9 @@ author: Niccoló Terreri
 toc: true
 ---
 
->      Pointing will still be the way to express nouns as we command our machines;
->      speech is surely the right way to express the verbs.
->       ** Frederick P. Brooks Jr., The Mythical Man-month, 2nd edition 1995 **
+> Pointing will still be the way to express nouns as we command our machines;
+> speech is surely the right way to express the verbs.
+** Frederick P. Brooks Jr., The Mythical Man-month, 2nd edition 1995 **
 
 # Introduction
 ## The Problem
