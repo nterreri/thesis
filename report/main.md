@@ -6,7 +6,6 @@ classoption: twoside
 
 title: A Conversational Chatbot Architecture for eHealth Systems
 author: Niccoló Terreri
-date: "`r format(Sys.time(), '%d %B, %Y')`"
 
 toc: true
 ---
