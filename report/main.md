@@ -5,7 +5,7 @@ papersize: A4
 classoption: twoside
 
 title: A Conversational Chatbot Architecture for eHealth Systems
-author: Niccol\'o Terreri
+author: Niccoló Terreri
 toc: true
 ---
 
