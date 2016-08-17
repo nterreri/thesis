@@ -37,7 +37,7 @@ Intelligent conversation systems have enjoyed an increasing amount of media
 attention over the last year[^aiarticles]. With applications of artificial
 intelligence to using natural language inputs for different purposes, including
 general purpose mobile device interfaces[^viv]. Furthermore, several technology
-companies have started to offer "Artificial Intelligence as a Service" products.
+companies have started offering "Artificial Intelligence as a Service" products.
 Among these are BloomsburyAI (founded at UCL) and bespoken companies such as
 Google and Microsoft[^aiaas]. This appears indicative of the fact that chatbot
 and natural language processing technologies have reached a level of maturity
@@ -45,8 +45,8 @@ comparable to that achieved years ago by haptic technology, that we find almost 
 in human-computer interfaces and everyday use of computing devices today.
 
 This project is a about the use of an intelligent conversational system
-to gather further information about the patient's concerns through the
-self-assessment tool, ahead of the creation of the care plan. This is primarily
+to gather further information about the patient's concerns through an electronic
+self-assessment tool, ahead of the creation of a patient care plan. This is primarily
 an attempt at introducing the conversational User Interface in electronic
 health applications generally, and in particular explore the applicability of
 computer advisors to Macmillan's eHNA in a growing effort to improve the
@@ -61,9 +61,10 @@ technical team lead who also takes care of the integration of the system with
 the resources available to PEACH and the data storage system that will persist
 durably information gathered through the chatbot system. Rim Ahsaini (MSc CS)
 working on a specialized search engine for resources that may interest and help
-support cancer patients based on their concerns, Deborah Wacks (MSc CS) as lead
+support cancer patients based on their concerns (to be available both through
+conversation with the chatbot and independently), Deborah Wacks (MSc CS) as lead
 UX designer working on the implementation of a webserver through which allow the
-user to interact with the chatbot.
+user to interact with the chatbot and search engine.
 
 This project is part of PEACH: Platform for Enhanced Analytics and Computational
 Healthcare (Project PEACH, 2016). PEACH is a data science project that
@@ -84,11 +85,21 @@ closer together.
 
 [^ehna]: <http://www.macmillan.org.uk/aboutus/healthandsocialcareprofessionals/macmillansprogrammesandservices/recoverypackage/electronichollisticneedsassessment.aspx>, <http://www.macmillan.org.uk/aboutus/healthandsocialcareprofessionals/newsandupdates/macvoice/winter2014/introductiontoehnaandcareplanning.aspx>, <http://www.macmillan.org.uk/aboutus/healthandsocialcareprofessionals/newsandupdates/macvoice/winter2014/transformingcareusingehna.aspx>, <http://www.macmillan.org.uk/aboutus/healthandsocialcareprofessionals/newsandupdates/macvoice/winter2014/developingtheehna.aspx>
 
-## Project goals and personal goals
+## Project goals and personal aims
 The main project goal is the delivery of a basic but easy to extend and modify
 chatbot software system, specifically targeted at assisting with the identification
 and gathering of information around cancer patient issues, modelled after the
 Concerns Checklist (CC) electronic questionnaire form (NCSI, 2012).
+Finally, one of the major challenges with eHealth problems is represented by
+having to hand confidential patient data (as will be discussed in Chapter 2 of
+this report). Summarily:
+
+- Design and implement a chatbot architecture tailored to the issues surrounding
+software systems in healthcare (in particular around treatment of sensitive patient data)
+- To integrate with a specialized search engine (developed by another member of the team)
+- To explore other applications of NLP that could be useful to extract information from natural language data.
+- To implement a chatbot brain using open source technology.
+- To develop the system with Macmillan eHNA as the main reference.
 
 Personal goals of the author include:
 
@@ -101,7 +112,7 @@ the field of natural language processing
 ## The project approach methodology
 An Agile approach was adopted for the project, in line
 with the author's stated interests. This meant maximizing time spent outside of
-meetings, save for where communication between team members was required.
+meetings, save for where communication between team members and others was required.
 The project was paced in weekly iterations where aspects of the system to implement
 would be selected from a backlog to be delivered for the next week. Great
 emphasis was also put on testing as part of deveopment, in particular the discipline
@@ -118,7 +129,7 @@ This report is structured as follows:
 - Chapter 2 provides more extensive background into the eHNA questionnaire as well as
 NLP and chatbot open source projects that were explored.
 - Chapter 3 describes the requirements as gathered through the contacts in healthcare
-and the Macmillan charity PEACH available to PEACH.
+and the Macmillan charity available to PEACH.
 - Chapter 4 details the system architecture, design and the current implementation,
 highlighting its current limits and its extensibility.
 - Chapter 5 discusses how system testing was done as part of development, the
@@ -128,6 +139,78 @@ of the system.
 and reccomendations for the direction of future work on the system.
 
 # Background Research
+
+## The electronic Health Needs Assessment questionnaire
+> %quote about software being flexible
+>
+
+### Macmillan Cancer Support
+The eHNA system represents the background project against which the PEACH chatbot
+team efforts have kept constant reference to from the project inception throughout
+development.
+
+Macmillan Cancer Support developed the eHNA for the purpose of extending the
+range of cancer patients in the UK covered by individual care plans, made with
+the individual's very personal and unique concerns they incurred into in relation
+to their condition. These concerns are gathered through variants
+of an electronic questionnaire offered by Macmillan to selected trial sites.
+Paper versions and variants of the questionnaire
+existed before the introduction of the eHNA in 2010, and have been in use since before then (Mac Voice, 2014) (NCAT, 2011).
+
+The electronic questionnaire is designed to be carried out on site mostly through
+haptic devices (such as tablets), just ahead of meeting the clinician that will help draft a care plan for the patient. There
+is the option to complete the questionnaire remotely, although the adoption of
+this alternative is made difficult by the work habits of key personnel, who are
+used to providing a device to the patient in person and ask them to carry out the
+questionnaire while at the clinic.
+
+The patient uses device touch interface to navigate through various pages
+selecting concern categories from a predefined list. There are several versions
+of questionnaires available, modelled after the various paper versions, depending on which
+one the clinic previously used.
+
+Patients typically select three-four concerns (up to around six, mostly depending
+on the type of cancer they have). The questionnaire takes on average less than
+10 minutes to complete. The information extracted is first stored in a Macmillan
+data store, external to the NHS N3 network (NHS, 2016). At this stage, Macmillan
+data storage synchs within a minute with data storages inside N3 and deletes all
+identifying patient information from the data is anonimized and data about the
+concern is retained by Macmillan to gather insight into the needs of cancer patients
+(consent is explicitly required from the patient in order to undertake the eHNA
+and information about the use of the data is transparently provided).
+
+The front end of the system is implemented as web-app, built using HTML and JavaScript.
+Access to the assessment is restricted to scheduled appointments that clinics set up
+for individual patients, either via delivering the questionnaire on the clinic site,
+or, if the questionnaire is carried out remotely, via use of a one-time 6 digit PIN
+number, alongside the patient's name and date of birth.
+
+### The Concerns Checklist
+Given the variety of different versions of the questionnaire, the team was advised
+to focus on the one that is most commonly used: the Concerns Checklist (NCSI, 2012).
+
+In this version of the questionnaire, the patient selects their concerns from a
+range of more than 50 individual issues, each falling into one of 10 categories.
+Each category may itself be a subcategory of the following major topics:
+
+- Physical concerns
+- Practical concerns
+- Family concerns
+- Emotional concerns
+- Spiritual concerns
+
+## Patient Data for Research in the UK
+As mentioned in the project goals section in Chapter 1, handling confidential
+patient data poses particular challenges to eHealth related project. Just before
+the start of the project, when teams and roles had not yet been defined, the
+whole team underwent training about handling patient data and the relevant
+legislation in the UK.
+
+The following is a summary of key policies the author became familiar with
+before starting the project, with references to how in particular they affected
+design and implementation decisions.
+
+### Information Governance
 
 # Requirements Gathering
 
