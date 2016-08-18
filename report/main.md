@@ -139,8 +139,8 @@ of the system.
 and reccomendations for the direction of future work on the system.
 
 # Background Research
-> %quote about software being flexible
->
+> Both the tractability and invisibility of the software product exposes its
+> builders to perpetual changes in requirements.
 
 ## The electronic Health Needs Assessment questionnaire
 
@@ -259,11 +259,11 @@ Patient consent should be gathered explicitly, having clearly explained all of t
 which the data may be used, before any information about them can be processed (with few exceptions,
 for example where the information becomes critical to national security and similar cases).
 
-Consent should be explicitly gathered before any other information is gathered
-from the patient, it may be possible to make use of third party services provided
+It may be possible to make use of third party services provided
 the data has been fully anonimized and cannot be linked back to the patient, and
 provided a special agreement (such as a Data Transfer Agreement) has been brokered to ensure both parties understand
-the legal and ethical implications of sharing even anonimized data.
+the legal and ethical implications of sharing even anonimized data; furthermore, it would be best to also gather
+consent explicitly from the patient even where the data has been anonimized.
 In such cases, the duty of confidence does not extend over to the third party.
 Note however, that it is sometimes difficult to ensure that data has been anonimized, even
 by removing all information considered personal under UK law: for example, if
@@ -277,7 +277,52 @@ architecture will allow for such a choice to be made in a future iteration of
 the chatbot project, where an agreement has been brokered, or authorization is
 otherwise provided to make use of third party services.
 
+## Natural Language Processing
+As stated in Chapter 1, part of the author personal aims included to learn about
+NLP and leverage the author's background in computational linguistics. Furthermore,
+to investigate the application of machine learning to extract information from
+user input that would be relevant to the chatbot system as a whole.
 
+To be specific, it is not so much tasks of information extraction or named entity
+recognition that were identified as most useful in this case, but rather the
+possibility to classify user input according to sentiment analysis and text
+classification. In order to inform the chatbot system reply
+to the user by providing additional information to the raw user input.
+Why text classification tasks? Because they may be used to add tags to user
+inputs to be matched within a chatbot brain that would otherwise be unable to
+generalize.
+
+This would effectively represent a hybrid model where both a machine learning
+component and a "rule-based" (or rather input-pattern driven) approach are
+used as part of a more complex system.
+
+In the abstract, this is an attempt at exploiting the power for generalization
+that is characteristic of approaches to artificial intelligence resembling
+the nature of experience as a way humans acquire knowledge, human capacity (and propensity)
+for inductive reasoning (Russell and Norvig, 1995, p.592; Biermann, 1986, pp.134-135;
+  Hawthorne, 2014; Hume, 1777, section 4, part 2),
+while at the same time retaining the rigor and control provided
+by more rigid rule-based approaches to AI, which would ensure the conversation remains
+on the range of topics and allows the user to carry out the information gathering phase
+for the creation of their care plan, where a set of heuristics or rules of
+inference is used, these in turn resemble deductive reasoning, where certainty of
+the conclusion of the reasoning is guaranteed by the soundness of
+the deductive calculus used, and the mathematical certainty in the premises needed
+(Russell and Norvig, 1995, pp.163-165, Beall and Restall, 2014).
+
+This approach is in particular to be contrasted with neural networks and other
+approaches to AI which behave as "black boxes", and cannot by their nature proivde
+an intelligible explanation of their categorization process (or more generally decision process)
+as the result of their learning is stored in the form of a weighted graph (Russell and Norvig, 1995, p.567).
+
+### Text Classification
+Text classification is the NLP task of assigning a category to an input from a
+predefined set of classes (Sebastiani, 2002, p.1). More formally:
+
+For a document $d$ and a set of categories $C = {c_1, c_2, c_3, ..., c_n}$,
+produce a predicted class $c \in C$
+The task is normally turned into a supervised machine learning task, by training
+a model over a set of document-category pairs: $\langle d_i, c_i \rangle$
 
 # Requirements Gathering
 
