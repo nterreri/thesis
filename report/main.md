@@ -139,10 +139,10 @@ of the system.
 and reccomendations for the direction of future work on the system.
 
 # Background Research
-
-## The electronic Health Needs Assessment questionnaire
 > %quote about software being flexible
 >
+
+## The electronic Health Needs Assessment questionnaire
 
 ### Macmillan Cancer Support
 The eHNA system represents the background project against which the PEACH chatbot
@@ -204,13 +204,80 @@ As mentioned in the project goals section in Chapter 1, handling confidential
 patient data poses particular challenges to eHealth related project. Just before
 the start of the project, when teams and roles had not yet been defined, the
 whole team underwent training about handling patient data and the relevant
-legislation in the UK.
+legislation in the UK (the specific certificates obtained by the author can
+be found in the Appendices [#MAKESURETHISHAPPENS]).
 
 The following is a summary of key policies the author became familiar with
 before starting the project, with references to how in particular they affected
 design and implementation decisions.
 
-### Information Governance
+Generally speaking, authorization must be provided before any information provided
+by the patient can be used in any way except the specific purpose of their healthcare.
+This severly limits the possibility of using third party services.
+
+First, there is no guaranteed that the information can be transmitted securely
+to the external system. Secondly, this increases the risk of loss and inappropriate use of the
+information, both due to mishandling by the third party (whether intentional or accidental)
+and by increasing the risk that people unaware of the relevant legislation may come into contact with the data.
+
+### The Natural Duty of Confidence
+Under UK common law, information that *can* reasonably be expected
+to be held in confidence under the circumstances (such as the information provided
+by patients to a clinician), *must* be held in confidence.
+This applies regardless of whether the information is
+specifically relating to the patient's physical health, and applies to any practical
+or other concern the patient may express.
+
+Duties are sometimes contrasted with obligations in the sense that an obligation
+is a voluntary covenant a person enters, whereas a duty applies to the person
+regardless. This means that any personnel (including data scientists and software
+developers) who work with NHS patient data can be liable for misuse of the data
+even if they are not formally contracted.
+
+### The Data Protection Act 1998
+The DPA (Data Protection Act, 1998) describes eight principles meant to ensure confidential
+data about (living) individuals is treated with fairness, and applies to any organization
+handling such data (e.g. financial institutions).
+
+The nature of information covered by the act is "sensitive" in the sense that it
+may be used in ways that affect the subject to significant extents. Identifying
+information (such as name and date of birth) is normally regarded as such.
+
+The second principle of the DPA specifies that the purposes for which personal
+data is being gathered have to be transparently described to the person. This means
+that information provided by a patient for the purpose of their own health care can
+only be used for this purpose and no other (including mass aggregation
+of data to gather insight for any purpose from third parties involved).
+
+The eight principle also requires that personal information is not sent outside
+the European Economic Area in most cases, which can also cause problems with
+the geographic location or accessibility across the world of data shared with
+third parties.
+
+### Conclusion
+Patient consent should be gathered explicitly, having clearly explained all of the purposes for
+which the data may be used, before any information about them can be processed (with few exceptions,
+for example where the information becomes critical to national security and similar cases).
+
+Consent should be explicitly gathered before any other information is gathered
+from the patient, it may be possible to make use of third party services provided
+the data has been fully anonimized and cannot be linked back to the patient, and
+provided a special agreement (such as a Data Transfer Agreement) has been brokered to ensure both parties understand
+the legal and ethical implications of sharing even anonimized data.
+In such cases, the duty of confidence does not extend over to the third party.
+Note however, that it is sometimes difficult to ensure that data has been anonimized, even
+by removing all information considered personal under UK law: for example, if
+a person happens to have a rare disease, or information about the geographic
+location of the patient can be retrieved from the data being shared with the third
+party.
+
+For this reason, the implementation of the current project does not share any of
+the data extracted from user input externally although the emphasis on clean
+architecture will allow for such a choice to be made in a future iteration of
+the chatbot project, where an agreement has been brokered, or authorization is
+otherwise provided to make use of third party services.
+
+
 
 # Requirements Gathering
 
