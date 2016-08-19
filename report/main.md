@@ -121,7 +121,7 @@ of Test Driven Development.
 A top-down system design and implementation was also adopted, with the next largest system
 abstraction being priorized first in development in order to always have a
 working system being progressively refined. These methodology guidelines where established in accordance with
-the reccomendations of Brooks (1995, pp143-144, 200-201, 267-271) and Martin (2009, pp121-133).
+the reccomendations of Brooks (1995, pp143-144, 200-201, 267-271) and Martin (2009, pp121-133; 2003, chapter 2, 4, 5).
 
 ## Report overview
 This report is structured as follows:
@@ -139,8 +139,8 @@ of the system.
 and reccomendations for the direction of future work on the system.
 
 # Background Research
-> Both the tractability and invisibility of the software product exposes its
-> builders to perpetual changes in requirements.
+> "Both the tractability and invisibility of the software product exposes its
+> builders to perpetual changes in requirements."
 
 ## The electronic Health Needs Assessment questionnaire
 
@@ -335,7 +335,9 @@ wish to approximate an ideal mapping from the set of documents $D$ to our $C_cc$
 $f : D \mapsto C_{cc}$
 
 The task is normally turned into a supervised machine learning task, by training
-a model over a set of document-category pairs: $\{ ... ,\langle d_i, c_i \rangle , ... \}$
+a model over a set of document-category pairs (Sebastiani, 2011, slide 7, 13):
+
+$\{ ... ,\langle d_i, c_j \rangle , ... \}$
 
 Supervised learning is a form of machine learning where the machine is trained over
 a set of "hand" labelled examples. The "supervision" consists in already knowing
