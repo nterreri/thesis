@@ -185,7 +185,7 @@ for individual patients, either via delivering the questionnaire on the clinic s
 or, if the questionnaire is carried out remotely, via use of a one-time 6 digit PIN
 number, alongside the patient's name and date of birth.
 
-### The Concerns Checklist
+### The Concerns Checklist {#ConcernsChecklist}
 Given the variety of different versions of the questionnaire, the team was advised
 to focus on the one that is most commonly used: the Concerns Checklist (NCSI, 2012).
 
@@ -319,10 +319,54 @@ as the result of their learning is stored in the form of a weighted graph (Russe
 Text classification is the NLP task of assigning a category to an input from a
 predefined set of classes (Sebastiani, 2002, p.1). More formally:
 
-For a document $d$ and a set of categories $C = {c_1, c_2, c_3, ..., c_n}$,
+For a document $d$ and a set of categories $C = \{c_1, c_2, c_3, ..., c_n\}$,
 produce a predicted class $c \in C$
+
+Particular to our case, the documents will be natural language conversational user input,
+and the set of categories will be the macro cateogries of issues that have been
+extracted from [the concerns checklist (CC)](#ConcernsChecklist) version of the
+questionnaire (see above):
+
+$C_{cc} = \{phyisical, practical, family, emotional, spiritual\}$
+
+To be precise, we will be focusing on document-pivoted classification, where we
+wish to approximate an ideal mapping from the set of documents $D$ to our $C_cc$:
+
+$f : D \mapsto C_{cc}$
+
 The task is normally turned into a supervised machine learning task, by training
-a model over a set of document-category pairs: $\langle d_i, c_i \rangle$
+a model over a set of document-category pairs: $\{ ... ,\langle d_i, c_i \rangle , ... \}$
+
+Supervised learning is a form of machine learning where the machine is trained over
+a set of "hand" labelled examples. The "supervision" consists in already knowing
+the right answer for each training input, and wanting to use the system to
+automatically label future instances as desired (Russell and Norvig, 1995, p.528).
+This is in contrast with other forms of machine learning, such as reinforcement
+or unsupervised learning, where the answer is either unkown or "fuzzy" unlike
+with supervised learning. Take for example a robot navigating an industrial warehouse,
+as the surrounding circumstances change, the behaviour desired cannot simply be
+evaluated in binary terms (i.e. either "good" or "bad") because the problem of
+navigating a busy environment is by its nature not binary, there is in most cases
+a continuous spectrum of evaluation.
+
+A model is trained over the training set and then tested against an unseen test set,
+also made up of hand-labelled samples. The model classifies each test sample and
+evaluation metrics can be drawn from comparing the model classification with the
+known ("gold") standard for the sample.
+
+The internal representation of each document to the classifier is a sparse
+vector representing the features or characteristics of the document relevant
+to the classification task. Different features will be relevant to different document
+classificaiton tasks, for example certain words may occurr more frequently in
+positive movie reviews as opposed to negative movie reviews, but those particular
+words are unlikely to also be indicative of whether the person who wrote the document
+happened to be male or female.
+
+These features can be, for example, the occurrence or non-occurrence in the
+document of certain terms (usually words).
+
+
+
 
 # Requirements Gathering
 
