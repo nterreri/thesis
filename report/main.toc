@@ -1,0 +1,19 @@
+\contentsline {chapter}{\numberline {1}Introduction}{4}{chapter.1}
+\contentsline {section}{The Problem}{4}{section*.2}
+\contentsline {section}{Project goals and personal aims}{7}{section*.3}
+\contentsline {section}{The project approach methodology}{8}{section*.4}
+\contentsline {section}{Report overview}{9}{section*.5}
+\contentsline {chapter}{\numberline {2}Background Research}{10}{chapter.2}
+\contentsline {section}{The electronic Health Needs Assessment questionnaire}{10}{section*.6}
+\contentsline {subsection}{Macmillan Cancer Support}{10}{section*.7}
+\contentsline {subsection}{The Concerns Checklist}{12}{section*.8}
+\contentsline {section}{Patient Data for Research in the UK}{13}{section*.9}
+\contentsline {subsection}{The Natural Duty of Confidence}{14}{section*.10}
+\contentsline {subsection}{The Data Protection Act 1998}{14}{section*.11}
+\contentsline {subsection}{Conclusion}{15}{section*.12}
+\contentsline {section}{Natural Language Processing}{16}{section*.13}
+\contentsline {subsection}{Text Classification}{18}{section*.14}
+\contentsline {chapter}{\numberline {3}Requirements Gathering}{20}{chapter.3}
+\contentsline {chapter}{\numberline {4}System Design and Implementation}{21}{chapter.4}
+\contentsline {chapter}{\numberline {5}System Testing and Evaluation}{22}{chapter.5}
+\contentsline {chapter}{\numberline {6}Conclusion}{23}{chapter.6}
