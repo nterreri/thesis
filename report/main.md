@@ -666,7 +666,7 @@ modules that can operate with higher level abtraction than mere patterns of symb
 (like the grammar rules and templates described above), which we may want to
 call "dialogue acts". These more advanced systems are sometimes referred to
 "information-state" systems as opposed to "frame-based" systems that coerce
-the conversation to a very specific task.
+the conversation to a very specific task (#REFERENCE).
 
 For the purposes of the problem at hand, it is difficult to decide which of these
 would be ideal. For one, the tight control over the topics in the conversation
@@ -767,7 +767,53 @@ SuperScript is a fork of RiveScript with syntax elements inspired by ChatScript
 
 #### Conclusion
 
+AiML and competitors all seem to sport the same array of basic features, but of
+particular interest for the current project was the possibility to define and
+control the content of topics, in order to provide only domain-relevant replies
+from the system to the user. Of the four, RiveScript is the only one that explicitly
+supports topic inheritance, which seemed useful with respect to creating a hierarchy
+of macro and micro topics: for example, having a global scope with general purpose
+commands (such as change topic) with subscopes like "family" and "physical" which
+could be further subscoped to have issue-specific matchers, such as matchers that
+are only relevant to respiratory problems and would not occur in the related
+physical category of nausea problems, although both would share some general matchers
+about physical issues. ChatScript also allows "enqueuing" of topics with the concept
+of "pending topics" and also control of context via "rejoinders".
+
+Another point of interest (again, given the author's aim to explore Python) is
+the open source software available for use with the project. Given the considerations
+already provided, SuperScript seemed like the least comfortable option from this
+perspective with ChatScript (C++) being second least. This would leave RiveScript
+and AiML, with RiveScript simpler but expressive syntax being the final deciding
+factor for the current implementation.
+
 ## Generating Chatbot Brain Data
+
+Given the conclusion of using a software package that works based on input patterns matchers
+and output templates, which have to hard coded, investigation began into automated
+generation of matchers and templates. One area that it became clear early on
+could benefit from automated generation was with patterns to match not against a
+particular set of terms, defined inline into the pattern, but English words close
+in meaning.
+
+RiveScript arrays, in particular, could be used to define sets of synonyms, to be
+reused across multiple matchers.
+
+### The word2vec Algorithm
+
+One way to automatically generate synonyms is by looking at regularities
+discovered in the use of English words through unsupervised learning. This
+is at the core of what the word2vec algorithm does: it discovers these regularities
+based on the position words are used in sentences. For each word in the training
+data (the vocabulary) the algorithm constructs a vector representing the positional
+regularities discovered in the training data.
+
+Similarities between the use of words can be then expressed in geometric-algebraic
+terms as the cosin distance between vectors representing the words
+(Thomas Mikolov, https://code.google.com/archive/p/word2vec/;
+ http://mccormickml.com/2016/04/27/word2vec-resources/).
+
+
 
 # Requirements Gathering {#Chapter3}
 
