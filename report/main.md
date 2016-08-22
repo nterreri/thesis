@@ -742,7 +742,8 @@ it was rather the fact that (at the time of writing) there are no easily traceab
 AiML interpreters implemented in Python. The best candidates are pyAIML and pyAiml-2.0
 (Tomer, 2014; Iaia, 2016), neither of which has either been maintained for a long time,
 or is very stable. This also applies to most other open source AiML interpreters
-implementations at the time of writing (ALICE A.I. Foundation, 2014; Morton and Perreau, 2014).
+implementations at the time of writing, leaving only a couple standing
+ (ALICE A.I. Foundation, 2014; Morton and Perreau, 2014).
 
 #### ChatScript
 
@@ -761,9 +762,36 @@ Secondly, the interpreter is implemented in C++.
 #### SuperScript
 
 SuperScript is a fork of RiveScript with syntax elements inspired by ChatScript
-().
+(Ellis, 2016; Ellis 2014). It boasts features from all of its precedessors, including WordNet
+integration, plus a complex input processing pipeline that will attempt to analyze
+the user input as a question and try to provide an answer to it, in light of the
+preceding conversation.
+
+The core issue with this system is the fact that it is only made for NodeJS, in
+particular, only versions 0.12 or 0.5x. While the author is personally unfamiliar
+with Node, this came across as a red flag. The recommended version of NodeJS for
+most users at the time of writing is 4.5.0, while the latest build version is
+6.4.0 (Node Core Technical Committee and Collaborators, 2016;
+https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V4.md#2016-08-15-version-450-argon-lts-thealphanerd,
+ https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V6.md#2016-08-15-version-640-current-cjihrig).
+
+This may create problems where this project is used in conjunction with NodeJS
+in other applications (on the webserver for example), and while there are workarounds
+to having to keep multiple versions of Node, there is the risk of making it more
+and more difficult to maintain the system as Node and SuperScript evolve along
+(see Mota, 2016 here for how to manage multiple NodeJS versions: https://www.sitepoint.com/quick-tip-multiple-versions-node-nvm/).
+Secondly, given the stated personal aim of the author to explore the Python programming
+language, the choice of a system only meant to work with JavaScript made it a less than
+ideal candidate.
 
 #### Neural-network-based conversation models
+
+Work has been done to use various types of neural networks to produce general
+purpose conversational systems. Sordoni et al (2015), for example used several
+recurrent neural networks to keep account of the conversational context by modelling the information
+previously processed (ibid, section 3). Shang et al (2015) use Statistical
+Machine Translation techniques, treating the response generation (or "decoding")
+phase of the process as a linguistic translation problem (ibid, figure 1).
 
 #### Conclusion
 
