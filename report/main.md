@@ -748,7 +748,7 @@ implementations at the time of writing, leaving only a couple standing
 #### ChatScript
 
 ChatScript is in many ways similar to RiveScript in that it instead of extending XML
-it wishes to have a very easy to read syntax. In ChatScript, it is possible to
+it wishes to have a very easy to read syntax (Wilcox, 2011; Wilcox, 2016). In ChatScript, it is possible to
 define "concepts" like RiveScript "arrays". ChatScript also is also integrated in WordNet: a
 lexical database for the English language that primarily models synonimity and hyponimity
 between English words (Fellbaum, 2005).
@@ -792,6 +792,17 @@ recurrent neural networks to keep account of the conversational context by model
 previously processed (ibid, section 3). Shang et al (2015) use Statistical
 Machine Translation techniques, treating the response generation (or "decoding")
 phase of the process as a linguistic translation problem (ibid, figure 1).
+
+Vinyals and Le (2015) have used the seq2seq (sequence-to-sequence) model that
+uses a recurrent neural network to map an input sequence to an output sequence
+token by token with interesting results. However, this is, as they claim, a purely
+data-driven approach that relies on a significant volume of pre-existing data to train
+the model.
+
+No such data exists for the specific domain of the present project, and therefore
+would probably only be possible when sufficient natural language conversation data
+specific to the system domain has been gathered, or alternatively
+generated.
 
 #### Conclusion
 
@@ -838,12 +849,110 @@ regularities discovered in the training data.
 
 Similarities between the use of words can be then expressed in geometric-algebraic
 terms as the cosin distance between vectors representing the words
-(Thomas Mikolov, https://code.google.com/archive/p/word2vec/;
- http://mccormickml.com/2016/04/27/word2vec-resources/).
+(Mikolov, 2015; McCormick, 2016b). This sort of similarity seemed like an interesting
+way to automatically generate synonyms for use with the chatbot.
 
+### The Gensim Library
 
+The Gensim library (Řehůřek, 2014; Řehůřek and Sojka, 2010; see here: https://github.com/RaRe-Technologies/gensim)
+is another natural language processing tool available for use with Python specialized
+in ocument similarity computations and related tasks. It seemed straightforward to
+use word2vec for the state purpose in combination with Gensim (McCormick, 2016a).
+
+Since the sort of data relevant to the training of a word2vec model for the purpose
+of synonym generation did not require domain-specific data, but was in fact best
+gathered through general English sources, the model that was used for the synonym
+generation task was a model that had been pre-trained over a significant amount of
+Google News data (McCormick, 2016a).
+
+The results were, unfortunately, unsatisfactory, due to the fact that the model
+when queried for synonyms for a word would often output irrelevant data. The cause
+for the poor performance with respect to the task at hand is perhaps to be found
+with the dimension of the vectors the model was trained with (as a training parameter, see
+Ellenberg, 2015).
+
+### Alternatives
+
+WordNet (Fellbaum, 2005) is perhaps a better alternative. There are ways to
+interface with it via the NTLK (see http://www.nltk.org/howto/wordnet.html), but, as emphasized in the chatbot brain discussion
+above, chatbot frameworks other than the one used for the current implementation
+(RiveScript). For other options into using dictionary definitions to extract
+synonyms the reader is redirected to Wang and Hirst, 2012.
+
+### Dynamically Streaming Data into a RiveScript Interpreter
+
+The RiveScript framework offer ways to stream RiveScript code into a running
+interpreter (see: http://rivescript.readthedocs.io/en/latest/rivescript.html#rivescript.rivescript.RiveScript.stream).
+While the synonym generation may be performed offline with files being generated to
+be afterwards fed to the RiveScript interpreter, it may be possible and interesting
+to stream code into the interpreter dynamically. This may allow the system to understand
+terms it has never seen before and do not currently feature within arrays representing
+synonyms within the chatbot brain files. A synonimity relationship between the new
+term and existing chatbot brain data may be discovered and the chatbot brain may
+be made to dynamically learn new terms, as these are streamed into the running interpreter
+and also written to secondary storage for use at the next system reboot.
+
+Again, due to the numerous other concerns and the relatively low priority for the
+synonym generation component, the implementation that currently exists is the one
+that did not perform satisfactorily, and was not used as part of the full system.
+The research reported here in this and other topics is for the use of future
+project iterations.
 
 # Requirements Gathering {#Chapter3}
+
+## Building the Right System before Building the System Right
+
+The problem to be solved is an introduction of the conversational UI into the
+eHealth sphere taking into account UK legislation over the use of patient data.
+This is inspired by the Macmillan Cancer Support chartiy eHNA system, that is
+just finishing its extended trial period and aims at extending the coverage
+of support cancer patients receive in the UK with personalized care plans
+(Mac Voice, 2014). The introduction of this UI is intended to help streamlining
+the process of filling out the eHNA for the patients, and gather insight into the
+patient issues ahead of the in-person review, shortening the time
+needed for the creation of the care plan in oder to facilitate its creation,
+extending the coverage to more cancer patients, in an effort to improve the quality
+of care they receive across the UK.
+
+In this "greenfield" phase of the project, the key objective is the engineering
+of an extensible architecture, which is expected to be subject of significant
+modifications as the software is tweaked in following iterations to accommodate
+for changes in the nature of the problem, and in the technological landscape. In
+other words, focus on minimization of technical debt (Fowler, 2003).
+
+As discussed in the previous chapter, there are increasingly interesting developments
+happening in the use of recurrent neural networks for chatbot applications, but
+at the time of writing the technology is still immature, while an older model
+primarily based around the gathering of specific set of parameters from the user
+through conversation, achieved through hard-coded input patterns matchers and
+response templates, that has matured over the last fifteen years, is already being
+used in professionally developed software (Vinyals and Le, 2015; Jurafsky and Martin, 2009, Chapter 24;
+Wilcox, 2011).
+
+The aim of the project is therefore to engineer this architecture and provide
+a basic proof-of-concept implementation of the system, with *the core of the
+chatbot system being an easy to replace implementation detail* rather than the core focus of
+the project effort.
+
+Note that, in accordance with Agile principles (as per the author's aims), "architecture"
+here does not refer *exclusively* to the production of documents such as class and
+component diagrams, or other UML artifacts (Object Management Group, 2015); but rather
+the *primary* document ideintified as the technical design document produced by the engineering activity is the source code.
+Just like in other engineering industries, software engineers design a meticulously
+crafted document that is then passed on to the manufacturing staff, requiring no further input from
+the designers to produce a concrete artifact. The manufacturing "staff", in this
+case, being compilers, linkers, interpreters and virtual machines (Reeves, 2001).
+
+## Requirements Gathering
+
+## Requirements Listing
+
+(#PENDING!!!)
+
+## Use Case Diagram
+
+(#PENDING!!!)
+
 
 # System Design and Implementation {#Chapter4}
 
@@ -852,6 +961,31 @@ terms as the cosin distance between vectors representing the words
 > answer that came to me was, *"Yes, there was such a document, and only one--the source code."*"
 
 **J. Reeves, 2001**
+
+## The Team Effort
+
+As mentioned before, the complete application is the product of a team effort,
+with Deborah Wacks working on the web server implementation and the UX design,
+Rim Ahsaini working on the specialized search engine, and the author working on the
+chatbot brain. The overall architecture of the components is illustrated (#ISIT??)
+
+## Software Architecture
+
+### Principles of Software Design
+
+This project was written according to SOLID principles of software design (Martin, 2003, Section 2).
+Additionally, the code design guidelines advocated by Martin (2009) were discovered
+by the author during the writing, and an attempt was made to apply them (in line with author's stated aims).
+
+Additionally, the project was structured with the "plugin model" architecture:
+insist that the direction of dependency flow in the direction of the core of the
+system. The core of a chatbot system are the high level abstractions precisely defined in
+the interfaces and the abstract classes (Dependency Inversion Principle).
+The boundaries between systems insist that change in the external systems do not
+affect the well functioning of the core of the system: this should not have
+dependencies flowing outwards, with otuwards facing boundaries that expose interfaces
+for the external systems to implement or use.
+
 
 # System Testing and Evaluation
 
