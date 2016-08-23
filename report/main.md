@@ -1008,11 +1008,21 @@ of the design makes it easy to change implementation of these components, and pr
 a clear and sensible separation of concerns with the message coming into the system
 being preprocessed prior to being forwarded to the chatbot framework, and then
 postprocessed as needed. This provides a degree of decoupling from the chatbot
-framework, instead of making it a central component of the system, allowing it to be changed with relative ease.
+framework, instead of making it a central component of the system, allowing it to be changed for
+another one of the options surveyed in Chapter 2 with relative ease.
+
+The bot_builder module is responsible for creating the concrete instances of
+message pre and post processors and their dependencies. Creational duties
+are slightly "special" in the sense that they require explicit dependencies on
+concrete classes and modules that define the constructors for the objects that
+will be used throughout the system. The Dependency Inversion principle states that
+the direction of dependency in the core application logic goes towards the abstract
+and not the concrete. However, if all our dependencies point at the abstract (which
+cannot be instantiated) then
 
 While dynamically typed languages (such as Python) do not require inheritance
 for polymorphism, having the interface clearly defined help specify the expectation
-to other programmers.
+to other programmers. Therefore, interfaces are specified and inherited from in the code.
 
 # System Testing and Evaluation
 
