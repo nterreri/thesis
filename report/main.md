@@ -973,19 +973,46 @@ chatbot brain. The overall architecture of the components is illustrated (#ISIT?
 
 ### Principles of Software Design
 
-This project was written according to SOLID principles of software design (Martin, 2003, Section 2).
+SOLID principles of software design were used by the author while working on the source code. (Martin, 2003, Section 2).
 Additionally, the code design guidelines advocated by Martin (2009) were discovered
 by the author during the writing, and an attempt was made to apply them (in line with author's stated aims).
-
+The chief purpose of these efforts is to design the system for change, and
+make the code readable to *humans* (Martin, ibid, pp.13-14).
 Additionally, the project was structured with the "plugin model" architecture:
-insist that the direction of dependency flow in the direction of the core of the
-system. The core of a chatbot system are the high level abstractions precisely defined in
+ensuring that the direction of dependency flow in the direction of the core of the
+system.
+
+The core of a chatbot system are the high level abstractions precisely defined in
 the interfaces and the abstract classes (Dependency Inversion Principle).
 The boundaries between systems insist that change in the external systems do not
 affect the well functioning of the core of the system: this should not have
-dependencies flowing outwards, with otuwards facing boundaries that expose interfaces
+dependencies flowing outwards, with outward facing boundaries that expose interfaces
 for the external systems to implement or use.
 
+### High Level Structure
+
+The folder structure of the chatbot is meant to be self-describing, the reader
+should be able to understand what the purpose of the system and of the
+sub-folders within is without further assistance.
+
+Within the botinterface subdirectory we can find the higher level
+abstractions of the core system: the bot_abstract module defines the interface
+to the bot application as a whole, with a very restrictive set of methods that
+essentially make the abstraction a simple "response machine". Given a message,
+an appropriate natural language reply is expected.
+
+Looking at the one concrete subclass of this interface, we find it is in fact a
+FAÇADE: it essentially delegates the processing of the natural language message
+to other components of the system (Gamma et al, 1995, pp.185-193). The modularity
+of the design makes it easy to change implementation of these components, and provides
+a clear and sensible separation of concerns with the message coming into the system
+being preprocessed prior to being forwarded to the chatbot framework, and then
+postprocessed as needed. This provides a degree of decoupling from the chatbot
+framework, instead of making it a central component of the system, allowing it to be changed with relative ease.
+
+While dynamically typed languages (such as Python) do not require inheritance
+for polymorphism, having the interface clearly defined help specify the expectation
+to other programmers.
 
 # System Testing and Evaluation
 
