@@ -78,7 +78,7 @@ closer together.
 [^aiarticles]: Numerous articles, among which: (The Economist, 2016),
 (Berger, 2016), (Knowledge@Wharton, 2016), (Finextra Research, 2016)
 [^viv]: (Viv, 2016), (Dillet, 2016)
-[^aiaas]: (Pandorabots, 2016), (Bloomsbury AI, 2016), (Microsoft Cognitive Services, 2016)
+[^aiaas]: (Pandorabots, 2016), (Riedel et al, 2016), (Microsoft Cognitive Services, 2016)
 
 [hna]: http://www.macmillan.org.uk/aboutus/healthandsocialcareprofessionals/macmillansprogrammesandservices/recoverypackage/holisticneedsassessment.aspx
 "Holistic Needs Assessment"
@@ -114,8 +114,8 @@ An Agile approach was adopted for the project, in line
 with the author's stated interests. This meant maximizing time spent outside of
 meetings, save for where communication between team members and others was required.
 The project was paced in weekly iterations where aspects of the system to implement
-would be selected from a backlog to be delivered for the next week. Great
-emphasis was also put on testing as part of deveopment, in particular the discipline
+would be selected from a backlog to be delivered for the next week (Beck and Andres, 2014, pp.46-47).
+Great emphasis was also put on testing as part of deveopment, in particular the discipline
 of Test Driven Development.
 
 A top-down system design and implementation was also adopted, with the next largest system
@@ -128,7 +128,7 @@ and Beck (Beck and Andres, 2014; Beck et al, 2001).
 This report is structured as follows:
 
 - Chapter 2 provides more extensive background into the eHNA questionnaire as well as
-NLP and chatbot open source projects that were explored.
+NLP and chatbot open source resources that were explored.
 - Chapter 3 describes the requirements as gathered through the contacts in healthcare
 and the Macmillan charity available to PEACH.
 - Chapter 4 details the system architecture, design and the current implementation,
@@ -142,6 +142,7 @@ and reccomendations for the direction of future work on the system.
 # Background Research
 > "Both the tractability and invisibility of the software product exposes its
 > builders to perpetual changes in requirements."
+**Frederick P. Brooks Jr., 1995**
 
 ## The electronic Health Needs Assessment questionnaire
 
@@ -467,15 +468,7 @@ at other features, such as the length of the name and what the initial letter is
 
 Thus the development set is used in an intermediate testing stage, before proceeding
 to test the classifier against the yet unseen test subset of the original set of all
-data points. A classifier is evaluated by looking at certain metrics of its perfomance during
-testing. A very simple metric is accuracy: the number of correctly labelled
-data points against the expected label. It may also be useful to build a "confusion matrix".
-
-In this matrix, the diagonal represents the percentage of correctly labelled samples,
-the column for each category for cells not lying on the diagonal represent the percentage
-of times the labelled indicated by the column was mistaken for the labelled indicated in the row.
-A simple graphical representation of such a matrix can be obtained via the *confusionmatrix*
-module of the *metrics* subpackage of the NLTK: http://www.nltk.org/_modules/nltk/metrics/confusionmatrix.html.
+data points.
 
 The NLTK exposes a range of natural language corpora and a machine learning package
 (aptly named "classify") where implementations of single and multi-category
@@ -973,7 +966,10 @@ chatbot brain. The overall architecture of the components is illustrated (#ISIT?
 
 ### Principles of Software Design
 
-SOLID principles of software design were used by the author while working on the source code. (Martin, 2003, Section 2).
+SOLID principles of software design were used by the author while working on the source code;
+these are dependency management principles (policing the "import" statements
+throughout the project) and clean design principles, chief among them the Separation
+of Concerns principle (Martin, 2003, Section 2).
 Additionally, the code design guidelines advocated by Martin (2009) were discovered
 by the author during the writing, and an attempt was made to apply them (in line with author's stated aims).
 The chief purpose of these efforts is to design the system for change, and
@@ -991,7 +987,7 @@ affect the well functioning of the core of the system: this should not have
 dependencies flowing outwards, with outward facing boundaries that expose interfaces
 for the external systems to implement or use.
 
-[^arguing]: This approach is not free of controversy, but proceeds from a very
+[^arguing]: These approaches is not free of controversy, but proceed from a very
 influential and successful school of thought, hence the author is adopting it
 in an effort to experiment and improve as a software engineer.
 
@@ -1054,14 +1050,15 @@ interpreter.
 ### The BotInterface, MessagePreprocessor and MessagePostprocessor layers
 
 Looking at the one concrete subclass of this interface, we find it is in fact a
-FAÇADE: it essentially delegates the processing of the natural language message
-to other components of the system (Gamma et al, 1995, pp.185-193). The modularity
+FAÇADE and a PROXY: it essentially delegates the processing of the natural language message
+to other components of the system (Gamma et al, 1995, pp.185-193, 207-217; Martin, 2003, pp.327--). The modularity
 of the design makes it easy to change implementation of these components, and provides
 a clear and sensible separation of concerns with the message coming into the system
 being preprocessed prior to being forwarded to the chatbot framework, and then
 postprocessed as needed. This provides a degree of decoupling from the chatbot
 framework, instead of making it a central component of the system, allowing it to be changed for
-another one of the options surveyed in Chapter 2 with relative ease. Furthermore,
+another one of the options surveyed in Chapter 2 with relative ease (in this sense it is a PROXY:
+  it "looks" like the underlying framework). Furthermore,
 the succession of assignments within the public "reply" method serve to clarify
 the process to the (human) reader and also enforce proper temporal succession
 by requiring the next method in the sequence to take in as argument the return
@@ -1305,4 +1302,224 @@ abstractions provided, then the details of the particular implementations provid
 
 # System Testing and Evaluation
 
+> The act of writing a unit test is more an act of design than of verification.
+**Martin, 2003**
+
+This chapter describes the process followed to produce the suite of tests that
+verify the functioning of the system at the level of core logic and the brain
+matchers, redirects and coditionals. This chapter also describes the process of
+classifier evaluation provided by the classification package.
+
+## Test Driven Development
+
+TDD is described as a discipline prescribing adherence to three rules whenever
+writing code (Martin, 2009, pp.122-123):
+
+1. Do not write any production code before you have a failing unit test for that code.
+2. Do not write more of a test than is sufficient for it to fail (not compiling counts as failing).
+3. Do not write more production code than is sufficient to pass the test.
+
+There are three main benefits associated with this practice. The first is that
+it encourages to take on the perspective of the caller of the code, before any
+code has been written. This makes the code easy to call and use to the programmer
+who is going to consume it.
+
+Secondly, it encourages a loosely coupled design.
+This is because a *unit* test is meant to test a unit of code (be it a procedure,
+a subroutine, function or class) in isolation; it is the most focused type of
+test possible. This means that any external
+dependencies, interactions and collaborations ought to be mocked for the purpose of the unit test.
+Testing the BotRivescript class in isolation, for example, requires that its
+associated objects be replaced with mocks providing very predictable behaviour, so
+that the logic of the class can be scrutinized without any external interference.
+
+Third, the source code always tells the truth. Failing all other methods of
+documentation, from diagrams to Python Docstrings or Javadoc, the source code
+is the ultimate documentation of a software project. Unit and integration tests
+provide the documentation that describes how to use the system and any and all
+failure modes or edge cases for that system. Furthermore, as long as the tests
+are continuously made to pass, they will never be out of date as comments and
+Javadoc are always at risk of becoming.
+
+For example, the _sendUserMessageAndLog() function of the messagelog package
+integration test demonstrates the way to use both the chatbot and message
+logging facilities provided by the present package in a way that is technically
+accurate to the point that it could be compiled to production, and intuitive
+enough that programmers looking at it should be able to understand how to use
+those facilities without further guidance[^TDD].
+
+~~~
+def _sendUserMessageAndLog(userid, message):
+    ConversationLogger.logUserMessage(message)
+    reply = bot.reply(message)
+    assert reply is not None
+    ConversationLogger.logSystemReplyForUser(reply, userid)
+    return reply
+~~~
+
+[^TDD]: TDD is not free of controversy, see Hansson (2014), Fowler et al (2014).
+
+## The Project Tests
+
+The truth about the 120 unit tests in the present project is that the author
+was learning what TDD was during development, hence not all tests were written
+according to the three "rules" of TDD. A test-first approach to software
+development, however, has been taken from the start (Beck and Andres, 2004, pp.50-51, 97-102).
+As a result, the later a unit was designed, the better the tests for it were.
+
+Integration tests were produced to test the interaction of different units. These
+were not always pairwise (two units at a time), but were carried out depending on
+the interactions the author was concerned with documenting and verifying. The 66
+integration tests include numerous tests of the chatbot brain, piped throught
+the complete BotRivescript façade.
+
+One other important form of testing is acceptance testing. The lack of this sort
+of testing from the project is due to the tight schedule of project delivery and
+the fact that while there were initial hopes of getting cancer patients to try
+out the software these were later dismissed as concerns were raised about
+getting access to the general public via the UCL Hospital.
+
+One final note about the tests: the pre-trained word2vec model used in the integration
+tests which is necessary for the Word2VecSynonymExtractor implementation to work
+(not provided with the system, but obtainable from: https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit)
+is very demanding in terms of main memory. Running the tests included in the
+source code takes around 3-4 minutes on an 8-core desktop with 8GBs and the amount
+of memory required to run
+it without thrashing is higher than 8GBs. Be wary when running these tests, as
+they may effectively impair slower machines for an unreasonable amount of time.
+It is good to notice at this point the difference in runtime between the decoupled unit tests
+and the integration tests in this case, running all unit tests for the project takes
+mere seconds (as it should).
+
+(#ADD PYTEST COVERAGE REPORTS)
+
+## Categorization Evaluation
+
+A classifier is evaluated by looking at certain metrics of its perfomance during
+testing. A very simple metric is accuracy: the number of correctly labelled
+data points against the expected label (Bird et al, 2015, Section 3.2).
+It may also be useful to build a "confusion matrix" (ibid, Section 3.4).
+
+In this matrix, the diagonal represents the percentage of correctly labelled samples,
+the column for each category for cells not lying on the diagonal represent the percentage
+of times the labelled indicated by the column was mistaken for the labelled indicated in the row.
+A simple graphical representation of such a matrix can be obtained via the *confusionmatrix*
+module of the *metrics* subpackage of the NLTK: http://www.nltk.org/_modules/nltk/metrics/confusionmatrix.html.
+
+The way the categorization package provides an evaluation of the classifier is
+through the ClassifierEvaluator class. This class' interface allows access
+to accuracy, precision, recall and F metrics for the given classifier over a
+"gold" standard data set (Perkins, 2010; Sebastiani, 2002, pp.32-37). Perhaps the most useful of these is
+the F measure, as Sebastiani (ibid, p.34) warns that accuracy tends to be
+maximized by the "trivial rejector" or the classifier that tends to assign no label
+to all data points.
+
+It is important to note, however, that the precision and recall the evaluation
+module provides for a multi-lable classifier are individual to the particular
+label being tested for, and either macro- or micro-averaging should be used
+to extract global classifier effectivness metrics (Sebastiani, ibid p.33;
+Yang and Liu, 1999, p.43).
+
+Because of the fact that all of the data extracted via the questionnaire (see
+Chapter 2) has a balanced number of expected labels for categories, we are not
+concerned about the training data being skewed with low positive cases for any one
+category, micro-averaging was chosen as the balance of effectivness for all
+categories, with the F measure being the final combined evaluation measure.
+
+(#PENDING IMPLEMENTATION OF MICROMACROAVG)
+
 # Conclusion
+
+Reviewing the project goals and personal aims the project can be called a success
+in both cases.
+
+## Project Goals Review (#MAP TO REQUIREMENTS)
+
+- Design and implement a chatbot architecture tailored to the issues surrounding
+software systems in healthcare (in particular around treatment of sensitive patient data)
+As discussed in Chapter 2, there are crucial compliance concerns around the sensitivity
+of patient data that have driven the implementation decision not to employ third
+party APIs for the processing of natural language user input, even where this
+may have significantly simplified the chatbot brain implementation task.
+
+- To integrate with a specialized search engine (developed by another member of the team)
+While development over the current project had terminated before the search engine
+was completed, a clear reference on how to integrate between the systems had
+been provided (and materialized in the integration testing "MockSearch" class).
+
+- To explore other applications of NLP that could be useful to extract information from natural language data.
+The current project has used NLP to investigate a hybrid approach to chatbot
+technology, making use of both rule or grammar based technologies and machine
+learning with the categorizer. Secondly, NLP was used for the synonym generation.
+
+- To implement a chatbot brain using open source technology.
+As mentioned, a chatbot brain was implemented in RiveScript, after reviewing
+the available choice of technologies given the restrictions on patient data.
+
+- To develop the system with Macmillan eHNA as the main reference.
+As discussed in Chapter 2, it was with reference to the CC used in one of Macmillan
+eHNA forms that was used for the concrete implementation of the topics in the
+"concerns" subpackage.
+
+## Personal Aims Review
+
+- Learning Python in an effort to gain exposure to a new programming language
+The Python programming language was used to implement the majority of the project
+with the exception of the specialized RiveScript language used to define the
+pattern matchers in the chatbot brain.
+
+- Leverage the author's background in computational linguistics, and explore
+the field of natural language processing
+As mentioned in the previous section, the author investigated the use of NLP
+to text classification and synonym generation, in addition to significantly
+more reading in NLP than resulted useful for the project.
+
+- Learn about applications of machine learning to natural language processing
+The categorization component involved the development of supervised learning
+language models, while the synonym generation made use of a pre-trained unsupervised
+learning model.
+
+- Improve software engineering skills by applying best Agile practices
+A significant amount of reading into Agile practices was demonstrated in the
+project in the system design, implementation and testing.
+
+## Future Work
+
+The primary goal of the project was to lay the ground work, architecture and
+research for further iterations of the project. As emphasized throughout Chapter 4,
+the system was designed for extension and modification. The coverage of unit and
+integration tests provides confidence to any programmer continuing the work here
+started that the system still displays all behaviours it did when it was delivered
+at the end of this project, no matter what changes were made during revision and
+expansion.
+
+The "plugin" model makes the system independent of the IO device that delivers it
+(in the case of the group project, a webserver) which may be in the future a mobile app,
+a CLI client, or a Java Swing interface. It is, in fact, the caller's
+responsibility to import this project's packages and modules, and to use them
+as documented in the test cases. The data models gathering conversation and
+user concerns data should be used in a similar fashion: independently of the
+durable storage solution adopted (whether this is SQL, NoSQL, host filesystem
+or any other) it should be the caller's responsibility to import this project
+to serialize the data.
+
+### Evaluation of Technologies Used
+#### RiveScript
+While the choice of RiveScript as the chatbot brain framework was sensible at the
+time given the prior research, the author reccomends other options are investigated
+during the next iteration, for the following reasons.
+
+The undocumented problems encountered with it during
+development, its limitations with respect to matching semantic patterns of input
+(unlike others like ChatScript), the chatbot brain implementation provided with the
+current project is not very extensive.
+
+#### NLTK and Gensim
+The NTLK proved to be a versatile tool, used primarily in the categorization
+and message processing modules. Its main limitation is the lack of sequence
+classifier support (as lamented in Chapter 2). For this reason it is recommended
+that alternatives that offer such models are investigated during the next
+iteration (see for example Schreiber et al, 2016).
+
+The use made of Gensim in the current iteration was very minimal, but this tool
+seems so highly specialized that it is difficult to find alternatives to it.
