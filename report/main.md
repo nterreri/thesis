@@ -14,6 +14,7 @@ toc: true
 # Introduction
 > "Pointing will still be the way to express nouns as we command our machines;
 > speech is surely the right way to express the verbs."
+
 **Frederick P. Brooks Jr., 1995**
 
 ## The Problem
@@ -132,14 +133,18 @@ NLP and chatbot open source resources that were explored.
 - Chapter 3 describes the requirements as gathered through the contacts in healthcare
 and the Macmillan charity available to PEACH.
 - Chapter 4 details the system architecture, design and the current implementation,
-highlighting its current limits and its extensibility.
-- Chapter 5 discusses how system testing was done as part of development, the
-benefits of TDD to systems design and the evaluation of the machine learning component
+highlighting its current limits and extensibility.
+- Chapter 5 discusses the benefits of TDD to systems design, how system testing
+was done as part of development, and the evaluation of the machine learning component
 of the system.
-- Chapter 6 concludes with an evaluation of the project results, a team retrospective
+- Chapter 6 concludes with an evaluation of the project results, a review of
+the effectivenss of the core tools used,
 and reccomendations for the direction of future work on the system.
 
 # Background Research
+
+This chapter details the literature review for the project: the background reading,
+and the tools and frameworks selection process.
 
 ## The electronic Health Needs Assessment questionnaire
 
@@ -890,7 +895,10 @@ project iterations.
 
 # Requirements Gathering {#Chapter3}
 
-## Building the Right System before Building the System Right
+This chapter describes the full problem statement, and the way the list of
+requirements was produced and agreed on by the stakeholders.
+
+## Building the Right System
 
 The problem to be solved is an introduction of the conversational UI into the
 eHealth sphere taking into account UK legislation over the use of patient data.
@@ -904,7 +912,7 @@ needed for the creation of the care plan in oder to facilitate its creation,
 extending the coverage to more cancer patients, in an effort to improve the quality
 of care they receive across the UK.
 
-In this "greenfield" phase of the project, the key objective is the engineering
+In this initial phase of the project, the key objective is the engineering
 of an extensible architecture, which is expected to be subject of significant
 modifications as the software is tweaked in following iterations to accommodate
 for changes in the nature of the problem, and in the technological landscape. In
@@ -935,6 +943,30 @@ case, being compilers, linkers, interpreters and virtual machines (Reeves, 2001)
 
 ## Requirements Gathering
 
+The project was first proposed by Dr Ramachandran, who also organized a meeting
+between Macmillan staff (including the technical lead of the Macmillan eHNA,
+Andrew Brittle). The original plan was to have both the author and Rim Ahsaini
+working on the core chatbot system, with the full questionnaire being completed
+by the user during interacting with the chatbot.
+
+During the first meeting, the idea of a specialized search engine
+emerged, with Rim Ahsaini interested in taking charge of that system. From there
+came also the idea of integration between the two systems, with the chatbot
+system having to decide whether to make a query during the interaction with the
+user.
+
+During the second meeting, when the team was given a full demo of the eHNA
+system. It emerged that users tend to only select a relatively small amount
+of concerns, between two and six depending on what type of cancer they have.
+Furthermore, the questionnaire itself takes a relatively small amount of time.
+The requirements for the core chatbot system were afterwards revised to
+allow the user to first fill out the questionnaire before talking to the chatbot
+in order to keep the efficiency of the eHNA software model.
+
+The rest of the requirements were mostly decided by the author and project
+supervisor on the basis of what would be most useful to investigate from a technical
+point of view looking at the future of the project.
+
 ## Requirements Listing
 
 (#PENDING!!!)
@@ -946,18 +978,22 @@ case, being compilers, linkers, interpreters and virtual machines (Reeves, 2001)
 
 # System Design and Implementation {#Chapter4}
 
-> "*"Out of all the documentation that software projects normally generate, was
+> *"Out of all the documentation that software projects normally generate, was
 > there anything that could truly be considered an eningeering document?"* The
-> answer that came to me was, *"Yes, there was such a document, and only one--the source code."*"
+> answer that came to me was, *"Yes, there was such a document, and only one--the source code."*
 
 **J. Reeves, 2001**
 
-## The Team Effort
+This chapter describes the most interesting aspects of the delivered system
+architecture and implementation. First, the design principles followed during
+development are described, then a high level overview is provided before moving
+on to the
 
 As mentioned before, the complete application is the product of a team effort,
 with Deborah Wacks working on the web server implementation and the UX design,
 Rim Ahsaini working on the specialized search engine, and the author working on the
-chatbot brain. The overall architecture of the components is illustrated
+chatbot brain. The scope of the author work is limited to the implementation of
+the chatbot and supporting systems. The overall architecture of the components is illustrated
 
 (#ISIT??)
 
@@ -1306,6 +1342,7 @@ abstractions provided, then the details of the particular implementations provid
 # System Testing and Evaluation
 
 > "The act of writing a unit test is more an act of design than of verification."
+
 **Martin, 2003**
 
 This chapter describes the process followed to produce the suite of tests that
@@ -1433,8 +1470,9 @@ categories, with the F measure being the final combined evaluation measure.
 
 # Conclusion
 
-Reviewing the project goals and personal aims the project can be called a success
-in both cases.
+This chapter reviews the project goals and aims, finally, the author expresses
+his thoughts on the project going forward, informed by a critical review of the
+open source tools used.
 
 ## Project Goals Review (#MAP TO REQUIREMENTS)
 
