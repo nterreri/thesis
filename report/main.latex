@@ -948,7 +948,9 @@ making it easy to write documents that define the patterns and templates
 of a ``frame-based'' system, simplifying the process to build all three
 of the above defined layers. We now proceed to review the various
 options, and motivate the choice of standard used in this project.
-\#\#\#\# The Artificial intelligence Markup Language
+
+\subsubsection{The Artificial intelligence Markup
+Language}\label{the-artificial-intelligence-markup-language}
 
 AiML is a version of the Extensible Markup Language (XML) that was
 specifically designed around providing a framework to define rules,
@@ -976,7 +978,9 @@ interpreters available for AiML in various programming languages, and
 there are freely available ``libraries'' of AiML files for others to
 include into their own chatbot (Wallace, 2011; Pandorabots, 2016;
 http://www.alicebot.org/downloads/sets.html,
-http://www.square-bear.co.uk/aiml/). \#\#\#\# RiveScript
+http://www.square-bear.co.uk/aiml/).
+
+\subsubsection{RiveScript}\label{rivescript}
 
 RiveScript is an alternative standard to AiML the objectives of which
 are to be as expressive and useful as AiML, but with a simpler syntax,
@@ -996,8 +1000,9 @@ The best candidates are pyAIML and pyAiml-2.0 (Tomer, 2014; Iaia, 2016),
 neither of which has either been maintained for a long time, or is very
 stable. This also applies to most other open source AiML interpreters
 implementations at the time of writing, leaving only a couple standing
-(ALICE A.I. Foundation, 2014; Morton and Perreau, 2014). \#\#\#\#
-ChatScript
+(ALICE A.I. Foundation, 2014; Morton and Perreau, 2014).
+
+\subsubsection{ChatScript}\label{chatscript}
 
 ChatScript is in many ways similar to RiveScript in that it instead of
 extending XML it wishes to have a very easy to read syntax (Wilcox,
@@ -1012,7 +1017,9 @@ sub-patterns and the other pattern matching features of the previous
 standards. Something that put the only ChatScript interpreter aside from
 the other standards examined is that for one, there is only one and no
 other open source interpreter projects. Secondly, the interpreter is
-implemented in C++. \#\#\#\# SuperScript
+implemented in C++.
+
+\subsubsection{SuperScript}\label{superscript}
 
 SuperScript is a fork of RiveScript with syntax elements inspired by
 ChatScript (Ellis, 2016; Ellis 2014). It boasts features from all of its
@@ -1039,8 +1046,10 @@ multiple NodeJS versions:
 https://www.sitepoint.com/quick-tip-multiple-versions-node-nvm/).
 Secondly, given the stated personal aim of the author to explore the
 Python programming language, the choice of a system only meant to work
-with JavaScript made it a less than ideal candidate. \#\#\#\#
-Neural-network-based conversation models
+with JavaScript made it a less than ideal candidate.
+
+\subsubsection{Neural-network-based conversation
+models}\label{neural-network-based-conversation-models}
 
 Work has been done to use various types of neural networks to produce
 general purpose conversational systems. Sordoni et al (2015), for
@@ -1242,10 +1251,10 @@ linkers, interpreters and virtual machines (Reeves, 2001).
 \chapter{System Design and Implementation}\label{Chapter4}
 
 \begin{quote}
-" \emph{``Out of all the documentation that software projects normally
+``\emph{``Out of all the documentation that software projects normally
 generate, was there anything that could truly be considered an
 eningeering document?''} The answer that came to me was, \emph{``Yes,
-there was such a document, and only one--the source code.''}"
+there was such a document, and only one--the source code.''}''
 \end{quote}
 
 \textbf{J. Reeves, 2001}
@@ -1648,8 +1657,8 @@ implementations provided.
 Evaluation}\label{system-testing-and-evaluation}
 
 \begin{quote}
-The act of writing a unit test is more an act of design than of
-verification. \textbf{Martin, 2003}
+``The act of writing a unit test is more an act of design than of
+verification.'' \textbf{Martin, 2003}
 \end{quote}
 
 This chapter describes the process followed to produce the suite of
@@ -1931,7 +1940,7 @@ serialize the data.
 \subsection{Evaluation of Technologies
 Used}\label{evaluation-of-technologies-used}
 
-\subsubsection{RiveScript}\label{rivescript}
+\subsubsection{RiveScript}\label{rivescript-1}
 
 While the choice of RiveScript as the chatbot brain framework was
 sensible at the time given the prior research, the author reccomends

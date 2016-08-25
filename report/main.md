@@ -690,8 +690,8 @@ making it easy to write documents that define the patterns and templates of a "f
 system, simplifying the process to build all three of the above defined layers.
 We now proceed to review the various options, and motivate the choice of standard
 used in this project.
-#### The Artificial intelligence Markup Language
 
+#### The Artificial intelligence Markup Language
 AiML is a version of the Extensible Markup Language (XML) that was specifically
 designed around providing a framework to define rules, patterns and grammars to
 match user inputs to appropriate template. The language was also created with the
@@ -714,8 +714,8 @@ the AiML "bot" are commonly called the chatbot "brain". There are a number of in
 and there are freely available "libraries" of AiML files for others to include
 into their own chatbot (Wallace, 2011; Pandorabots, 2016; http://www.alicebot.org/downloads/sets.html,
 http://www.square-bear.co.uk/aiml/).
-#### RiveScript
 
+#### RiveScript
 RiveScript is an alternative standard to AiML the objectives of which are to be
 as expressive and useful as AiML, but with a simpler syntax, getting rid of the XML
 (Petherbridge, 2009; Petherbridge, 2012; https://www.rivescript.com/compare/aiml). Like AiML,
@@ -732,8 +732,8 @@ AiML interpreters implemented in Python. The best candidates are pyAIML and pyAi
 or is very stable. This also applies to most other open source AiML interpreters
 implementations at the time of writing, leaving only a couple standing
  (ALICE A.I. Foundation, 2014; Morton and Perreau, 2014).
-#### ChatScript
 
+#### ChatScript
 ChatScript is in many ways similar to RiveScript in that it instead of extending XML
 it wishes to have a very easy to read syntax (Wilcox, 2011; Wilcox, 2016b). In ChatScript, it is possible to
 define "concepts" like RiveScript "arrays". ChatScript also is also integrated in WordNet: a
@@ -745,8 +745,8 @@ and the other pattern matching features of the previous standards. Something tha
 put the only ChatScript interpreter aside from the other standards examined is
 that for one, there is only one and no other open source interpreter projects.
 Secondly, the interpreter is implemented in C++.
-#### SuperScript
 
+#### SuperScript
 SuperScript is a fork of RiveScript with syntax elements inspired by ChatScript
 (Ellis, 2016; Ellis 2014). It boasts features from all of its precedessors, including WordNet
 integration, plus a complex input processing pipeline that will attempt to analyze
@@ -769,8 +769,8 @@ and more difficult to maintain the system as Node and SuperScript evolve
 Secondly, given the stated personal aim of the author to explore the Python programming
 language, the choice of a system only meant to work with JavaScript made it a less than
 ideal candidate.
-#### Neural-network-based conversation models
 
+#### Neural-network-based conversation models
 Work has been done to use various types of neural networks to produce general
 purpose conversational systems. Sordoni et al (2015), for example used several
 recurrent neural networks to keep account of the conversational context by modelling the information
@@ -946,7 +946,7 @@ case, being compilers, linkers, interpreters and virtual machines (Reeves, 2001)
 
 # System Design and Implementation {#Chapter4}
 
-> " *"Out of all the documentation that software projects normally generate, was
+> "*"Out of all the documentation that software projects normally generate, was
 > there anything that could truly be considered an eningeering document?"* The
 > answer that came to me was, *"Yes, there was such a document, and only one--the source code."*"
 
@@ -1305,7 +1305,7 @@ abstractions provided, then the details of the particular implementations provid
 
 # System Testing and Evaluation
 
-> The act of writing a unit test is more an act of design than of verification.
+> "The act of writing a unit test is more an act of design than of verification."
 **Martin, 2003**
 
 This chapter describes the process followed to produce the suite of tests that
