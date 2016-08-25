@@ -99,8 +99,8 @@ including general purpose mobile device interfaces\footnote{(Viv, 2016),
   (Dillet, 2016)}. Furthermore, several technology companies have
 started offering ``Artificial Intelligence as a Service'' products.
 Among these are BloomsburyAI (founded at UCL) and bespoken companies
-such as Google and Microsoft\footnote{(Pandorabots, 2016), (Bloomsbury
-  AI, 2016), (Microsoft Cognitive Services, 2016)}. This appears
+such as Google and Microsoft\footnote{(Pandorabots, 2016), (Riedel et
+  al, 2016), (Microsoft Cognitive Services, 2016)}. This appears
 indicative of the fact that chatbot and natural language processing
 technologies have reached a level of maturity comparable to that
 achieved years ago by haptic technology, that we find almost
@@ -197,8 +197,9 @@ stated interests. This meant maximizing time spent outside of meetings,
 save for where communication between team members and others was
 required. The project was paced in weekly iterations where aspects of
 the system to implement would be selected from a backlog to be delivered
-for the next week. Great emphasis was also put on testing as part of
-deveopment, in particular the discipline of Test Driven Development.
+for the next week (Beck and Andres, 2014, pp.46-47). Great emphasis was
+also put on testing as part of deveopment, in particular the discipline
+of Test Driven Development.
 
 A top-down system design and implementation was also adopted, with the
 next largest system abstraction being priorized first in development in
@@ -216,7 +217,7 @@ This report is structured as follows:
 \tightlist
 \item
   Chapter 2 provides more extensive background into the eHNA
-  questionnaire as well as NLP and chatbot open source projects that
+  questionnaire as well as NLP and chatbot open source resources that
   were explored.
 \item
   Chapter 3 describes the requirements as gathered through the contacts
@@ -238,7 +239,8 @@ This report is structured as follows:
 
 \begin{quote}
 ``Both the tractability and invisibility of the software product exposes
-its builders to perpetual changes in requirements.''
+its builders to perpetual changes in requirements.'' \textbf{Frederick
+P. Brooks Jr., 1995}
 \end{quote}
 
 \section{The electronic Health Needs Assessment
@@ -634,19 +636,7 @@ features, such as the length of the name and what the initial letter is.
 
 Thus the development set is used in an intermediate testing stage,
 before proceeding to test the classifier against the yet unseen test
-subset of the original set of all data points. A classifier is evaluated
-by looking at certain metrics of its perfomance during testing. A very
-simple metric is accuracy: the number of correctly labelled data points
-against the expected label. It may also be useful to build a ``confusion
-matrix''.
-
-In this matrix, the diagonal represents the percentage of correctly
-labelled samples, the column for each category for cells not lying on
-the diagonal represent the percentage of times the labelled indicated by
-the column was mistaken for the labelled indicated in the row. A simple
-graphical representation of such a matrix can be obtained via the
-\emph{confusionmatrix} module of the \emph{metrics} subpackage of the
-NLTK: http://www.nltk.org/\_modules/nltk/metrics/confusionmatrix.html.
+subset of the original set of all data points.
 
 The NLTK exposes a range of natural language corpora and a machine
 learning package (aptly named ``classify'') where implementations of
@@ -889,7 +879,7 @@ described above, but there is a notable alternative in the emerging (yet
 immature) technology of using neural networks or similar tools to build
 conversational models. Finally, as a last resort, there are AIaaS
 providers: providers of remote intelligent agents and related services
-\footnote{(Pandorabots, 2016), (Bloomsbury AI, 2016), (Microsoft
+\footnote{(Pandorabots, 2016), (Riedel et al, 2016), (Microsoft
   Cognitive Services, 2016)}, similarly to the web hosting solutions of
 Amazon or Microsoft (AWS, 2016; Azure 2016). For the reasons outlined in
 the above section on the particular legal issues around the problem
@@ -1229,14 +1219,22 @@ components is illustrated (\#ISIT??)
 Design}\label{principles-of-software-design}
 
 SOLID principles of software design were used by the author while
-working on the source code. (Martin, 2003, Section 2). Additionally, the
-code design guidelines advocated by Martin (2009) were discovered by the
-author during the writing, and an attempt was made to apply them (in
-line with author's stated aims). The chief purpose of these efforts is
-to design the system for change, and make the code readable to
-\emph{humans} (Martin, ibid, pp.13-14). Additionally, the project was
-structured with the ``plugin model'' architecture: ensuring that the
-direction of dependency flow in the direction of the core of the system.
+working on the source code; these are dependency management principles
+(policing the ``import'' statements throughout the project) and clean
+design principles, chief among them the Separation of Concerns principle
+(Martin, 2003, Section 2). Additionally, the code design guidelines
+advocated by Martin (2009) were discovered by the author during the
+writing, and an attempt was made to apply them (in line with author's
+stated aims). The chief purpose of these efforts is to design the system
+for change, and make the code readable to \emph{humans} (Martin, ibid,
+pp.13-14). This approach leads to extremely specialized and short class
+bodies and functions, and the separation of different levels of
+abstraction. Additionally, the project was structured with the ``plugin
+model'' architecture: ensuring that the direction of dependency flow in
+the direction of the core of the system\footnote{These approaches is not
+  free of controversy, but proceed from a very influential and
+  successful school of thought, hence the author is adopting it in an
+  effort to experiment and improve as a software engineer.}.
 
 The core of a chatbot system are the high level abstractions precisely
 defined in the interfaces and the abstract classes (Dependency Inversion
@@ -1250,33 +1248,614 @@ implement or use.
 
 The folder structure of the chatbot is meant to be self-describing, the
 reader should be able to understand what the purpose of the system and
-of the sub-folders within is without further assistance.
+of the sub-folders within without further assistance (see Martin, 2011).
 
-Within the botinterface subdirectory we can find the higher level
+Within the botinterface subdirectory we can find the high level
 abstractions of the core system: the bot\_abstract module defines the
 interface to the bot application as a whole, with a very restrictive set
 of methods that essentially make the abstraction a simple ``response
 machine''. Given a message, an appropriate natural language reply is
-expected.
+expected\footnote{While dynamically typed languages (such as Python) do
+  not require inheritance for polymorphism, having the interface clearly
+  defined help specify the expectation to other programmers. Therefore,
+  interfaces are specified and inherited from in the code.}.
+
+The brain folder contains the RiveScript language files that define the
+matchable patterns and reply templates, the Python macros callable from
+within the brain, and the topics structure as seen from the brain, that
+limits the scope of pattern matchers depending on the the stage of the
+conversation between user and system.
+
+The messagelog package defines a data model that may be useful to gather
+the data about a conversation a user had with the system and extract the
+information to persist for the purpose of the care plan creation. Again,
+the scope of the project is limited to the architecture of the system,
+and while the larger PEACH team produced a relational database schema to
+persist the data, it is not within the objectives of the author's
+project to follow through with serializing the information to durable
+storage. The package is there to be used in the future.
+
+The concerns package encodes the information about a user's concerns, as
+well as the range of acceptable macro and micro topics (or categories)
+for each concern. The point of access to this subsystem is defined in
+the drive\_conversation\_abstract module, as another interface. This
+interface describes the API to the part of the module that keeps track
+of what the state user concerns are, and their priority order. The
+concerns\_factory module defines a class with static (or class-level)
+methods for the purpose of keeping track of various user sessions in the
+system, each represented by a DistressConversationDriver object (a
+concrete implementation of the ConversationDriver interface).
+
+The categorize package exposes a set of modules to train, store to the
+file system and retrieve evaluation metrics for single label
+classifiers. This package is the least well designed element of the
+system primarily because it was the first to be developed. The reason
+this subpackage was not used in the final pipeline implementation has to
+do with the fact that it took too long for the survey that was created
+to collect relevant data to produce results. But it is possible in
+principle to plug a trained categorizer at the preprocessor level of the
+message pipeline in order to add a tag to the user message, in order for
+this to be used by the chatbot framework to provide better replies to
+the user.
+
+Finally, the synonym package defines a SynonymExtractor interface and
+one implementation for it. As noted in Chapter 2, this implementation
+did not perform to expectations, and was therefore not used in the
+current system. However, the synonym package should be easy to extent to
+allow (for example) a WordNet synonym generator implementation, and the
+package already provides logic to represent the RiveScript syntax data
+structure (the RiveScript ``array'') and a way to write this structure
+to file\footnote{Additionally, see ``Dynamically Streaming Data into a
+  RiveScript Interpreter'' in this report for instructions on how to
+  stream RiveScript syntax into a running interpreter.}.
+
+\subsection{The BotInterface, MessagePreprocessor and
+MessagePostprocessor
+layers}\label{the-botinterface-messagepreprocessor-and-messagepostprocessor-layers}
 
 Looking at the one concrete subclass of this interface, we find it is in
-fact a FAÇADE: it essentially delegates the processing of the natural
-language message to other components of the system (Gamma et al, 1995,
-pp.185-193). The modularity of the design makes it easy to change
-implementation of these components, and provides a clear and sensible
-separation of concerns with the message coming into the system being
-preprocessed prior to being forwarded to the chatbot framework, and then
-postprocessed as needed. This provides a degree of decoupling from the
-chatbot framework, instead of making it a central component of the
-system, allowing it to be changed with relative ease.
+fact a FAÇADE and a PROXY: it essentially delegates the processing of
+the natural language message to other components of the system (Gamma et
+al, 1995, pp.185-193, 207-217; Martin, 2003, pp.327--). The modularity
+of the design makes it easy to change implementation of these
+components, and provides a clear and sensible separation of concerns
+with the message coming into the system being preprocessed prior to
+being forwarded to the chatbot framework, and then postprocessed as
+needed. This provides a degree of decoupling from the chatbot framework,
+instead of making it a central component of the system, allowing it to
+be changed for another one of the options surveyed in Chapter 2 with
+relative ease (in this sense it is a PROXY: it ``looks'' like the
+underlying framework). Furthermore, the succession of assignments within
+the public ``reply'' method serve to clarify the process to the (human)
+reader and also enforce proper temporal succession by requiring the next
+method in the sequence to take in as argument the return value of the
+previous method (Martin, 2009, pp.302-303). This pattern is repeated
+elsewhere throughout the project.
 
-While dynamically typed languages (such as Python) do not require
-inheritance for polymorphism, having the interface clearly defined help
-specify the expectation to other programmers.
+The bot\_builder module is responsible for creating the concrete
+instances of message pre and post processors and their dependencies.
+Creational duties are slightly ``special'' in the sense that they
+require explicit dependencies on concrete classes and modules that
+define the constructors for the objects that will be used throughout the
+system. The Dependency Inversion principle states that the direction of
+dependency in the core application logic goes towards the abstract and
+not the concrete. However, if all our dependencies point at the abstract
+(which cannot be instantiated) then how are we going to instantiate
+them? Hence the need for creational logic that can limit the number of
+concrete subclasses of the abstract type the caller needs to know about.
+
+The rivescript\_loader module is responsible for loading the chatbot
+brain files from the host operating system, and produce errors as
+needed. This makes it easier to mock the chatbot framework association
+of the BotRivescript class.
+
+The façade delegates to a message preprocessor to process the input to
+the system and a postprocessor to process the system output. Looking at
+the corresponding classes, we notice both of these inherit from the
+MessageProcessor class, which is another interface. Looking at the the
+preprocessor we can see that it is in turn another façade, like the
+BotRivescript class: it delegates to stopword removers, tokenizers and
+stemmers to normalize and simplify the user input so that it may be
+easier to match against the patterns specified in the chatbot framework
+grammar. This helps with RiveScript, as certain input patterns that
+should be matched do not get matched if the user mispells a word, uses a
+declination of a verb or adds stopwords (such as determinants) which had
+not been anticipated in the grammar.
+
+For example, in RiveScript, the input pattern in the following rule:
+\textsubscript{\textasciitilde{}} + I like you - I like you too
+\textsubscript{\textasciitilde{}} would not match the input ``I am
+really liking you'', even though the programmer may have intended for
+general expressions of affection to trigger the response. Stemming
+reduces verbs to their root: ``liking'' or other declinations are
+reduced to ``lik''. Stopwords removal will eliminate words that may
+cause matching to fail, even though they do not modify the meaning of
+the sentence significantly, for example ``I do like you'' (auxilliary
+verbs are used in English for emphasis).
+
+Modules responsible for the preprocessing are defined within the
+``preprocess'' subpackage. The creation of stemmers is handled through a
+factory that is minimal for the current implementation, but could in the
+future include logic to select stemmers on the basis of a simple
+parameter input, this would help decouple the caller from the concrete
+implementation of the stemming interface (as above). Notice how the
+dependency to the nltk package is limited to only the concrete
+implementation that makes use of it in this class hierarchy. Just like
+with the chatbot framework, the intention is to not tightly couple the
+core of the system to the external library, but to keep the coupling
+loose, so that in the future other tools or ``homebrewed'' solutions may
+be used instead.
+
+More interesting is the application of the TEMPLATE METHOD pattern in
+the StopwordRemover abstract class (Gamma et al, 1995, pp.325-330). We
+can see here how the stopword remover implemented in the nltk was too
+strict and would remove semantically meaningful tokens such as ``no'',
+``not'' and declinations of ``to be'' (presumably on account of the fact
+that they are also used as auxilliary verbs and would create noise in
+information retrieval tasks).
+
+Therefore, using this stemmer, the input ``I do not like you'' would
+have matched the rule: \textsubscript{\textasciitilde{}} + I like you -
+I like you too \textsubscript{\textasciitilde{}} which may not have been
+the programmer's intent. Therefore, the stopword removal algorithm
+expressed in the StopwordRemover abstract class relies on subclasses
+exposing an iterable describing the stopwords to remove from the tokens.
+
+The postprocessor, inheriting from the same MessageProcessor interface
+as the preprocessor, is also a façade. The role of the postprocessor in
+the current implementation relates to the integration with the search
+engine being worked on by Rim Ahsaini.
+
+The modules it defers to apparently extract a keyword from the system
+output message, perform a query with that keyword and then decorate the
+message with the result before returning this to the main façade. We can
+see that the postprocessor subsystem is also defined within its own
+subpackage, with simple implementations aiming at extracting a single
+keyword from the system output message, then putting a single search
+query result back into the message.
+
+This system was created ahead of the completion of the external search
+system, and was therefore built based on the author's assumptions about
+the information required and returned by this other system. The
+employment of an ADAPTER pattern sitting at the boundary between the
+systems enforces compliance with the core chatbot system's expectations
+by adapting the expectations of the system on the other side
+appropriately, in line with the ``plugin model'' architecture (Gamma et
+al, ibid, pp.139-150; Grenning, 2009, p.119).
+
+This concludes the explanation of the main message system exchange
+pipeline. This model allows us to keep the core framework ``at arms
+length'', as opposed to tightly coupling with it and making it almost
+impossible to replace it in the future, and in fact it afforded us an
+intuitive way to overcome the limitations of the framework and to
+integrate with an external system. Finally, it exposes a minimal but
+complete API to the caller.
+
+\subsection{The Brain Implementation}\label{the-brain-implementation}
+
+The brain is implemented as a set of RiveScript files, split by
+categories with the exception of the begin.rive, the global.rive, and
+the python.rive files.
+
+These files play each a special role: begin.rive defines the core
+grammar substitutions and basic synonyms as arrays, independent of the
+topic. The global.rive file defines the global scope, that the other
+topics inherit from. Finally, the python.rive file defines the Python
+macros that can be called from within RiveScript conditionals and
+response templates.
+
+We will look at the positives and negatives of the brain implementation
+in order.
+
+\subsubsection{The Good}\label{the-good}
+
+RiveScript provides very useful tools in the ability to call Python (and
+other programming languages) from inside reply templates. This enables
+the programmer to draw information from outside the interpreter and also
+perform operations on behalf of it. This was instrumental in using the
+external data model provided by the ConversationDriver data model to
+drive the conversation forward. Secondly, RiveScript can store state
+that is only accessible from within a specific user session, and manages
+user sessions internally by requiring that both the user input and a
+userId (created by the caller) be passed when asking the RiveScript for
+a reply. This is also very useful to store information about the current
+topic in the RiveScript. Finally, the topic inheritance model allows us
+to define a global scope, wherein we define the matchers that are used
+to perform topic-invariant operations (such as changing the topic or
+moving on to the next concern).
+
+Overall, RiveScript has been a really useful tool to rapidly set up and
+start programming a chatbot brain. Unfortunately, many shortcomings were
+found with it as the project evolved.
+
+\subsubsection{The Bad}\label{the-bad}
+
+The first thing to take into account is that the current implementation
+of the chatbot brain is incomplete and not very articulate. It is
+incomplete because it is at the moment impossible to move on from any of
+the topics other than the phyisical issues topic, therefore any user who
+has concerns other than physical will never trigger the macro that
+changes the state of the DistressConversationDriver data model for the
+user to move on to the next topic. It is not articulate because very
+little time was spent working on the brain implementation, given the
+focus of the present project: the system architecture.
+
+The hand written rules that frameworks like RiveScript (and competitors
+as described in Chapter 2) need take a significant amount of time to
+write and test, more than common programming code. Secondly, numerous
+issues were met during development, including textbook use of RiveScript
+language syntax constructs causing uncaught exceptions to be thrown from
+within the RiveScript class, and issues with inconsistent internal state
+within the framework internal uservariables that took three days
+(amounting to 10\% of project core development time) to debug and fix,
+due to poorly documented behaviour when changing and using the same user
+variable in the breath of the same pattern matcher (including
+redirects).
+
+Finally, the Python statements in the RiveScript object macros cannot be
+extracted to a separate file. This is because the ``rs'' reference
+available therein (which is the running RiveScript interpreter instance)
+refuses to be called outside of a .rive file, and will fail with an
+exception if an attempt is made to do so. To call this object's
+properties is necessary to gather information such as the current user
+session, and the current state of the user variables. This makes the
+statements in the macros untestable.
+
+Due to these shortcomings, the recommendation going forward is to
+consider using a different chatbot framework. As mentioned, only a
+minimal brain implementation has been provided with the architecture and
+it would not be an irreparable loss to start with this aspect of the
+system from scratch. The reader is redirected to the discussion of
+alternatives in Chapter 2.
+
+\subsection{Data Models for Concerns and
+Messages}\label{data-models-for-concerns-and-messages}
+
+The concerns and messagelog packages define data models to respectively
+represent the user concerns so that these can be accessed from the
+chatbot brain and used to decide how to move the conversation forward,
+and provide a log of conversations between user and system so that these
+can be retrieved and stored at a later time.
+
+Additionally, the current implementation of the chatbot requires the
+argument to the reply method of the BotRivescript class to be a Message
+instance. This is so that the original single argument interface is
+preserved while both userId and message content (as required by the
+underlying RiveScript object) can be forwarded. This is also so to leave
+it the caller responsibility to decide userIds from outside the system,
+to be able to keep track of the data models. The user ids, in fact, are
+used to retrieve the relevant data models (conversation logs,
+ConversationDrivers) for all users.
+
+\subsection{Categorization}\label{categorization}
+
+The categorization module does not, for the most part, define classes.
+It exposes essentially procedural code, and leverages the facilities of
+an NLP library that is built on top of the NLTK: TextBlob (Loria et al,
+2016). The reason why this other package was used for the categorization
+component is primarily its capacity to easily split and categorize
+several sentences, something which could be achieved with the NLTK, but
+not with as much abstraction as provided by TextBlob
+(https://textblob.readthedocs.io/en/dev/classifiers.html\#classifying-textblobs).
+
+The package provides a convenient way to train, serialize, deserialize
+and evaluate a single label classifier, but no easy way to swap the
+concrete classifier instance and no high level abstraction in the form
+of an interface or a façade. This was the product of the author learning
+Python, becoming more comfortable with the applicaiton of software
+design principles and working on the package at the same time.
+
+\subsection{Synonym Generation and Automated RiveScript
+Generation}\label{synonym-generation-and-automated-rivescript-generation}
+
+The final module examined is the synonym generator. The subpackage (as
+others here described) exposes an interface describing the high level
+abstraction of the subsystem.
+
+As mentioned in Chapter 2, the implementation here for synonym
+extraction was not used in the system delivered by the team because of
+poor performance. The model used in the implementation has been trained
+over a very large data set of Google News data.
+
+As it is possible to see from the integration tests
+(tests/tests\_integration/test\_synonym/) the cosin distance does not
+always appear to capture semantic synonymity (Mikolov, 2015; McCormick,
+2016b; ). It is possible to see, for example, that while perfomance may
+be judged adequate with respect to words like ``dad'' or ``friend'',
+there are cases when it can only associate the word with either
+misspellings or completely irrelevant terms (such as names of
+reporters). This is maybe interesting linguistically, but does not help
+with generating synonyms.
+
+As mentioned in the discussion, the implementation of this concrete
+class was done with the help of the Gensim library (Řehůřek, 2014;
+Řehůřek and Sojka, 2010; McCormick, 2016a). The reader is redirected to
+the discussion of alternatives in Chapter 2.
+
+As far as generating RiveScript, the syntax of the language is really
+simple, and it is not difficult to generate syntactical arrays. The
+rivescript\_writer module already implements this behaviour. In general
+for the project going forward, as long as RiveScript or similar
+rule-driven chatbot frameworks are used, it may well be possible to
+similarly generate data for use in similar ways, prior exploration of
+other alternatives to the particular model used in this implementation.
+
+\section{Conclusion}\label{conclusion-2}
+
+This concludes the overview of the system design and implementation. We
+have looked at the general design principles adopted for the project,
+the high level abstractions provided, then the details of the particular
+implementations provided.
 
 \chapter{System Testing and
 Evaluation}\label{system-testing-and-evaluation}
 
-\chapter{Conclusion}\label{conclusion-2}
+\begin{quote}
+The act of writing a unit test is more an act of design than of
+verification. \textbf{Martin, 2003}
+\end{quote}
+
+This chapter describes the process followed to produce the suite of
+tests that verify the functioning of the system at the level of core
+logic and the brain matchers, redirects and coditionals. This chapter
+also describes the process of classifier evaluation provided by the
+classification package.
+
+\section{Test Driven Development}\label{test-driven-development}
+
+TDD is described as a discipline prescribing adherence to three rules
+whenever writing code (Martin, 2009, pp.122-123):
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Do not write any production code before you have a failing unit test
+  for that code.
+\item
+  Do not write more of a test than is sufficient for it to fail (not
+  compiling counts as failing).
+\item
+  Do not write more production code than is sufficient to pass the test.
+\end{enumerate}
+
+There are three main benefits associated with this practice. The first
+is that it encourages to take on the perspective of the caller of the
+code, before any code has been written. This makes the code easy to call
+and use to the programmer who is going to consume it.
+
+Secondly, it encourages a loosely coupled design. This is because a
+\emph{unit} test is meant to test a unit of code (be it a procedure, a
+subroutine, function or class) in isolation; it is the most focused type
+of test possible. This means that any external dependencies,
+interactions and collaborations ought to be mocked for the purpose of
+the unit test. Testing the BotRivescript class in isolation, for
+example, requires that its associated objects be replaced with mocks
+providing very predictable behaviour, so that the logic of the class can
+be scrutinized without any external interference.
+
+Third, the source code always tells the truth. Failing all other methods
+of documentation, from diagrams to Python Docstrings or Javadoc, the
+source code is the ultimate documentation of a software project. Unit
+and integration tests provide the documentation that describes how to
+use the system and any and all failure modes or edge cases for that
+system. Furthermore, as long as the tests are continuously made to pass,
+they will never be out of date as comments and Javadoc are always at
+risk of becoming.
+
+For example, the \_sendUserMessageAndLog() function of the messagelog
+package integration test demonstrates the way to use both the chatbot
+and message logging facilities provided by the present package in a way
+that is technically accurate to the point that it could be compiled to
+production, and intuitive enough that programmers looking at it should
+be able to understand how to use those facilities without further
+guidance\footnote{TDD is not free of controversy, see Hansson (2014),
+  Fowler et al (2014).}.
+
+\begin{verbatim}
+def _sendUserMessageAndLog(userid, message):
+    ConversationLogger.logUserMessage(message)
+    reply = bot.reply(message)
+    assert reply is not None
+    ConversationLogger.logSystemReplyForUser(reply, userid)
+    return reply
+\end{verbatim}
+
+\section{The Project Tests}\label{the-project-tests}
+
+The truth about the 120 unit tests in the present project is that the
+author was learning what TDD was during development, hence not all tests
+were written according to the three ``rules'' of TDD. A test-first
+approach to software development, however, has been taken from the start
+(Beck and Andres, 2004, pp.50-51, 97-102). As a result, the later a unit
+was designed, the better the tests for it were.
+
+Integration tests were produced to test the interaction of different
+units. These were not always pairwise (two units at a time), but were
+carried out depending on the interactions the author was concerned with
+documenting and verifying. The 66 integration tests include numerous
+tests of the chatbot brain, piped throught the complete BotRivescript
+façade.
+
+One other important form of testing is acceptance testing. The lack of
+this sort of testing from the project is due to the tight schedule of
+project delivery and the fact that while there were initial hopes of
+getting cancer patients to try out the software these were later
+dismissed as concerns were raised about getting access to the general
+public via the UCL Hospital.
+
+One final note about the tests: the pre-trained word2vec model used in
+the integration tests which is necessary for the
+Word2VecSynonymExtractor implementation to work (not provided with the
+system, but obtainable from:
+https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit) is
+very demanding in terms of main memory. Running the tests included in
+the source code takes around 3-4 minutes on an 8-core desktop with 8GBs
+and the amount of memory required to run it without thrashing is higher
+than 8GBs. Be wary when running these tests, as they may effectively
+impair slower machines for an unreasonable amount of time. It is good to
+notice at this point the difference in runtime between the decoupled
+unit tests and the integration tests in this case, running all unit
+tests for the project takes mere seconds (as it should).
+
+(\#ADD PYTEST COVERAGE REPORTS)
+
+\section{Categorization Evaluation}\label{categorization-evaluation}
+
+A classifier is evaluated by looking at certain metrics of its
+perfomance during testing. A very simple metric is accuracy: the number
+of correctly labelled data points against the expected label (Bird et
+al, 2015, Section 3.2). It may also be useful to build a ``confusion
+matrix'' (ibid, Section 3.4).
+
+In this matrix, the diagonal represents the percentage of correctly
+labelled samples, the column for each category for cells not lying on
+the diagonal represent the percentage of times the labelled indicated by
+the column was mistaken for the labelled indicated in the row. A simple
+graphical representation of such a matrix can be obtained via the
+\emph{confusionmatrix} module of the \emph{metrics} subpackage of the
+NLTK: http://www.nltk.org/\_modules/nltk/metrics/confusionmatrix.html.
+
+The way the categorization package provides an evaluation of the
+classifier is through the ClassifierEvaluator class. This class'
+interface allows access to accuracy, precision, recall and F metrics for
+the given classifier over a ``gold'' standard data set (Perkins, 2010;
+Sebastiani, 2002, pp.32-37). Perhaps the most useful of these is the F
+measure, as Sebastiani (ibid, p.34) warns that accuracy tends to be
+maximized by the ``trivial rejector'' or the classifier that tends to
+assign no label to all data points.
+
+It is important to note, however, that the precision and recall the
+evaluation module provides for a multi-lable classifier are individual
+to the particular label being tested for, and either macro- or
+micro-averaging should be used to extract global classifier effectivness
+metrics (Sebastiani, ibid p.33; Yang and Liu, 1999, p.43).
+
+Because of the fact that all of the data extracted via the questionnaire
+(see Chapter 2) has a balanced number of expected labels for categories,
+we are not concerned about the training data being skewed with low
+positive cases for any one category, micro-averaging was chosen as the
+balance of effectivness for all categories, with the F measure being the
+final combined evaluation measure.
+
+(\#PENDING IMPLEMENTATION OF MICROMACROAVG)
+
+\chapter{Conclusion}\label{conclusion-3}
+
+Reviewing the project goals and personal aims the project can be called
+a success in both cases.
+
+\section{Project Goals Review (\#MAP TO
+REQUIREMENTS)}\label{project-goals-review-map-to-requirements}
+
+\begin{itemize}
+\item
+  Design and implement a chatbot architecture tailored to the issues
+  surrounding software systems in healthcare (in particular around
+  treatment of sensitive patient data) As discussed in Chapter 2, there
+  are crucial compliance concerns around the sensitivity of patient data
+  that have driven the implementation decision not to employ third party
+  APIs for the processing of natural language user input, even where
+  this may have significantly simplified the chatbot brain
+  implementation task.
+\item
+  To integrate with a specialized search engine (developed by another
+  member of the team) While development over the current project had
+  terminated before the search engine was completed, a clear reference
+  on how to integrate between the systems had been provided (and
+  materialized in the integration testing ``MockSearch'' class).
+\item
+  To explore other applications of NLP that could be useful to extract
+  information from natural language data. The current project has used
+  NLP to investigate a hybrid approach to chatbot technology, making use
+  of both rule or grammar based technologies and machine learning with
+  the categorizer. Secondly, NLP was used for the synonym generation.
+\item
+  To implement a chatbot brain using open source technology. As
+  mentioned, a chatbot brain was implemented in RiveScript, after
+  reviewing the available choice of technologies given the restrictions
+  on patient data.
+\item
+  To develop the system with Macmillan eHNA as the main reference. As
+  discussed in Chapter 2, it was with reference to the CC used in one of
+  Macmillan eHNA forms that was used for the concrete implementation of
+  the topics in the ``concerns'' subpackage.
+\end{itemize}
+
+\section{Personal Aims Review}\label{personal-aims-review}
+
+\begin{itemize}
+\item
+  Learning Python in an effort to gain exposure to a new programming
+  language The Python programming language was used to implement the
+  majority of the project with the exception of the specialized
+  RiveScript language used to define the pattern matchers in the chatbot
+  brain.
+\item
+  Leverage the author's background in computational linguistics, and
+  explore the field of natural language processing As mentioned in the
+  previous section, the author investigated the use of NLP to text
+  classification and synonym generation, in addition to significantly
+  more reading in NLP than resulted useful for the project.
+\item
+  Learn about applications of machine learning to natural language
+  processing The categorization component involved the development of
+  supervised learning language models, while the synonym generation made
+  use of a pre-trained unsupervised learning model.
+\item
+  Improve software engineering skills by applying best Agile practices A
+  significant amount of reading into Agile practices was demonstrated in
+  the project in the system design, implementation and testing.
+\end{itemize}
+
+\section{Future Work}\label{future-work}
+
+The primary goal of the project was to lay the ground work, architecture
+and research for further iterations of the project. As emphasized
+throughout Chapter 4, the system was designed for extension and
+modification. The coverage of unit and integration tests provides
+confidence to any programmer continuing the work here started that the
+system still displays all behaviours it did when it was delivered at the
+end of this project, no matter what changes were made during revision
+and expansion.
+
+The ``plugin'' model makes the system independent of the IO device that
+delivers it (in the case of the group project, a webserver) which may be
+in the future a mobile app, a CLI client, or a Java Swing interface. It
+is, in fact, the caller's responsibility to import this project's
+packages and modules, and to use them as documented in the test cases.
+The data models gathering conversation and user concerns data should be
+used in a similar fashion: independently of the durable storage solution
+adopted (whether this is SQL, NoSQL, host filesystem or any other) it
+should be the caller's responsibility to import this project to
+serialize the data.
+
+\subsection{Evaluation of Technologies
+Used}\label{evaluation-of-technologies-used}
+
+\subsubsection{RiveScript}\label{rivescript-1}
+
+While the choice of RiveScript as the chatbot brain framework was
+sensible at the time given the prior research, the author reccomends
+other options are investigated during the next iteration, for the
+following reasons.
+
+The undocumented problems encountered with it during development, its
+limitations with respect to matching semantic patterns of input (unlike
+others like ChatScript), the chatbot brain implementation provided with
+the current project is not very extensive.
+
+\subsubsection{NLTK and Gensim}\label{nltk-and-gensim}
+
+The NTLK proved to be a versatile tool, used primarily in the
+categorization and message processing modules. Its main limitation is
+the lack of sequence classifier support (as lamented in Chapter 2). For
+this reason it is recommended that alternatives that offer such models
+are investigated during the next iteration (see for example Schreiber et
+al, 2016).
+
+The use made of Gensim in the current iteration was very minimal, but
+this tool seems so highly specialized that it is difficult to find
+alternatives to it.
 
 \end{document}
