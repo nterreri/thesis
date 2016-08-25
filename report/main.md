@@ -107,10 +107,10 @@ Personal goals of the author include:
 - Leverage the author's background in computational linguistics, and explore
 the field of natural language processing
 - Learn about applications of machine learning to natural language processing
-- Improve software engineering skills by applying best Agile practices
+- Improve software engineering skills by applying best agile methodology practices
 
 ## The project approach methodology
-An Agile approach was adopted for the project, in line
+An agile methodology approach was adopted for the project, in line
 with the author's stated interests. This meant maximizing time spent outside of
 meetings, save for where communication between team members and others was required.
 The project was paced in weekly iterations where aspects of the system to implement
@@ -140,9 +140,6 @@ of the system.
 and reccomendations for the direction of future work on the system.
 
 # Background Research
-> "Both the tractability and invisibility of the software product exposes its
-> builders to perpetual changes in requirements."
-**Frederick P. Brooks Jr., 1995**
 
 ## The electronic Health Needs Assessment questionnaire
 
@@ -292,9 +289,7 @@ classification. In order to inform the chatbot system reply
 to the user by providing additional information to the raw user input.
 Why text classification tasks? Because they may be used to add tags to user
 inputs to be matched within a chatbot brain that would otherwise be unable to
-generalize.
-
-This would effectively represent a hybrid model where both a machine learning
+generalize. This would effectively represent a hybrid model where both a machine learning
 component and a "rule-based" (or rather input-pattern driven) approach are
 used as part of a more complex system.
 
@@ -353,7 +348,7 @@ with supervised learning. Take for example a robot navigating an industrial ware
 as the surrounding circumstances change, the behaviour desired cannot simply be
 evaluated in binary terms (i.e. either "good" or "bad") because the problem of
 navigating a busy environment is by its nature not binary, there is in most cases
-a continuous spectrum of evaluation. NONDETERMINISTIC
+a continuous spectrum of evaluation.
 
 A model is trained over the training set and then tested against an unseen test set,
 also made up of hand-labelled samples. The model classifies each test sample and
@@ -575,9 +570,10 @@ Formally, to the properties of a Markov chain outlined above we add:
 A sequence of non-hidden observations:
 $O = \langle o_1, o_2, ... o_m\rangle$
 A function describing the probability of observation $o_j$ being generated (called probability of emission) from state $i$:
-$b_i : O \mapsto [0. 1]$
+$b_i : O \mapsto [0, 1]$
 
 The tasks that Jurafsky and Martin identify for such models are three (ibid, p.6):
+
 - Likelihood: given a model M and a sequence of observations $O$, determine $P(O|M)$
 - Decoding: given a model M and a sequence of observations $O$, determine the "best" corresponding
 sequence of states $Q$
@@ -635,6 +631,7 @@ here: https://github.com/jmschrei/pomegranate#hidden-markov-models (Schreiber et
 
 The very high level general architecture of a chatbot system is normally described in terms of
 (Bird et al, 2015, Chapter 1 section 5.5; Jurafsky and Martin, 2009, pp.857-867):
+
 1. A natural language understanding layer
 2. A diaglogue and or task manager
 3. A natural language generation layer
@@ -693,7 +690,6 @@ making it easy to write documents that define the patterns and templates of a "f
 system, simplifying the process to build all three of the above defined layers.
 We now proceed to review the various options, and motivate the choice of standard
 used in this project.
-
 #### The Artificial intelligence Markup Language
 
 AiML is a version of the Extensible Markup Language (XML) that was specifically
@@ -718,7 +714,6 @@ the AiML "bot" are commonly called the chatbot "brain". There are a number of in
 and there are freely available "libraries" of AiML files for others to include
 into their own chatbot (Wallace, 2011; Pandorabots, 2016; http://www.alicebot.org/downloads/sets.html,
 http://www.square-bear.co.uk/aiml/).
-
 #### RiveScript
 
 RiveScript is an alternative standard to AiML the objectives of which are to be
@@ -737,11 +732,10 @@ AiML interpreters implemented in Python. The best candidates are pyAIML and pyAi
 or is very stable. This also applies to most other open source AiML interpreters
 implementations at the time of writing, leaving only a couple standing
  (ALICE A.I. Foundation, 2014; Morton and Perreau, 2014).
-
 #### ChatScript
 
 ChatScript is in many ways similar to RiveScript in that it instead of extending XML
-it wishes to have a very easy to read syntax (Wilcox, 2011; Wilcox, 2016). In ChatScript, it is possible to
+it wishes to have a very easy to read syntax (Wilcox, 2011; Wilcox, 2016b). In ChatScript, it is possible to
 define "concepts" like RiveScript "arrays". ChatScript also is also integrated in WordNet: a
 lexical database for the English language that primarily models synonimity and hyponimity
 between English words (Fellbaum, 2005).
@@ -751,7 +745,6 @@ and the other pattern matching features of the previous standards. Something tha
 put the only ChatScript interpreter aside from the other standards examined is
 that for one, there is only one and no other open source interpreter projects.
 Secondly, the interpreter is implemented in C++.
-
 #### SuperScript
 
 SuperScript is a fork of RiveScript with syntax elements inspired by ChatScript
@@ -771,12 +764,11 @@ https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V4.md#2016-0
 This may create problems where this project is used in conjunction with NodeJS
 in other applications (on the webserver for example), and while there are workarounds
 to having to keep multiple versions of Node, there is the risk of making it more
-and more difficult to maintain the system as Node and SuperScript evolve along
+and more difficult to maintain the system as Node and SuperScript evolve
 (see Mota, 2016 here for how to manage multiple NodeJS versions: https://www.sitepoint.com/quick-tip-multiple-versions-node-nvm/).
 Secondly, given the stated personal aim of the author to explore the Python programming
 language, the choice of a system only meant to work with JavaScript made it a less than
 ideal candidate.
-
 #### Neural-network-based conversation models
 
 Work has been done to use various types of neural networks to produce general
@@ -809,8 +801,10 @@ commands (such as change topic) with subscopes like "family" and "physical" whic
 could be further subscoped to have issue-specific matchers, such as matchers that
 are only relevant to respiratory problems and would not occur in the related
 physical category of nausea problems, although both would share some general matchers
-about physical issues. ChatScript also allows "enqueuing" of topics with the concept
-of "pending topics" and also control of context via "rejoinders".
+about physical issues (Petherbridge, 2009, here: <https://www.rivescript.com/wd/RiveScript#topic>).
+ChatScript also allows "enqueuing" of topics with the concept
+of "pending topics" and also control of context via "rejoinders" (Wilcox, 2016a, pp.9--;
+Wilcox, 2016b, pp.5--).
 
 Another point of interest (again, given the author's aim to explore Python) is
 the open source software available for use with the project. Given the considerations
@@ -847,7 +841,7 @@ way to automatically generate synonyms for use with the chatbot.
 
 ### The Gensim Library
 
-The Gensim library (Řehůřek, 2014; Řehůřek and Sojka, 2010; see here: https://github.com/RaRe-Technologies/gensim)
+The Gensim library (Rehurek, 2014; Rehurek and Sojka, 2010; see here: https://github.com/RaRe-Technologies/gensim)
 is another natural language processing tool available for use with Python specialized
 in ocument similarity computations and related tasks. It seemed straightforward to
 use word2vec for the state purpose in combination with Gensim (McCormick, 2016a).
@@ -867,9 +861,12 @@ Ellenberg, 2015).
 ### Alternatives
 
 WordNet (Fellbaum, 2005) is perhaps a better alternative. There are ways to
-interface with it via the NTLK (see http://www.nltk.org/howto/wordnet.html), but, as emphasized in the chatbot brain discussion
-above, chatbot frameworks other than the one used for the current implementation
-(RiveScript). For other options into using dictionary definitions to extract
+interface with it via the NTLK (see http://www.nltk.org/howto/wordnet.html), but,
+as emphasized in the chatbot brain discussion
+above, some chatbot frameworks other than the one used for the current implementation
+(RiveScript) already offer similar WordNet integrations out of the box (see for
+ChatScript: Wilcox, 2016b, pp.10-11).
+For other options into using dictionary definitions to extract
 synonyms the reader is redirected to Wang and Hirst, 2012.
 
 ### Dynamically Streaming Data into a RiveScript Interpreter
@@ -927,7 +924,7 @@ a basic proof-of-concept implementation of the system, with *the core of the
 chatbot system being an easy to replace implementation detail* rather than the core focus of
 the project effort.
 
-Note that, in accordance with Agile principles (as per the author's aims), "architecture"
+Note that, in accordance with agile methodology principles (as per the author's aims), "architecture"
 here does not refer *exclusively* to the production of documents such as class and
 component diagrams, or other UML artifacts (Object Management Group, 2015); but rather
 the *primary* document ideintified as the technical design document produced by the engineering activity is the source code.
@@ -960,7 +957,9 @@ case, being compilers, linkers, interpreters and virtual machines (Reeves, 2001)
 As mentioned before, the complete application is the product of a team effort,
 with Deborah Wacks working on the web server implementation and the UX design,
 Rim Ahsaini working on the specialized search engine, and the author working on the
-chatbot brain. The overall architecture of the components is illustrated (#ISIT??)
+chatbot brain. The overall architecture of the components is illustrated
+
+(#ISIT??)
 
 ## Software Architecture
 
@@ -1097,10 +1096,12 @@ declination of a verb or adds
 stopwords (such as determinants) which had not been anticipated in the grammar.
 
 For example, in RiveScript, the input pattern in the following rule:
+
 ~~~
 + I like you
 - I like you too
 ~~~
+
 would not match the input "I am really liking you",
 even though the programmer may have intended for general expressions of affection
 to trigger the response. Stemming reduces verbs to their root: "liking" or other
@@ -1129,10 +1130,12 @@ semantically meaningful tokens such as "no", "not" and declinations of "to be"
 
 Therefore, using this stemmer, the input "I do not like you" would have
 matched the rule:
+
 ~~~
 + I like you
 - I like you too
 ~~~
+
 which may not have been the programmer's intent. Therefore, the stopword removal
 algorithm expressed in the StopwordRemover abstract class relies on subclasses
 exposing an iterable describing the stopwords to remove from the tokens.
@@ -1283,7 +1286,7 @@ the word with either misspellings or completely irrelevant terms (such as names
 with generating synonyms.
 
 As mentioned in the discussion, the implementation of this concrete class was
-done with the help of the Gensim library (Řehůřek, 2014; Řehůřek and Sojka, 2010;
+done with the help of the Gensim library (Rehurek, 2014; Rehurek and Sojka, 2010;
   McCormick, 2016a). The reader is redirected to the discussion of alternatives
 in Chapter 2.
 
@@ -1348,16 +1351,16 @@ accurate to the point that it could be compiled to production, and intuitive
 enough that programmers looking at it should be able to understand how to use
 those facilities without further guidance[^TDD].
 
-~~~
+``` python
 def _sendUserMessageAndLog(userid, message):
     ConversationLogger.logUserMessage(message)
     reply = bot.reply(message)
     assert reply is not None
     ConversationLogger.logSystemReplyForUser(reply, userid)
     return reply
-~~~
+```
 
-[^TDD]: TDD is not free of controversy, see Hansson (2014), Fowler et al (2014).
+[^TDD]: TDD is not free of controversy, see Hansson (2014) and Fowler et al (2014).
 
 ## The Project Tests
 
@@ -1435,52 +1438,60 @@ in both cases.
 
 ## Project Goals Review (#MAP TO REQUIREMENTS)
 
-- Design and implement a chatbot architecture tailored to the issues surrounding
-software systems in healthcare (in particular around treatment of sensitive patient data)
+- **Design and implement a chatbot architecture tailored to the issues surrounding
+software systems in healthcare (in particular around treatment of sensitive patient data)**
+
 As discussed in Chapter 2, there are crucial compliance concerns around the sensitivity
 of patient data that have driven the implementation decision not to employ third
 party APIs for the processing of natural language user input, even where this
 may have significantly simplified the chatbot brain implementation task.
 
-- To integrate with a specialized search engine (developed by another member of the team)
+- **To integrate with a specialized search engine (developed by another member of the team)**
+
 While development over the current project had terminated before the search engine
 was completed, a clear reference on how to integrate between the systems had
 been provided (and materialized in the integration testing "MockSearch" class).
 
-- To explore other applications of NLP that could be useful to extract information from natural language data.
+- **To explore other applications of NLP that could be useful to extract information from natural language data.**
+
 The current project has used NLP to investigate a hybrid approach to chatbot
 technology, making use of both rule or grammar based technologies and machine
 learning with the categorizer. Secondly, NLP was used for the synonym generation.
 
-- To implement a chatbot brain using open source technology.
+- **To implement a chatbot brain using open source technology.**
 As mentioned, a chatbot brain was implemented in RiveScript, after reviewing
 the available choice of technologies given the restrictions on patient data.
 
-- To develop the system with Macmillan eHNA as the main reference.
+- **To develop the system with Macmillan eHNA as the main reference.**
+
 As discussed in Chapter 2, it was with reference to the CC used in one of Macmillan
 eHNA forms that was used for the concrete implementation of the topics in the
 "concerns" subpackage.
 
 ## Personal Aims Review
 
-- Learning Python in an effort to gain exposure to a new programming language
+- **Learning Python in an effort to gain exposure to a new programming language**
+
 The Python programming language was used to implement the majority of the project
 with the exception of the specialized RiveScript language used to define the
 pattern matchers in the chatbot brain.
 
-- Leverage the author's background in computational linguistics, and explore
-the field of natural language processing
+- **Leverage the author's background in computational linguistics, and explore
+the field of natural language processing**
+
 As mentioned in the previous section, the author investigated the use of NLP
 to text classification and synonym generation, in addition to significantly
 more reading in NLP than resulted useful for the project.
 
-- Learn about applications of machine learning to natural language processing
+- **Learn about applications of machine learning to natural language processing**
+
 The categorization component involved the development of supervised learning
 language models, while the synonym generation made use of a pre-trained unsupervised
 learning model.
 
-- Improve software engineering skills by applying best Agile practices
-A significant amount of reading into Agile practices was demonstrated in the
+- **Improve software engineering skills by applying best agile methodology practices**
+
+A significant amount of reading into agile methodology practices was demonstrated in the
 project in the system design, implementation and testing.
 
 ## Future Work

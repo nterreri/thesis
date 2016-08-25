@@ -30,6 +30,44 @@
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{}{}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+\newcommand{\ImportTok}[1]{{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+\newcommand{\BuiltInTok}[1]{{#1}}
+\newcommand{\ExtensionTok}[1]{{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+\newcommand{\RegionMarkerTok}[1]{{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+\newcommand{\NormalTok}[1]{{#1}}
 \IfFileExists{parskip.sty}{%
 \usepackage{parskip}
 }{% else
@@ -39,7 +77,7 @@
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{0}
+\setcounter{secnumdepth}{5}
 % Redefines (sub)paragraphs to behave more like sections
 \ifx\paragraph\undefined\else
 \let\oldparagraph\paragraph
@@ -186,20 +224,21 @@ Personal goals of the author include:
   Learn about applications of machine learning to natural language
   processing
 \item
-  Improve software engineering skills by applying best Agile practices
+  Improve software engineering skills by applying best agile methodology
+  practices
 \end{itemize}
 
 \section{The project approach
 methodology}\label{the-project-approach-methodology}
 
-An Agile approach was adopted for the project, in line with the author's
-stated interests. This meant maximizing time spent outside of meetings,
-save for where communication between team members and others was
-required. The project was paced in weekly iterations where aspects of
-the system to implement would be selected from a backlog to be delivered
-for the next week (Beck and Andres, 2014, pp.46-47). Great emphasis was
-also put on testing as part of deveopment, in particular the discipline
-of Test Driven Development.
+An agile methodology approach was adopted for the project, in line with
+the author's stated interests. This meant maximizing time spent outside
+of meetings, save for where communication between team members and
+others was required. The project was paced in weekly iterations where
+aspects of the system to implement would be selected from a backlog to
+be delivered for the next week (Beck and Andres, 2014, pp.46-47). Great
+emphasis was also put on testing as part of deveopment, in particular
+the discipline of Test Driven Development.
 
 A top-down system design and implementation was also adopted, with the
 next largest system abstraction being priorized first in development in
@@ -236,12 +275,6 @@ This report is structured as follows:
 \end{itemize}
 
 \chapter{Background Research}\label{background-research}
-
-\begin{quote}
-``Both the tractability and invisibility of the software product exposes
-its builders to perpetual changes in requirements.'' \textbf{Frederick
-P. Brooks Jr., 1995}
-\end{quote}
 
 \section{The electronic Health Needs Assessment
 questionnaire}\label{the-electronic-health-needs-assessment-questionnaire}
@@ -432,11 +465,10 @@ sentiment analysis and text classification. In order to inform the
 chatbot system reply to the user by providing additional information to
 the raw user input. Why text classification tasks? Because they may be
 used to add tags to user inputs to be matched within a chatbot brain
-that would otherwise be unable to generalize.
-
-This would effectively represent a hybrid model where both a machine
-learning component and a ``rule-based'' (or rather input-pattern driven)
-approach are used as part of a more complex system.
+that would otherwise be unable to generalize. This would effectively
+represent a hybrid model where both a machine learning component and a
+``rule-based'' (or rather input-pattern driven) approach are used as
+part of a more complex system.
 
 In the abstract, this is an attempt at exploiting the power for
 generalization that is characteristic of approaches to artificial
@@ -503,7 +535,7 @@ warehouse, as the surrounding circumstances change, the behaviour
 desired cannot simply be evaluated in binary terms (i.e.~either ``good''
 or ``bad'') because the problem of navigating a busy environment is by
 its nature not binary, there is in most cases a continuous spectrum of
-evaluation. NONDETERMINISTIC
+evaluation.
 
 A model is trained over the training set and then tested against an
 unseen test set, also made up of hand-labelled samples. The model
@@ -762,14 +794,23 @@ Formally, to the properties of a Markov chain outlined above we add: A
 sequence of non-hidden observations:
 \(O = \langle o_1, o_2, ... o_m\rangle\) A function describing the
 probability of observation \(o_j\) being generated (called probability
-of emission) from state \(i\): \(b_i : O \mapsto [0. 1]\)
+of emission) from state \(i\): \(b_i : O \mapsto [0, 1]\)
 
 The tasks that Jurafsky and Martin identify for such models are three
-(ibid, p.6): - Likelihood: given a model M and a sequence of
-observations \(O\), determine \(P(O|M)\) - Decoding: given a model M and
-a sequence of observations \(O\), determine the ``best'' corresponding
-sequence of states \(Q\) - Training: given an observation sequence \(O\)
-and a set (not a sequence) of states \(Q\), train a model M
+(ibid, p.6):
+
+\begin{itemize}
+\tightlist
+\item
+  Likelihood: given a model M and a sequence of observations \(O\),
+  determine \(P(O|M)\)
+\item
+  Decoding: given a model M and a sequence of observations \(O\),
+  determine the ``best'' corresponding sequence of states \(Q\)
+\item
+  Training: given an observation sequence \(O\) and a set (not a
+  sequence) of states \(Q\), train a model M
+\end{itemize}
 
 For our problem: at any point during the conversation, we are really
 interested in determining the probability distribution of the
@@ -831,9 +872,18 @@ et al, 2016).
 
 The very high level general architecture of a chatbot system is normally
 described in terms of (Bird et al, 2015, Chapter 1 section 5.5; Jurafsky
-and Martin, 2009, pp.857-867): 1. A natural language understanding layer
-2. A diaglogue and or task manager 3. A natural language generation
-layer
+and Martin, 2009, pp.857-867):
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  A natural language understanding layer
+\item
+  A diaglogue and or task manager
+\item
+  A natural language generation layer
+\end{enumerate}
 
 The first may be simply implemented through hand-written finite state or
 context free grammars. The system takes in the user input and attempts
@@ -898,9 +948,7 @@ making it easy to write documents that define the patterns and templates
 of a ``frame-based'' system, simplifying the process to build all three
 of the above defined layers. We now proceed to review the various
 options, and motivate the choice of standard used in this project.
-
-\subsubsection{The Artificial intelligence Markup
-Language}\label{the-artificial-intelligence-markup-language}
+\#\#\#\# The Artificial intelligence Markup Language
 
 AiML is a version of the Extensible Markup Language (XML) that was
 specifically designed around providing a framework to define rules,
@@ -928,9 +976,7 @@ interpreters available for AiML in various programming languages, and
 there are freely available ``libraries'' of AiML files for others to
 include into their own chatbot (Wallace, 2011; Pandorabots, 2016;
 http://www.alicebot.org/downloads/sets.html,
-http://www.square-bear.co.uk/aiml/).
-
-\subsubsection{RiveScript}\label{rivescript}
+http://www.square-bear.co.uk/aiml/). \#\#\#\# RiveScript
 
 RiveScript is an alternative standard to AiML the objectives of which
 are to be as expressive and useful as AiML, but with a simpler syntax,
@@ -950,13 +996,12 @@ The best candidates are pyAIML and pyAiml-2.0 (Tomer, 2014; Iaia, 2016),
 neither of which has either been maintained for a long time, or is very
 stable. This also applies to most other open source AiML interpreters
 implementations at the time of writing, leaving only a couple standing
-(ALICE A.I. Foundation, 2014; Morton and Perreau, 2014).
-
-\subsubsection{ChatScript}\label{chatscript}
+(ALICE A.I. Foundation, 2014; Morton and Perreau, 2014). \#\#\#\#
+ChatScript
 
 ChatScript is in many ways similar to RiveScript in that it instead of
 extending XML it wishes to have a very easy to read syntax (Wilcox,
-2011; Wilcox, 2016). In ChatScript, it is possible to define
+2011; Wilcox, 2016b). In ChatScript, it is possible to define
 ``concepts'' like RiveScript ``arrays''. ChatScript also is also
 integrated in WordNet: a lexical database for the English language that
 primarily models synonimity and hyponimity between English words
@@ -967,9 +1012,7 @@ sub-patterns and the other pattern matching features of the previous
 standards. Something that put the only ChatScript interpreter aside from
 the other standards examined is that for one, there is only one and no
 other open source interpreter projects. Secondly, the interpreter is
-implemented in C++.
-
-\subsubsection{SuperScript}\label{superscript}
+implemented in C++. \#\#\#\# SuperScript
 
 SuperScript is a fork of RiveScript with syntax elements inspired by
 ChatScript (Ellis, 2016; Ellis 2014). It boasts features from all of its
@@ -991,15 +1034,13 @@ This may create problems where this project is used in conjunction with
 NodeJS in other applications (on the webserver for example), and while
 there are workarounds to having to keep multiple versions of Node, there
 is the risk of making it more and more difficult to maintain the system
-as Node and SuperScript evolve along (see Mota, 2016 here for how to
-manage multiple NodeJS versions:
+as Node and SuperScript evolve (see Mota, 2016 here for how to manage
+multiple NodeJS versions:
 https://www.sitepoint.com/quick-tip-multiple-versions-node-nvm/).
 Secondly, given the stated personal aim of the author to explore the
 Python programming language, the choice of a system only meant to work
-with JavaScript made it a less than ideal candidate.
-
-\subsubsection{Neural-network-based conversation
-models}\label{neural-network-based-conversation-models}
+with JavaScript made it a less than ideal candidate. \#\#\#\#
+Neural-network-based conversation models
 
 Work has been done to use various types of neural networks to produce
 general purpose conversational systems. Sordoni et al (2015), for
@@ -1035,8 +1076,11 @@ commands (such as change topic) with subscopes like ``family'' and
 matchers, such as matchers that are only relevant to respiratory
 problems and would not occur in the related physical category of nausea
 problems, although both would share some general matchers about physical
-issues. ChatScript also allows ``enqueuing'' of topics with the concept
-of ``pending topics'' and also control of context via ``rejoinders''.
+issues (Petherbridge, 2009, here:
+\url{https://www.rivescript.com/wd/RiveScript\#topic}). ChatScript also
+allows ``enqueuing'' of topics with the concept of ``pending topics''
+and also control of context via ``rejoinders'' (Wilcox, 2016a, pp.9--;
+Wilcox, 2016b, pp.5--).
 
 Another point of interest (again, given the author's aim to explore
 Python) is the open source software available for use with the project.
@@ -1078,7 +1122,7 @@ synonyms for use with the chatbot.
 
 \subsection{The Gensim Library}\label{the-gensim-library}
 
-The Gensim library (Řehůřek, 2014; Řehůřek and Sojka, 2010; see here:
+The Gensim library (Rehurek, 2014; Rehurek and Sojka, 2010; see here:
 https://github.com/RaRe-Technologies/gensim) is another natural language
 processing tool available for use with Python specialized in ocument
 similarity computations and related tasks. It seemed straightforward to
@@ -1104,10 +1148,11 @@ the model was trained with (as a training parameter, see Ellenberg,
 WordNet (Fellbaum, 2005) is perhaps a better alternative. There are ways
 to interface with it via the NTLK (see
 http://www.nltk.org/howto/wordnet.html), but, as emphasized in the
-chatbot brain discussion above, chatbot frameworks other than the one
-used for the current implementation (RiveScript). For other options into
-using dictionary definitions to extract synonyms the reader is
-redirected to Wang and Hirst, 2012.
+chatbot brain discussion above, some chatbot frameworks other than the
+one used for the current implementation (RiveScript) already offer
+similar WordNet integrations out of the box (see for ChatScript: Wilcox,
+2016b, pp.10-11). For other options into using dictionary definitions to
+extract synonyms the reader is redirected to Wang and Hirst, 2012.
 
 \subsection{Dynamically Streaming Data into a RiveScript
 Interpreter}\label{dynamically-streaming-data-into-a-rivescript-interpreter}
@@ -1172,10 +1217,10 @@ provide a basic proof-of-concept implementation of the system, with
 \emph{the core of the chatbot system being an easy to replace
 implementation detail} rather than the core focus of the project effort.
 
-Note that, in accordance with Agile principles (as per the author's
-aims), ``architecture'' here does not refer \emph{exclusively} to the
-production of documents such as class and component diagrams, or other
-UML artifacts (Object Management Group, 2015); but rather the
+Note that, in accordance with agile methodology principles (as per the
+author's aims), ``architecture'' here does not refer \emph{exclusively}
+to the production of documents such as class and component diagrams, or
+other UML artifacts (Object Management Group, 2015); but rather the
 \emph{primary} document ideintified as the technical design document
 produced by the engineering activity is the source code. Just like in
 other engineering industries, software engineers design a meticulously
@@ -1211,7 +1256,9 @@ As mentioned before, the complete application is the product of a team
 effort, with Deborah Wacks working on the web server implementation and
 the UX design, Rim Ahsaini working on the specialized search engine, and
 the author working on the chatbot brain. The overall architecture of the
-components is illustrated (\#ISIT??)
+components is illustrated
+
+(\#ISIT??)
 
 \section{Software Architecture}\label{software-architecture}
 
@@ -1363,15 +1410,19 @@ declination of a verb or adds stopwords (such as determinants) which had
 not been anticipated in the grammar.
 
 For example, in RiveScript, the input pattern in the following rule:
-\textsubscript{\textasciitilde{}} + I like you - I like you too
-\textsubscript{\textasciitilde{}} would not match the input ``I am
-really liking you'', even though the programmer may have intended for
-general expressions of affection to trigger the response. Stemming
-reduces verbs to their root: ``liking'' or other declinations are
-reduced to ``lik''. Stopwords removal will eliminate words that may
-cause matching to fail, even though they do not modify the meaning of
-the sentence significantly, for example ``I do like you'' (auxilliary
-verbs are used in English for emphasis).
+
+\begin{verbatim}
++ I like you
+- I like you too
+\end{verbatim}
+
+would not match the input ``I am really liking you'', even though the
+programmer may have intended for general expressions of affection to
+trigger the response. Stemming reduces verbs to their root: ``liking''
+or other declinations are reduced to ``lik''. Stopwords removal will
+eliminate words that may cause matching to fail, even though they do not
+modify the meaning of the sentence significantly, for example ``I do
+like you'' (auxilliary verbs are used in English for emphasis).
 
 Modules responsible for the preprocessing are defined within the
 ``preprocess'' subpackage. The creation of stemmers is handled through a
@@ -1395,11 +1446,17 @@ that they are also used as auxilliary verbs and would create noise in
 information retrieval tasks).
 
 Therefore, using this stemmer, the input ``I do not like you'' would
-have matched the rule: \textsubscript{\textasciitilde{}} + I like you -
-I like you too \textsubscript{\textasciitilde{}} which may not have been
-the programmer's intent. Therefore, the stopword removal algorithm
-expressed in the StopwordRemover abstract class relies on subclasses
-exposing an iterable describing the stopwords to remove from the tokens.
+have matched the rule:
+
+\begin{verbatim}
++ I like you
+- I like you too
+\end{verbatim}
+
+which may not have been the programmer's intent. Therefore, the stopword
+removal algorithm expressed in the StopwordRemover abstract class relies
+on subclasses exposing an iterable describing the stopwords to remove
+from the tokens.
 
 The postprocessor, inheriting from the same MessageProcessor interface
 as the preprocessor, is also a façade. The role of the postprocessor in
@@ -1568,8 +1625,8 @@ reporters). This is maybe interesting linguistically, but does not help
 with generating synonyms.
 
 As mentioned in the discussion, the implementation of this concrete
-class was done with the help of the Gensim library (Řehůřek, 2014;
-Řehůřek and Sojka, 2010; McCormick, 2016a). The reader is redirected to
+class was done with the help of the Gensim library (Rehurek, 2014;
+Rehurek and Sojka, 2010; McCormick, 2016a). The reader is redirected to
 the discussion of alternatives in Chapter 2.
 
 As far as generating RiveScript, the syntax of the language is really
@@ -1649,17 +1706,19 @@ and message logging facilities provided by the present package in a way
 that is technically accurate to the point that it could be compiled to
 production, and intuitive enough that programmers looking at it should
 be able to understand how to use those facilities without further
-guidance\footnote{TDD is not free of controversy, see Hansson (2014),
+guidance\footnote{TDD is not free of controversy, see Hansson (2014) and
   Fowler et al (2014).}.
 
-\begin{verbatim}
-def _sendUserMessageAndLog(userid, message):
-    ConversationLogger.logUserMessage(message)
-    reply = bot.reply(message)
-    assert reply is not None
-    ConversationLogger.logSystemReplyForUser(reply, userid)
-    return reply
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def} \NormalTok{_sendUserMessageAndLog(userid, message):}
+    \NormalTok{ConversationLogger.logUserMessage(message)}
+    \NormalTok{reply }\OperatorTok{=} \NormalTok{bot.reply(message)}
+    \ControlFlowTok{assert} \NormalTok{reply }\OperatorTok{is} \OperatorTok{not} \VariableTok{None}
+    \NormalTok{ConversationLogger.logSystemReplyForUser(reply, userid)}
+    \ControlFlowTok{return} \NormalTok{reply}
+\end{Highlighting}
+\end{Shaded}
 
 \section{The Project Tests}\label{the-project-tests}
 
@@ -1749,64 +1808,103 @@ a success in both cases.
 REQUIREMENTS)}\label{project-goals-review-map-to-requirements}
 
 \begin{itemize}
+\tightlist
 \item
-  Design and implement a chatbot architecture tailored to the issues
-  surrounding software systems in healthcare (in particular around
-  treatment of sensitive patient data) As discussed in Chapter 2, there
-  are crucial compliance concerns around the sensitivity of patient data
-  that have driven the implementation decision not to employ third party
-  APIs for the processing of natural language user input, even where
-  this may have significantly simplified the chatbot brain
-  implementation task.
+  \textbf{Design and implement a chatbot architecture tailored to the
+  issues surrounding software systems in healthcare (in particular
+  around treatment of sensitive patient data)}
+\end{itemize}
+
+As discussed in Chapter 2, there are crucial compliance concerns around
+the sensitivity of patient data that have driven the implementation
+decision not to employ third party APIs for the processing of natural
+language user input, even where this may have significantly simplified
+the chatbot brain implementation task.
+
+\begin{itemize}
+\tightlist
 \item
-  To integrate with a specialized search engine (developed by another
-  member of the team) While development over the current project had
-  terminated before the search engine was completed, a clear reference
-  on how to integrate between the systems had been provided (and
-  materialized in the integration testing ``MockSearch'' class).
+  \textbf{To integrate with a specialized search engine (developed by
+  another member of the team)}
+\end{itemize}
+
+While development over the current project had terminated before the
+search engine was completed, a clear reference on how to integrate
+between the systems had been provided (and materialized in the
+integration testing ``MockSearch'' class).
+
+\begin{itemize}
+\tightlist
 \item
-  To explore other applications of NLP that could be useful to extract
-  information from natural language data. The current project has used
-  NLP to investigate a hybrid approach to chatbot technology, making use
-  of both rule or grammar based technologies and machine learning with
-  the categorizer. Secondly, NLP was used for the synonym generation.
+  \textbf{To explore other applications of NLP that could be useful to
+  extract information from natural language data.}
+\end{itemize}
+
+The current project has used NLP to investigate a hybrid approach to
+chatbot technology, making use of both rule or grammar based
+technologies and machine learning with the categorizer. Secondly, NLP
+was used for the synonym generation.
+
+\begin{itemize}
 \item
-  To implement a chatbot brain using open source technology. As
+  \textbf{To implement a chatbot brain using open source technology.} As
   mentioned, a chatbot brain was implemented in RiveScript, after
   reviewing the available choice of technologies given the restrictions
   on patient data.
 \item
-  To develop the system with Macmillan eHNA as the main reference. As
-  discussed in Chapter 2, it was with reference to the CC used in one of
-  Macmillan eHNA forms that was used for the concrete implementation of
-  the topics in the ``concerns'' subpackage.
+  \textbf{To develop the system with Macmillan eHNA as the main
+  reference.}
 \end{itemize}
+
+As discussed in Chapter 2, it was with reference to the CC used in one
+of Macmillan eHNA forms that was used for the concrete implementation of
+the topics in the ``concerns'' subpackage.
 
 \section{Personal Aims Review}\label{personal-aims-review}
 
 \begin{itemize}
+\tightlist
 \item
-  Learning Python in an effort to gain exposure to a new programming
-  language The Python programming language was used to implement the
-  majority of the project with the exception of the specialized
-  RiveScript language used to define the pattern matchers in the chatbot
-  brain.
-\item
-  Leverage the author's background in computational linguistics, and
-  explore the field of natural language processing As mentioned in the
-  previous section, the author investigated the use of NLP to text
-  classification and synonym generation, in addition to significantly
-  more reading in NLP than resulted useful for the project.
-\item
-  Learn about applications of machine learning to natural language
-  processing The categorization component involved the development of
-  supervised learning language models, while the synonym generation made
-  use of a pre-trained unsupervised learning model.
-\item
-  Improve software engineering skills by applying best Agile practices A
-  significant amount of reading into Agile practices was demonstrated in
-  the project in the system design, implementation and testing.
+  \textbf{Learning Python in an effort to gain exposure to a new
+  programming language}
 \end{itemize}
+
+The Python programming language was used to implement the majority of
+the project with the exception of the specialized RiveScript language
+used to define the pattern matchers in the chatbot brain.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Leverage the author's background in computational linguistics,
+  and explore the field of natural language processing}
+\end{itemize}
+
+As mentioned in the previous section, the author investigated the use of
+NLP to text classification and synonym generation, in addition to
+significantly more reading in NLP than resulted useful for the project.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Learn about applications of machine learning to natural
+  language processing}
+\end{itemize}
+
+The categorization component involved the development of supervised
+learning language models, while the synonym generation made use of a
+pre-trained unsupervised learning model.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Improve software engineering skills by applying best agile
+  methodology practices}
+\end{itemize}
+
+A significant amount of reading into agile methodology practices was
+demonstrated in the project in the system design, implementation and
+testing.
 
 \section{Future Work}\label{future-work}
 
@@ -1833,7 +1931,7 @@ serialize the data.
 \subsection{Evaluation of Technologies
 Used}\label{evaluation-of-technologies-used}
 
-\subsubsection{RiveScript}\label{rivescript-1}
+\subsubsection{RiveScript}\label{rivescript}
 
 While the choice of RiveScript as the chatbot brain framework was
 sensible at the time given the prior research, the author reccomends
