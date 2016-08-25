@@ -11,6 +11,8 @@ author: Niccoló Terreri, Master of Science in Computer Science candidate
 toc: true
 ---
 
+![image](classMessagePreprocessorChatbot.svg)
+
 # Introduction
 > "Pointing will still be the way to express nouns as we command our machines;
 > speech is surely the right way to express the verbs."
@@ -661,7 +663,7 @@ modules that can operate with higher level abtraction than mere patterns of symb
 (like the grammar rules and templates described above), which we may want to
 call "dialogue acts". These more advanced systems are sometimes referred to
 "information-state" systems as opposed to "frame-based" systems that coerce
-the conversation to a very specific task (#REFERENCE).
+the conversation to a very specific task (Jurafsky and Martin, ibid, pp.874-875).
 
 For the purposes of the problem at hand, it is difficult to decide which of these
 would be ideal. For one, the tight control over the topics in the conversation
@@ -896,7 +898,11 @@ project iterations.
 # Requirements Gathering {#Chapter3}
 
 This chapter describes the full problem statement, and the way the list of
-requirements was produced and agreed on by the stakeholders.
+requirements was produced and agreed on by the stakeholders. Recall that the scope
+of this project is the architecture of the core system, not a full end-to-end
+implementation, which is the objective of the PEACH chatbot team. UI/UX design
+does not fall within the scope, and neither does a data persistence strategy
+(datastore solutions etc) nor a full deployment plan.
 
 ## Building the Right System
 
@@ -947,7 +953,7 @@ The project was first proposed by Dr Ramachandran, who also organized a meeting
 between Macmillan staff (including the technical lead of the Macmillan eHNA,
 Andrew Brittle). The original plan was to have both the author and Rim Ahsaini
 working on the core chatbot system, with the full questionnaire being completed
-by the user during interacting with the chatbot.
+by the user through interaction with the chatbot.
 
 During the first meeting, the idea of a specialized search engine
 emerged, with Rim Ahsaini interested in taking charge of that system. From there
@@ -965,11 +971,20 @@ in order to keep the efficiency of the eHNA software model.
 
 The rest of the requirements were mostly decided by the author and project
 supervisor on the basis of what would be most useful to investigate from a technical
-point of view looking at the future of the project.
+point of view looking at the future of the project. Objectives were decided on
+a weekly basis, in line with agile methodology.
 
 ## Requirements Listing
 
-(#PENDING!!!)
++---------------+---------------+--------------------+
+| Fruit         | Price         | Advantages         |
++===============+===============+====================+
+| Bananas       | $1.34         | - built-in wrapper |
+|               |               | - bright color     |
++---------------+---------------+--------------------+
+| Oranges       | $2.10         | - cures scurvy     |
+|               |               | - tasty            |
++---------------+---------------+--------------------+
 
 ## Use Case Diagram
 
@@ -1099,6 +1114,16 @@ the process to the (human) reader and also enforce proper temporal succession
 by requiring the next method in the sequence to take in as argument the return
 value of the previous method (Martin, 2009, pp.302-303). This pattern is repeated
 elsewhere throughout the project.
+
+``` python
+def reply(self, message):
+      userid = message.getUserid()
+      messagecontent = self._preprocess(message.getContent())
+      reply = self._interpreter.reply(userid, messagecontent)
+      reply = self._postprocess(reply)
+
+      return reply
+```
 
 The bot_builder module is responsible for creating the concrete instances of
 message pre and post processors and their dependencies. Creational duties

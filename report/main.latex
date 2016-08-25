@@ -68,6 +68,16 @@
 \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
 \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
 \newcommand{\NormalTok}[1]{{#1}}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
 \IfFileExists{parskip.sty}{%
 \usepackage{parskip}
 }{% else
@@ -99,13 +109,20 @@
 \setcounter{tocdepth}{2}
 \tableofcontents
 }
+\begin{figure}[htbp]
+\centering
+\includegraphics{classMessagePreprocessorChatbot.svg}
+\caption{image}
+\end{figure}
+
 \chapter{Introduction}\label{introduction}
 
 \begin{quote}
 ``Pointing will still be the way to express nouns as we command our
 machines; speech is surely the right way to express the verbs.''
-\textbf{Frederick P. Brooks Jr., 1995}
 \end{quote}
+
+\textbf{Frederick P. Brooks Jr., 1995}
 
 \section{The Problem}\label{the-problem}
 
@@ -263,18 +280,21 @@ This report is structured as follows:
   in healthcare and the Macmillan charity available to PEACH.
 \item
   Chapter 4 details the system architecture, design and the current
-  implementation, highlighting its current limits and its extensibility.
+  implementation, highlighting its current limits and extensibility.
 \item
-  Chapter 5 discusses how system testing was done as part of
-  development, the benefits of TDD to systems design and the evaluation
-  of the machine learning component of the system.
+  Chapter 5 discusses the benefits of TDD to systems design, how system
+  testing was done as part of development, and the evaluation of the
+  machine learning component of the system.
 \item
-  Chapter 6 concludes with an evaluation of the project results, a team
-  retrospective and reccomendations for the direction of future work on
-  the system.
+  Chapter 6 concludes with an evaluation of the project results, a
+  review of the effectivenss of the core tools used, and reccomendations
+  for the direction of future work on the system.
 \end{itemize}
 
 \chapter{Background Research}\label{background-research}
+
+This chapter details the literature review for the project: the
+background reading, and the tools and frameworks selection process.
 
 \section{The electronic Health Needs Assessment
 questionnaire}\label{the-electronic-health-needs-assessment-questionnaire}
@@ -907,7 +927,8 @@ abtraction than mere patterns of symbols (like the grammar rules and
 templates described above), which we may want to call ``dialogue acts''.
 These more advanced systems are sometimes referred to
 ``information-state'' systems as opposed to ``frame-based'' systems that
-coerce the conversation to a very specific task (\#REFERENCE).
+coerce the conversation to a very specific task (Jurafsky and Martin,
+ibid, pp.874-875).
 
 For the purposes of the problem at hand, it is difficult to decide which
 of these would be ideal. For one, the tight control over the topics in
@@ -1188,8 +1209,15 @@ and other topics is for the use of future project iterations.
 
 \chapter{Requirements Gathering}\label{Chapter3}
 
-\section{Building the Right System before Building the System
-Right}\label{building-the-right-system-before-building-the-system-right}
+This chapter describes the full problem statement, and the way the list
+of requirements was produced and agreed on by the stakeholders. Recall
+that the scope of this project is the architecture of the core system,
+not a full end-to-end implementation, which is the objective of the
+PEACH chatbot team. UI/UX design does not fall within the scope, and
+neither does a data persistence strategy (datastore solutions etc) nor a
+full deployment plan.
+
+\section{Building the Right System}\label{building-the-right-system}
 
 The problem to be solved is an introduction of the conversational UI
 into the eHealth sphere taking into account UK legislation over the use
@@ -1204,7 +1232,7 @@ creation of the care plan in oder to facilitate its creation, extending
 the coverage to more cancer patients, in an effort to improve the
 quality of care they receive across the UK.
 
-In this ``greenfield'' phase of the project, the key objective is the
+In this initial phase of the project, the key objective is the
 engineering of an extensible architecture, which is expected to be
 subject of significant modifications as the software is tweaked in
 following iterations to accommodate for changes in the nature of the
@@ -1240,9 +1268,75 @@ linkers, interpreters and virtual machines (Reeves, 2001).
 
 \section{Requirements Gathering}\label{requirements-gathering}
 
+The project was first proposed by Dr Ramachandran, who also organized a
+meeting between Macmillan staff (including the technical lead of the
+Macmillan eHNA, Andrew Brittle). The original plan was to have both the
+author and Rim Ahsaini working on the core chatbot system, with the full
+questionnaire being completed by the user through interaction with the
+chatbot.
+
+During the first meeting, the idea of a specialized search engine
+emerged, with Rim Ahsaini interested in taking charge of that system.
+From there came also the idea of integration between the two systems,
+with the chatbot system having to decide whether to make a query during
+the interaction with the user.
+
+During the second meeting, when the team was given a full demo of the
+eHNA system. It emerged that users tend to only select a relatively
+small amount of concerns, between two and six depending on what type of
+cancer they have. Furthermore, the questionnaire itself takes a
+relatively small amount of time. The requirements for the core chatbot
+system were afterwards revised to allow the user to first fill out the
+questionnaire before talking to the chatbot in order to keep the
+efficiency of the eHNA software model.
+
+The rest of the requirements were mostly decided by the author and
+project supervisor on the basis of what would be most useful to
+investigate from a technical point of view looking at the future of the
+project. Objectives were decided on a weekly basis, in line with agile
+methodology.
+
 \section{Requirements Listing}\label{requirements-listing}
 
-(\#PENDING!!!)
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+\begin{minipage}[b]{0.20\columnwidth}\raggedright\strut
+Fruit\strut
+\end{minipage} & \begin{minipage}[b]{0.20\columnwidth}\raggedright\strut
+Price\strut
+\end{minipage} & \begin{minipage}[b]{0.27\columnwidth}\raggedright\strut
+Advantages\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
+Bananas\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
+\$1.34\strut
+\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright\strut
+\begin{itemize}
+\tightlist
+\item
+  built-in wrapper
+\item
+  bright color
+\end{itemize}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
+Oranges\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
+\$2.10\strut
+\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright\strut
+\begin{itemize}
+\tightlist
+\item
+  cures scurvy
+\item
+  tasty
+\end{itemize}\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
 
 \section{Use Case Diagram}\label{use-case-diagram}
 
@@ -1251,21 +1345,25 @@ linkers, interpreters and virtual machines (Reeves, 2001).
 \chapter{System Design and Implementation}\label{Chapter4}
 
 \begin{quote}
-``\emph{``Out of all the documentation that software projects normally
+\emph{``Out of all the documentation that software projects normally
 generate, was there anything that could truly be considered an
 eningeering document?''} The answer that came to me was, \emph{``Yes,
-there was such a document, and only one--the source code.''}''
+there was such a document, and only one--the source code.''}
 \end{quote}
 
 \textbf{J. Reeves, 2001}
 
-\section{The Team Effort}\label{the-team-effort}
+This chapter describes the most interesting aspects of the delivered
+system architecture and implementation. First, the design principles
+followed during development are described, then a high level overview is
+provided before moving on to the
 
 As mentioned before, the complete application is the product of a team
 effort, with Deborah Wacks working on the web server implementation and
 the UX design, Rim Ahsaini working on the specialized search engine, and
-the author working on the chatbot brain. The overall architecture of the
-components is illustrated
+the author working on the chatbot brain. The scope of the author work is
+limited to the implementation of the chatbot and supporting systems. The
+overall architecture of the components is illustrated
 
 (\#ISIT??)
 
@@ -1387,6 +1485,18 @@ reader and also enforce proper temporal succession by requiring the next
 method in the sequence to take in as argument the return value of the
 previous method (Martin, 2009, pp.302-303). This pattern is repeated
 elsewhere throughout the project.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def} \NormalTok{reply(}\VariableTok{self}\NormalTok{, message):}
+      \NormalTok{userid }\OperatorTok{=} \NormalTok{message.getUserid()}
+      \NormalTok{messagecontent }\OperatorTok{=} \VariableTok{self}\NormalTok{._preprocess(message.getContent())}
+      \NormalTok{reply }\OperatorTok{=} \VariableTok{self}\NormalTok{._interpreter.reply(userid, messagecontent)}
+      \NormalTok{reply }\OperatorTok{=} \VariableTok{self}\NormalTok{._postprocess(reply)}
+
+      \ControlFlowTok{return} \NormalTok{reply}
+\end{Highlighting}
+\end{Shaded}
 
 The bot\_builder module is responsible for creating the concrete
 instances of message pre and post processors and their dependencies.
@@ -1658,8 +1768,10 @@ Evaluation}\label{system-testing-and-evaluation}
 
 \begin{quote}
 ``The act of writing a unit test is more an act of design than of
-verification.'' \textbf{Martin, 2003}
+verification.''
 \end{quote}
+
+\textbf{Martin, 2003}
 
 This chapter describes the process followed to produce the suite of
 tests that verify the functioning of the system at the level of core
@@ -1810,8 +1922,9 @@ final combined evaluation measure.
 
 \chapter{Conclusion}\label{conclusion-3}
 
-Reviewing the project goals and personal aims the project can be called
-a success in both cases.
+This chapter reviews the project goals and aims, finally, the author
+expresses his thoughts on the project going forward, informed by a
+critical review of the open source tools used.
 
 \section{Project Goals Review (\#MAP TO
 REQUIREMENTS)}\label{project-goals-review-map-to-requirements}
