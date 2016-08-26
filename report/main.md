@@ -11,8 +11,6 @@ author: Niccoló Terreri, Master of Science in Computer Science candidate
 toc: true
 ---
 
-![image](classMessagePreprocessorChatbot.svg)
-
 # Introduction
 > "Pointing will still be the way to express nouns as we command our machines;
 > speech is surely the right way to express the verbs."
@@ -1434,8 +1432,8 @@ As a result, the later a unit was designed, the better the tests for it were.
 
 Integration tests were produced to test the interaction of different units. These
 were not always pairwise (two units at a time), but were carried out depending on
-the interactions the author was concerned with documenting and verifying. The 66
-integration tests include numerous tests of the chatbot brain, piped throught
+the interactions the author was concerned with documenting and verifying (McConnell, 2004, p.499).
+The 66 integration tests include numerous tests of the chatbot brain, piped throught
 the complete BotRivescript façade.
 
 One other important form of testing is acceptance testing. The lack of this sort
