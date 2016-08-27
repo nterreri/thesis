@@ -15,7 +15,7 @@ toc: true
 > "Pointing will still be the way to express nouns as we command our machines;
 > speech is surely the right way to express the verbs."
 
-**Frederick P. Brooks Jr., 1995**
+**Frederick Brooks, 1995**
 
 ## The Problem
 According to the 2014 National Cancer Patient Experience Survey National Report,
