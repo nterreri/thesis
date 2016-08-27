@@ -1,13 +1,13 @@
 \appendix
 
-# Appendix A: System Manual
+# System Manual
 
 My first appendix.
 
-# Appendix B: User Manual
+# User Manual
 
-# Appendix C: Tests Listing
+# Tests Listing
 
-# Appendix D: Categorizer Evaluation
+# Categorizer Evaluation
 
-# Appendix E: Code Listing
+# Code Listing
