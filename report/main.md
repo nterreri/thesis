@@ -11,8 +11,6 @@ author: Niccoló Terreri, Master of Science in Computer Science candidate
 toc: true
 ---
 
-![image](classMessagePreprocessorChatbot.svg)
-
 # Introduction
 > "Pointing will still be the way to express nouns as we command our machines;
 > speech is surely the right way to express the verbs."
@@ -1406,7 +1404,7 @@ failure modes or edge cases for that system. Furthermore, as long as the tests
 are continuously made to pass, they will never be out of date as comments and
 Javadoc are always at risk of becoming.
 
-For example, the _sendUserMessageAndLog() function of the messagelog package
+For example, the \_sendUserMessageAndLog() function of the messagelog package
 integration test demonstrates the way to use both the chatbot and message
 logging facilities provided by the present package in a way that is technically
 accurate to the point that it could be compiled to production, and intuitive
