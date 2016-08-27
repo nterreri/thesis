@@ -1404,7 +1404,7 @@ failure modes or edge cases for that system. Furthermore, as long as the tests
 are continuously made to pass, they will never be out of date as comments and
 Javadoc are always at risk of becoming.
 
-For example, the _sendUserMessageAndLog() function of the messagelog package
+For example, the \_sendUserMessageAndLog() function of the messagelog package
 integration test demonstrates the way to use both the chatbot and message
 logging facilities provided by the present package in a way that is technically
 accurate to the point that it could be compiled to production, and intuitive
