@@ -1,16 +1,3 @@
----
-documentclass: report
-fontsize: 12pt
-linestretch: 1.5
-papersize: A4
-classoption: twoside
-
-title: A Conversational Chatbot Architecture for eHealth Systems
-author: Niccoló Terreri, Master of Science in Computer Science candidate
-
-toc: true
----
-
 # Introduction
 > "Pointing will still be the way to express nouns as we command our machines;
 > speech is surely the right way to express the verbs."
