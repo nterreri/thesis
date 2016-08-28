@@ -81,14 +81,8 @@ getting access to the general public via the UCL Hospital.
 One final note about the tests: the pre-trained word2vec model used in the integration
 tests which is necessary for the Word2VecSynonymExtractor implementation to work
 (not provided with the system, but obtainable from: https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit)
-is very demanding in terms of main memory. Running the tests included in the
-source code takes around 3-4 minutes on an 8-core desktop with 8GBs and the amount
-of memory required to run
-it without thrashing is higher than 8GBs. Be wary when running these tests, as
-they may effectively impair slower machines for an unreasonable amount of time.
-It is good to notice at this point the difference in runtime between the decoupled unit tests
-and the integration tests in this case, running all unit tests for the project takes
-mere seconds (as it should).
+is very demanding in terms of main memory, likely to cause thrashing on even powerful
+machines, see appendix A for more details.
 
 (#ADD PYTEST COVERAGE REPORTS)
 
