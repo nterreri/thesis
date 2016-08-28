@@ -1,0 +1,87 @@
+.
+├── botinterface/
+│   ├── __init__.py
+│   ├── bot_abstract.py
+│   ├── bot_builder.py
+│   ├── bot_rivescript.py
+│   ├── message_processor.py
+│   ├── postprocessor_example.py
+│   ├── postprocessor.py
+│   ├── preprocessor.py
+│   └── rivescript_loader.py
+├── brain/
+│   ├── begin.rive
+│   ├── clients.rive
+│   ├── emotional.rive
+│   ├── family.rive
+│   ├── global.rive
+│   ├── myself.rive.notinuse
+│   ├── physical.rive
+│   ├── practical.rive
+│   ├── python.rive
+│   └── spiritual.rive
+├── categorizer/
+│   ├── demo.py
+│   ├── requirements.txt
+│   ├── categorize/
+│   │   ├── data/
+│   │   │   ├── classifier.pickle
+│   │   │   └── sample_data.csv
+│   │   ├── __init__.py
+│   │   ├── classifierDeserializer.py
+│   │   ├── classifierSerializer.py
+│   │   ├── dataset_reading.py
+│   │   ├── dataset_splitting.py
+│   │   ├── develop.py
+│   │   ├── evaluation.py
+│   │   └── training.py
+│   └── tests/
+├── concerns/
+│   ├── __init__.py
+│   ├── concern_factory.py
+│   ├── concern.py
+│   ├── drive_conversation_abstract.py
+│   ├── drive_conversation.py
+│   ├── equivalence.py
+│   ├── rivescriptmacros.py
+│   └── topics.py
+├── messagelog/
+│   ├── __init__.py
+│   ├── conversation_logging.py
+│   ├── conversation.py
+│   └── message.py
+├── postprocess/
+│   ├── __init__.py
+│   ├── keyword_extractor.py
+│   ├── keyword_extractor_single.py
+│   ├── message_decorator.py
+│   ├── message_decorator_single.py
+│   ├── postprocessor_builder.py
+│   └── search_adapter.py
+├── preprocess/
+│   ├── __init__.py
+│   ├── preprocessor_builder.py
+│   ├── stemmer_factory.py
+│   ├── stemming_lancaster.py
+│   ├── stemming.py
+│   ├── stopword_remover_nltk.py
+│   ├── stopwords_remover_lenient.py
+│   ├── stopwords_remover.py
+│   ├── tokenizer.py
+│   └── tokenizer_simple.py
+├── synonym/
+│   ├── __init__.py
+│   ├── rivescript_array.py
+│   ├── rivescript_writer.py
+│   ├── store_synonyms.py
+│   ├── synonym_extractor_factory.py
+│   ├── synonym_extractor.py
+│   ├── synonym_word2vecextractor.py
+│   └── trainedWord2Vec/
+│       └── GoogleNews-vectors-negative300.bin
+├── __init__.py
+├── chatloop.py
+├── requirements.txt
+└── tests/
+
+41 directories, 138 files
