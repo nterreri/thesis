@@ -63,90 +63,90 @@ in large abstractions:
 
 ~~~
 chatbot/
-├── __init__.py
-├── chatloop.py
-├── requirements.txt
-├── botinterface/
-│   ├── __init__.py
-│   ├── bot_abstract.py
-│   ├── bot_builder.py
-│   ├── bot_rivescript.py
-│   ├── message_processor.py
-│   ├── postprocessor_example.py
-│   ├── postprocessor.py
-│   ├── preprocessor.py
-│   └── rivescript_loader.py
-├── brain/
-│   ├── begin.rive
-│   ├── clients.rive
-│   ├── emotional.rive
-│   ├── family.rive
-│   ├── global.rive
-│   ├── myself.rive.notinuse
-│   ├── physical.rive
-│   ├── practical.rive
-│   ├── python.rive
-│   └── spiritual.rive
-├── categorizer/
-│   ├── demo.py
-│   ├── requirements.txt
-│   ├── categorize/
-│   │   ├── data/
-│   │   │   ├── classifier.pickle
-│   │   │   └── sample_data.csv
-│   │   ├── __init__.py
-│   │   ├── classifierDeserializer.py
-│   │   ├── classifierSerializer.py
-│   │   ├── dataset_reading.py
-│   │   ├── dataset_splitting.py
-│   │   ├── develop.py
-│   │   ├── evaluation.py
-│   │   └── training.py
-│   └── tests/
-├── concerns/
-│   ├── __init__.py
-│   ├── concern_factory.py
-│   ├── concern.py
-│   ├── drive_conversation_abstract.py
-│   ├── drive_conversation.py
-│   ├── equivalence.py
-│   ├── rivescriptmacros.py
-│   └── topics.py
-├── messagelog/
-│   ├── __init__.py
-│   ├── conversation_logging.py
-│   ├── conversation.py
-│   └── message.py
-├── postprocess/
-│   ├── __init__.py
-│   ├── keyword_extractor.py
-│   ├── keyword_extractor_single.py
-│   ├── message_decorator.py
-│   ├── message_decorator_single.py
-│   ├── postprocessor_builder.py
-│   └── search_adapter.py
-├── preprocess/
-│   ├── __init__.py
-│   ├── preprocessor_builder.py
-│   ├── stemmer_factory.py
-│   ├── stemming_lancaster.py
-│   ├── stemming.py
-│   ├── stopword_remover_nltk.py
-│   ├── stopwords_remover_lenient.py
-│   ├── stopwords_remover.py
-│   ├── tokenizer.py
-│   └── tokenizer_simple.py
-├── synonym/
-│   ├── __init__.py
-│   ├── rivescript_array.py
-│   ├── rivescript_writer.py
-│   ├── store_synonyms.py
-│   ├── synonym_extractor_factory.py
-│   ├── synonym_extractor.py
-│   ├── synonym_word2vecextractor.py
-│   └── trainedWord2Vec/
-│       └── GoogleNews-vectors-negative300.bin
-└── tests/
+|-- __init__.py
+|-- chatloop.py
+|-- requirements.txt
+|-- botinterface/
+|   |-- __init__.py
+|   |-- bot_abstract.py
+|   |-- bot_builder.py
+|   |-- bot_rivescript.py
+|   |-- message_processor.py
+|   |-- postprocessor_example.py
+|   |-- postprocessor.py
+|   |-- preprocessor.py
+|   `-- rivescript_loader.py
+|-- brain/
+|   |-- begin.rive
+|   |-- clients.rive
+|   |-- emotional.rive
+|   |-- family.rive
+|   |-- global.rive
+|   |-- myself.rive.notinuse
+|   |-- physical.rive
+|   |-- practical.rive
+|   |-- python.rive
+|   `-- spiritual.rive
+|-- categorizer/
+|   |-- demo.py
+|   |-- requirements.txt
+|   |-- categorize/
+|   |   |-- data/
+|   |   |   |-- classifier.pickle
+|   |   |   `-- sample_data.csv
+|   |   |-- __init__.py
+|   |   |-- classifierDeserializer.py
+|   |   |-- classifierSerializer.py
+|   |   |-- dataset_reading.py
+|   |   |-- dataset_splitting.py
+|   |   |-- develop.py
+|   |   |-- evaluation.py
+|   |   `-- training.py
+|   `-- tests/
+|-- concerns/
+|   |-- __init__.py
+|   |-- concern_factory.py
+|   |-- concern.py
+|   |-- drive_conversation_abstract.py
+|   |-- drive_conversation.py
+|   |-- equivalence.py
+|   |-- rivescriptmacros.py
+|   `-- topics.py
+|-- messagelog/
+|   |-- __init__.py
+|   |-- conversation_logging.py
+|   |-- conversation.py
+|   `-- message.py
+|-- postprocess/
+|   |-- __init__.py
+|   |-- keyword_extractor.py
+|   |-- keyword_extractor_single.py
+|   |-- message_decorator.py
+|   |-- message_decorator_single.py
+|   |-- postprocessor_builder.py
+|   `-- search_adapter.py
+|-- preprocess/
+|   |-- __init__.py
+|   |-- preprocessor_builder.py
+|   |-- stemmer_factory.py
+|   |-- stemming_lancaster.py
+|   |-- stemming.py
+|   |-- stopword_remover_nltk.py
+|   |-- stopwords_remover_lenient.py
+|   |-- stopwords_remover.py
+|   |-- tokenizer.py
+|   `-- tokenizer_simple.py
+|-- synonym/
+|   |-- __init__.py
+|   |-- rivescript_array.py
+|   |-- rivescript_writer.py
+|   |-- store_synonyms.py
+|   |-- synonym_extractor_factory.py
+|   |-- synonym_extractor.py
+|   |-- synonym_word2vecextractor.py
+|   `-- trainedWord2Vec/
+|       `-- GoogleNews-vectors-negative300.bin
+`-- tests/
 ~~~
 
 ### The *botinterface* package
@@ -243,11 +243,6 @@ mere seconds (as it should).
 The unit tests, in fact, are designed for quick execution (they are meant
 to be ran many times an hour during TDD; see F.I.R.S.T. Martin, 2009, p.132).
 Running these tests should take less than a minute.
-
-~~~
-python -m py.test tests/tests_unit/
-~~~
-
 Finally, if the pytest-cov package has been installed (Schlaich, 2016) then it
 is possible to get reports for code coverage about individual subpackages
 by providing the desired subpackage name as an argument in the following manner:
@@ -388,6 +383,7 @@ TOTAL                                     55     18    67%
 ~~~
 
 Total:
+
 - 527 executable statements
 - 52 missed statements
 - 88.83% averaged percentage
@@ -530,11 +526,10 @@ Macro averaged precision: 0.4911
 Micro averaged recall: 0.5454
 Micro averaged precision: 0.5454
 ~~~
-
 Like the Naive Bayes classifier, it scores a 0 in every metric for the 'spiritual'
 label, but scores better in other global metrics (averaged over all labels).
 
-## Explanation of Performance
+## Comment on Performance
 
 The reason for the performance is most likely the lack of problem-specific feature
 extraction. The feature extractors that both classifiers use in the current
