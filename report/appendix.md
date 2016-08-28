@@ -509,10 +509,10 @@ The MaxEntClassifier, instead, scores over the same data split (10% test, 10% de
 ~~~
 Accuracy: 0.55
 
-Recall for 'phys': 0.83
-Precision for 'phys': 0.56
-F for 'phys': 0.67
-Recall for 'pract': 0.4
+Recall for 'phys': 0.83             |Macro averaged recall: 0.4467
+Precision for 'phys': 0.56          |Macro averaged precision: 0.4911
+F for 'phys': 0.67                  |Micro averaged recall: 0.5454
+Recall for 'pract': 0.4             |Micro averaged precision: 0.5454
 Precision for 'pract': 0.4
 F for 'pract': 0.4
 Recall for 'family': 0.4
@@ -525,10 +525,7 @@ Recall for 'spiritual': 0.0
 Precision for 'spiritual': None
 F for 'spiritual': None
 
-Macro averaged recall: 0.4467
-Macro averaged precision: 0.4911
-Micro averaged recall: 0.5454
-Micro averaged precision: 0.5454
+
 ~~~
 
 Like the Naive Bayes classifier, it scores a 0 in every metric for the 'spiritual'
