@@ -122,7 +122,7 @@ by requiring the next method in the sequence to take in as argument the return
 value of the previous method (Martin, 2009, pp.302-303). This pattern is repeated
 elsewhere throughout the project.
 
-~~~~ {.python .numberLines startFrom="1"}
+~~~~ {.python}
 def reply(self, message):
       userid = message.getUserid()
       messagecontent = self._preprocess(message.getContent())
