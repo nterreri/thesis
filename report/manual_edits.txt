@@ -1,0 +1,18 @@
+Edit 1:
+- \usepackage[unicode=true, breaklinks]{hyperref}
+- \usepackage{url}
+- \usepackage{breakurl}
+- \usepackage{natbib}
+- \bibliographystyle{abbrvnat}
+
+The above has to be put the latex manually to get the urls to format properly
+in the references.
+
+Edit 2:
+\pagenumbering{roman}
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+
+The \pagenumbering{roman} command must appear around the above area.

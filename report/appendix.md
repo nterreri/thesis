@@ -471,3 +471,5 @@ interesting direction than simply improving the performance single-label classif
 
 Partial code listings follow. The entire source code can be obtained following
 the instructions in Appendix A.
+
+# References

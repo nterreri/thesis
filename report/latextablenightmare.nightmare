@@ -1,0 +1,29 @@
+
+{\renewcommand{\arraystretch}{2}
+\setstretch{1.0}
+\begin{table}[]
+\centering
+\caption{Requirements table}
+\label{my-label}
+\begin{tabular}{|l|l|l|} \hline
+\textbf{Label} & \textbf{Requirement}                                       & \textbf{Priority}\\
+\hline
+RQ0            & \pbox{}{The chatbot will categorize userinput into\\
+                    predefined concern categories}                          & {\color[HTML]{FE0000} Must}   \\
+\hline
+RQ1            & \pbox{}{The chatbot will generate replies aimed at\\
+                    asking the user for more details, and gather \\
+                    information on concern raised}                          & {\color[HTML]{FE0000} Must}   \\
+\hline
+%RQ2            & The chatbot willdecidewhether to reply with a generative or non-generative reply                                            & {\color[HTML]{FE0000} Must}   \\
+%RQ3            & The chatbot willdecidewhether the generative reply should be provided as the result of a query or bot-brain generated reply & {\color[HTML]{F8A102} Should} \\
+%RQ4            & The chatbot will model the data gathered appropriately fordurable storage in datastore(pending details)                     & {\color[HTML]{FE0000} Must}   \\
+%RQ5            & The chatbot willinterface with the search/query enginecomponent of the larger system it is part of                          & {\color[HTML]{F8A102} Should} \\
+%RQ6            & The chatbot may performsentiment analysison user input                                                                      & {\color[HTML]{32CB00} Could}  \\
+%RQ7            & The chatbot may use the preprocessed input (categorization/sentiment analysis) toinform the bot-brain                       & {\color[HTML]{F8A102} Should} \\
+%RQ8            & The chatbot mayinterface with server side requesthandling logic                                                             & {\color[HTML]{F8A102} Should} \\
+%RQ9            & The chatbot mayreceive/return queriesin the form of JSON/XML documents                                                      & {\color[HTML]{32CB00} Could}  \\
+%RQ10           & The chatbot may bedeployed outsidethe context of eHNAs as an independently accessible service                               & {\color[HTML]{32CB00} Could}  \\
+%RQN0           & The chatbot will not have anoffline/cachedoperating mode                                                                    & Will not
+\end{tabular}
+\end{table}}

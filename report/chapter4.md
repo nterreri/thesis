@@ -16,8 +16,9 @@ with Deborah Wacks working on the web server implementation and the UX design,
 Rim Ahsaini working on the specialized search engine, and the author working on the
 chatbot brain. The scope of the author work is limited to the implementation of
 the chatbot and supporting systems. The overall architecture of the components is illustrated
+below.
 
-(#ISIT??)
+![System component diagram](componentChatbot.jpg)
 
 ## Software Architecture
 
@@ -75,12 +76,12 @@ The package is there to be used in the future.
 
 The concerns package encodes the information about a user's concerns, as well as
 the range of acceptable macro and micro topics (or categories) for each concern.
-The point of access to this subsystem is defined in the drive_conversation_abstract
+The point of access to this subsystem is defined in the *drive_conversation_abstract*
 module, as another interface. This interface describes the API to the part of
 the module that keeps track of what the state user concerns are, and their priority
 order. The concerns_factory module defines a class with static (or class-level)
 methods for the purpose of keeping track of various user sessions in the system,
-each represented by a DistressConversationDriver object (a concrete implementation
+each represented by a *DistressConversationDriver* object (a concrete implementation
   of the ConversationDriver interface).
 
 The categorize package exposes a set of modules to train, store to the file system
@@ -88,7 +89,7 @@ and retrieve evaluation metrics for single label classifiers. This package is
 the least well designed element of the system primarily because it was the first
 to be developed. The reason this subpackage was not used in the final pipeline
 implementation has to do with the fact that it took too long for the survey
-that was created to collect relevant data to produce results. But it is possible
+that was created to collect relevant data to produce results (#REFERENCERELEVANTPART). But it is possible
 in principle to plug a trained categorizer at the preprocessor level of the
 message pipeline in order to add a tag to the user message, in order for this
 to be used by the chatbot framework to provide better replies to the user.
@@ -112,7 +113,11 @@ to other components of the system (Gamma et al, 1995, pp.185-193, 207-217; Marti
 of the design makes it easy to change implementation of these components, and provides
 a clear and sensible separation of concerns with the message coming into the system
 being preprocessed prior to being forwarded to the chatbot framework, and then
-postprocessed as needed. This provides a degree of decoupling from the chatbot
+postprocessed as needed.
+
+![BotRivescript class](classBotInterfaceChatbot.jpg)
+
+This provides a degree of decoupling from the chatbot
 framework, instead of making it a central component of the system, allowing it to be changed for
 another one of the options surveyed in Chapter 2 with relative ease (in this sense it is a PROXY:
   it "looks" like the underlying framework). Furthermore,
@@ -178,6 +183,8 @@ that may cause matching to fail, even though they do not modify the meaning of
 the sentence significantly, for example "I do like you" (auxilliary verbs are
 used in English for emphasis).
 
+![Preprocessor class diagram](classMessagePreprocessorChatbot.jpg)
+
 Modules responsible for the preprocessing are defined within the "preprocess"
 subpackage. The creation of stemmers is handled through a factory that is minimal
 for the current implementation, but could in the future include logic to select
@@ -212,6 +219,8 @@ The postprocessor, inheriting from the same MessageProcessor interface as the
 preprocessor, is also a façade. The role of the postprocessor in the current
 implementation relates to the integration with the search engine being worked
 on by Rim Ahsaini.
+
+![Postprocessor class diagram](clasMessageProcessorChatbot.jpg)
 
 The modules it defers to apparently extract a keyword from the system output message,
 perform a query with that keyword and then decorate the message with the result
