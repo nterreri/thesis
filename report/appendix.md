@@ -520,8 +520,6 @@ F for 'emotion': 0.55
 Recall for 'spiritual': 0.0
 Precision for 'spiritual': None
 F for 'spiritual': None
-
-
 ~~~
 Like the Naive Bayes classifier, it scores a 0 in every metric for the 'spiritual'
 label, but scores better in other global metrics (averaged over all labels).
@@ -546,3 +544,5 @@ interesting direction than simply improving the performance single-label classif
 (#REFERENCE).
 
 # Code Listing
+
+# References
