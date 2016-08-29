@@ -6,20 +6,29 @@
 
 ## The Problem
 According to the 2014 National Cancer Patient Experience Survey National Report,
-over the past couple of years only slightly over 20% of cancer patients across the UK reported having been
-offered an assassment and care plan specific to their personal circumstances
+ only slightly over 20% of cancer patients across the UK reported having been
+offered an assassment and care plan specific to their personal circumstances over the past couple of years
 (Quality Health, 2014, p. 114).
 In an effort to increase the number of cancer patients who received such
 assessments, Macmillan Cancer Support piloted the Holistic Needs Assessment
 (HNA) questionnaire and health plan in 2008 (Macmillan, [Holistic Needs Assessment][hna]).
-This is essentially a self-assessment questionnaire where the patient identifies
+This is a self-assessment questionnaire where the patient identifies
 what their concerns are from a range of personal, physical, emotional and practical
 issues they may be facing in their lives in relation to their condition.
 The completion of the questionnaire is followed by the creation of a care plan
 through a consultation with a clinician, with further advice and referrals as
 needed. Macmillan began trialing an electronic version of the questionnaire in
 2010, progressively extending provision of the eHNA to more and more sites
-(clinics etc) (Mac Voice, 2014).
+(Mac Voice, 2014).
+
+This project is a about the use of an intelligent conversational system
+to gather further information about the patient's concerns through an electronic
+self-assessment tool, ahead of the creation of a patient care plan. This is primarily
+an attempt at introducing the conversational User Interface in electronic
+health applications generally, investigate related natural language processing and
+tasks, and in particular explore the applicability of
+computer advisors to Macmillan's eHNA in a growing effort to improve the
+quality of support cancer patients receive across the UK.
 
 Intelligent conversation systems have enjoyed an increasing amount of media
 attention over the last year[^aiarticles]. With applications of artificial
@@ -32,28 +41,6 @@ and natural language processing technologies have reached a level of maturity
 comparable to that achieved years ago by haptic technology, that we find almost ubiquitously
 in human-computer interfaces and everyday use of computing devices today.
 
-This project is a about the use of an intelligent conversational system
-to gather further information about the patient's concerns through an electronic
-self-assessment tool, ahead of the creation of a patient care plan. This is primarily
-an attempt at introducing the conversational User Interface in electronic
-health applications generally, and in particular explore the applicability of
-computer advisors to Macmillan's eHNA in a growing effort to improve the
-quality of support cancer patients receive across the UK.
-
-The scope of the present report is limited to the architecture and implementation of the chatbot
-system, as opposed to a complete, user-facing product: the complete application is a joint effort of four,
-with distinct concerns being assigned to different members of the team. The
-author of the present document being tasked with design and implementation of the core system backend. The
-other members of the chatbot team include: Andre Allorerung (MSc SSE) as the
-technical team lead who also takes care of the integration of the system with
-the resources available to PEACH and the data storage system that will persist
-durably information gathered through the chatbot system. Rim Ahsaini (MSc CS)
-working on a specialized search engine for resources that may interest and help
-support cancer patients based on their concerns (to be available both through
-conversation with the chatbot and independently), Deborah Wacks (MSc CS) as lead
-UX designer working on the implementation of a webserver through which allow the
-user to interact with the chatbot and search engine.
-
 This project is part of PEACH: Platform for Enhanced Analytics and Computational
 Healthcare (Project PEACH, 2016). PEACH is a data science project that
 originated at University College London (UCL) in 2016 that sees Master level
@@ -62,6 +49,21 @@ more than twenty students across multiple Master courses, it is one of the
 largest student projects undertaken in recent years at UCL, and it is part of
 a long-term strategy to bring the UCL Computer Science department and the UCL Hospital
 closer together.
+
+The scope of the present report is limited to the architecture and implementation of the chatbot
+system, as opposed to a complete user-facing product: the complete application is a joint effort of four
+members of PEACH,
+with distinct concerns being assigned to different members of the team. The
+author of the present document is tasked with design and implementation of the core system backend. The
+other members of the chatbot team include: Andre Allorerung (MSc SSE) as the
+technical team lead who also oversees of the integration of the system with
+the resources available to PEACH and the data storage system that will persist
+information gathered through the chatbot system. Rim Ahsaini (MSc CS)
+working on a specialized search engine for resources that may interest and help
+support cancer patients based on their concerns (to be available both through
+conversation with the chatbot and independently), Deborah Wacks (MSc CS) as lead
+UX designer working on the implementation of a webserver through which deliver
+ the chatbot and search engine to users.
 
 [^aiarticles]: Numerous articles, among which: (The Economist, 2016),
 (Berger, 2016), (Knowledge@Wharton, 2016), (Finextra Research, 2016)
@@ -108,7 +110,7 @@ Great emphasis was also put on testing as part of deveopment, in particular the 
 of Test Driven Development.
 
 A top-down system design and implementation was also adopted, with the next largest system
-abstraction being priorized first in development in order to always have a
+abstraction being priorized first in order to always have a
 working system being progressively refined. These methodology guidelines where established in accordance with
 the reccomendations of Brooks (1995, pp.143-144, 200-201, 267-271), Martin (2009, pp.121-133; 2003, chapter 2, 4, 5)
 and Beck (Beck and Andres, 2014; Beck et al, 2001).
@@ -116,12 +118,12 @@ and Beck (Beck and Andres, 2014; Beck et al, 2001).
 ## Report overview
 This report is structured as follows:
 
-- Chapter 2 provides more extensive background into the eHNA questionnaire as well as
+- Chapter 2 provides more extensive background into the
 NLP and chatbot open source resources that were explored.
 - Chapter 3 describes the requirements as gathered through the contacts in healthcare
 and the Macmillan charity available to PEACH.
-- Chapter 4 details the system architecture, design and the current implementation,
-highlighting its current limits and extensibility.
+- Chapter 4 details the system architecture, design and the implementation,
+highlighting its current limitations and design.
 - Chapter 5 discusses the benefits of TDD to systems design, how system testing
 was done as part of development, and the evaluation of the machine learning component
 of the system.
