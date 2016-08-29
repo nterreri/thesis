@@ -7,6 +7,7 @@
 
 \pagenumbering{arabic}
 
+
 ## The Problem
 According to the 2014 National Cancer Patient Experience Survey National Report,
  only slightly over 20% of cancer patients across the UK reported having been
@@ -116,7 +117,7 @@ A top-down system design and implementation was also adopted, with the next larg
 abstraction being priorized first in order to always have a
 working system being progressively refined. These methodology guidelines where established in accordance with
 the reccomendations of Brooks (1995, pp.143-144, 200-201, 267-271), Martin (2009, pp.121-133; 2003, chapter 2, 4, 5)
-and Beck (Beck and Andres, 2014; Beck et al, 2001).
+and Beck (Beck and Andres, 2004; Beck et al, 2001).
 
 ## Report overview
 This report is structured as follows:
@@ -133,3 +134,5 @@ of the system.
 - Chapter 6 concludes with an evaluation of the project results, a review of
 the effectivenss of the core tools used,
 and reccomendations for the direction of future work on the system.
+
+\nocite{*}
