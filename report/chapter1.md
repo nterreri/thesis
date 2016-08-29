@@ -1,3 +1,4 @@
+\pagenumbering{arabic}
 # Introduction
 > "Pointing will still be the way to express nouns as we command our machines;
 > speech is surely the right way to express the verbs."
