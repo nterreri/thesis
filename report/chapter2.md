@@ -545,7 +545,7 @@ host the chatbot service and as a consequence receive and process patient inform
 Exploring the open source chatbot "market" it is easy to appreciate how this world
 has mostly been evolving outside of academia. The main sources for this section of
 the report are the individual websites of the tools explored, and the forum of
-https://www.chatbots.org/ai_zone/ and related readings (Morton, 2011; Wilcox, 2011).
+https://www.chatbots.org/ai_zone/ and related readings (Morton, 2011; [Wilcox, 2011]).
 
 In the architecture model proposed above, these systems take care of
 making it easy to write documents that define the patterns and templates of a "frame-based"
@@ -574,7 +574,7 @@ AiML is only a standard for defining this information, and there are separate gu
 to follow to implement a AiML reader (or "interpreter"). The set of files making up
 the AiML "bot" are commonly called the chatbot "brain". There are a number of interpreters available for AiML in various programming languages,
 and there are freely available "libraries" of AiML files for others to include
-into their own chatbot (Wallace, 2011; Pandorabots, 2016; http://www.alicebot.org/downloads/sets.html,
+into their own chatbot ([@wallace_free_2011]; Pandorabots, 2016; http://www.alicebot.org/downloads/sets.html,
 http://www.square-bear.co.uk/aiml/).
 
 #### RiveScript
