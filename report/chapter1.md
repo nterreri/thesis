@@ -1,9 +1,11 @@
-\pagenumbering{arabic}
+
 # Introduction
 > "Pointing will still be the way to express nouns as we command our machines;
 > speech is surely the right way to express the verbs."
 
 **Frederick Brooks, 1995**
+
+\pagenumbering{arabic}
 
 ## The Problem
 According to the 2014 National Cancer Patient Experience Survey National Report,
