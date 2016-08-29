@@ -79,16 +79,55 @@ a weekly basis, in line with agile methodology.
 
 ## Requirements Listing
 
-+---------------+---------------+--------------------+
-| Fruit         | Price         | Advantages         |
-+===============+===============+====================+
-| Bananas       | $1.34         | - built-in wrapper |
-|               |               | - bright color     |
-+---------------+---------------+--------------------+
-| Oranges       | $2.10         | - cures scurvy     |
-|               |               | - tasty            |
-+---------------+---------------+--------------------+
+\renewcommand{\arraystretch}{2}
+\setstretch{1.0}
+\begin{table}[]
+\centering
+\caption{Requirements table}
+\label{my-label}
+\begin{tabular}{|l|l|l|} \hline
+\textbf{Label} & \textbf{Requirement}                                       & \textbf{Priority}\\
+\hline
+RQ0            & \pbox{25cm}{The chatbot will categorize userinput into\\
+                    predefined concern categories}                          & {\color[HTML]{FE0000} Must}   \\
+\hline
+RQ1            & \pbox{25cm}{The chatbot will generate replies aimed at\\
+                    asking the user for more details, and gather \\
+                    information on concern raised}                          & {\color[HTML]{FE0000} Must}   \\
+\hline
+RQ2            & \pbox{25cm}{The chatbot will decide whether to reply with \\
+                    a generative or non-generative reply}                    & {\color[HTML]{FE0000} Must}\\
+\hline
+RQ3            & \pbox{25cm}{The chatbot will decide whether the generative \\
+                reply should be provided as the result of a query or bot-brain\\
+                generated reply}                                            & {\color[HTML]{F8A102} Should}\\
+\hline
+RQ4            & \pbox{25cm}{The chatbot will model the data gathered appropriately\\
+                            for durable storage in datastore}                  & {\color[HTML]{FE0000} Must}   \\
+\hline
+RQ5            & \pbox{25cm}{The chatbot will interface with the search/query \\
+                engine component of the larger system it is part of}         & {\color[HTML]{F8A102} Should} \\
+\hline
+RQ6            & \pbox{25cm}{The chatbot may performsentiment analysison user \\
+                input}                                                       & {\color[HTML]{32CB00} Could}  \\
+\hline
+RQ7            & \pbox{25cm}{The chatbot may use the preprocessed input \\
+                (categorization/sentiment analysis) to inform the bot-brain} & {\color[HTML]{F8A102} Should} \\
+\hline
+RQ8            & \pbox{25cm}{The chatbot may interface with server side request\\
+                handling logic}                                              & {\color[HTML]{F8A102} Should} \\
+\hline
+RQ9            & \pbox{25cm}{The chatbot mayreceive/return queries in the form of\\
+                JSON/XML documents}                                          & {\color[HTML]{32CB00} Could}  \\
+\hline
+RQ10           & \pbox{25cm}{The chatbot may be deployed outside the context of \\
+                        eHNAs as an independently accessible service}        & {\color[HTML]{32CB00} Could}  \\
+\hline
+RQN0           & \pbox{25cm}{The chatbot will not have an offline/cached \\
+                operating mode}                                              & Will not  \\              
+\hline
+\end{tabular}
+\end{table}}
+\setstretch{1.5}
 
 ## Use Case Diagram
-
-(#PENDING!!!)
