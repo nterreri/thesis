@@ -221,4 +221,15 @@ Search</panel_attributes>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
   </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>170</x>
+      <y>110</y>
+      <w>570</w>
+      <h>550</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
 </diagram>
