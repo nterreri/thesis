@@ -258,14 +258,12 @@ NTLK</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>210</x>
-      <y>90</y>
-      <w>510</w>
-      <h>660</h>
+      <x>220</x>
+      <y>110</y>
+      <w>500</w>
+      <h>620</h>
     </coordinates>
-    <panel_attributes>
-
-</panel_attributes>
+    <panel_attributes/>
     <additional_attributes/>
   </element>
 </diagram>

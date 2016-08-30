@@ -125,7 +125,7 @@ import</panel_attributes>
     <coordinates>
       <x>190</x>
       <y>150</y>
-      <w>110</w>
+      <w>100</w>
       <h>240</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
@@ -169,5 +169,17 @@ datastore</panel_attributes>
     <panel_attributes>lt=&lt;-
 import</panel_attributes>
     <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>180</x>
+      <y>130</y>
+      <w>490</w>
+      <h>340</h>
+    </coordinates>
+    <panel_attributes>
+</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
