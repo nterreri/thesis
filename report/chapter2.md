@@ -574,7 +574,7 @@ AiML is only a standard for defining this information, and there are separate gu
 to follow to implement a AiML reader (or "interpreter"). The set of files making up
 the AiML "bot" are commonly called the chatbot "brain". There are a number of interpreters available for AiML in various programming languages,
 and there are freely available "libraries" of AiML files for others to include
-into their own chatbot ([@wallace_free_2011]; Pandorabots, 2016; http://www.alicebot.org/downloads/sets.html,
+into their own chatbot (Wallace, 2011; Pandorabots, 2016; http://www.alicebot.org/downloads/sets.html,
 http://www.square-bear.co.uk/aiml/).
 
 #### RiveScript
