@@ -4,6 +4,7 @@ fontsize: 12pt
 linestretch: 1.5
 papersize: a4
 classoption: twoside
+geometry: margin=2cm
 
 title: A Conversational Chatbot Architecture for eHealth Systems
 author: Niccoló Terreri, Master of Science in Computer Science candidate

@@ -158,7 +158,7 @@ machine hang as for an unreasonable amount of time. This is chiefly due to the
 synonym generation tests which require a very large amount of RAM to run efficiently.
 It takes around 3-4 minutes on an 8-core desktop with 8GBs and the amount
 of memory required to run
-it *without* thrashing happening as pages are swapped in and out of virtual memory
+it *without* thrashing as pages are swapped in and out of virtual memory
  is higher than 8GBs.
 
 It is good to notice at this point the difference in runtime between the decoupled unit tests
