@@ -3,20 +3,20 @@
 # System Manual
 
 As stated before, the scope of this report is limited to the core chatbot system
-which interfaces (in the larger team effor) with a webserver for delivery to
-a user. For this reason, no user manual is provided.
+which interfaces with a webserver for delivery to
+a user in the larger team effor. For this reason, no user manual is provided.
 
 ## Installation
 
 The full project source code (including the code of the other team members)
-is available at: <https://github.com/andreallorerung/peach-chatbot-alpha>.
-The author's contribution to the project can be found under the
-'/FlaskWebProject/chatbot/' directory therein
+is available at: <https://github.com/nterreri/peach-bot>.
+
+It can also be found under the PEACH chatbot team project repository
+under the '/FlaskWebProject/chatbot/' directory therein
  (<https://github.com/andreallorerung/peach-chatbot-alpha/tree/master/FlaskWebProject/chatbot>).
-This can also be found at <https://github.com/nterreri/peach-bot>.
 
 In order to obtain the code it is possible to download the repository as a zip
-file from the relevant <github.com> webpage, or use the git software to clone into the
+file from the relevant github.com webpage, or use the git software to clone into the
 repository (*$ git clone https://github.com/andreallorerung/peach-chatbot-alpha*). The
 categorizer package is provided as a git submodule to the chatbot package.
 Cloning or downloading the repository will not automatically download the submodule
@@ -74,7 +74,7 @@ chatbot/
 `-- tests/
 ~~~
 
-### The *botinterface* package
+### The Chatbot
 
 The *botinterface/* package exposes the interface class for the core chatbot
 component in the *botinterface/bot_interface.py*, and provides an implementation
@@ -138,14 +138,15 @@ for word in WORDS_TO_GET_SYNONYMS_FOR:
 
 This will return a list of words which the model believes are synonyms of the
 argument to the *extractSynonyms()* method. As mentioned in Chapter 5, this
-particular implementation was underperforming, but in the future may provide
-the blueprint to other better performing implementations.
+particular implementation was underperforming, but provides
+the blueprint to future better performing implementations.
 
 ## Running py.test
 
 The tests included are meant to be run using py.test (Krekel, 2016).
 In order to allow the required project packages to be imported, this should be
-run as follows, the directory or test file to run can be specified as an
+run from the project top level directory (the one overseeing all the subpackages
+and test folder). The directory or test file to run can be specified as an
 argument to the Python CLI interpreter:
 
 ~~~
@@ -168,7 +169,7 @@ mere seconds (as it should).
 The unit tests, in fact, are designed for quick execution (they are meant
 to be ran many times an hour during TDD; see F.I.R.S.T. Martin, 2009, p.132).
 Running these tests should take less than a minute.
-Finally, if the pytest-cov package has been installed (Schlaich, 2016) then it
+Finally, if the pytest-cov package is been installed (Schlaich, 2016) then it
 is possible to get reports for code coverage about individual subpackages
 by providing the desired subpackage name as an argument in the following manner:
 
@@ -176,16 +177,23 @@ by providing the desired subpackage name as an argument in the following manner:
 python -m py.test --cov=botinterface tests/tests_unit/
 ~~~
 
-This will provide an executable statement test coverage report. See (#WHICHLETTER)
-below for results collected.
+This will provide an executable statement test coverage report.
+The reader is redirected to Chapter 5 for more
+information about the tests and Appendix B for a collected test coverage
+report.
 
-The reader is redirected to Chapter 5 and Appendix (#WHICHLETTER) for more
-information about the tests.
+# Unit Tests Results
 
-# Tests Results
+This appendix reports the unit testing code coverage for all modules in the
+project. These reports are taken from the pytest CLI because pytest-cov can only
+write HTML, XML or annotated source code to file, but not plain text as shown here.
+All tests were, of course, made to pass. Test coverage data follows[^legend]:
 
-Unit tests coverage for the *botinterface* package:
+[^legend]: Legend: "Stmts" stands for total number of executable statements found in
+module, "Miss" for statements not executed by any test, "Cover" is the percentage
+of statements covered by the tests.
 
+\rule{14.75cm}{0.4pt}
 ~~~
 ---------- coverage: platform cygwin, python 2.7.10-final-0 ----------
 Name                                    Stmts   Miss  Cover
@@ -199,124 +207,59 @@ botinterface/postprocessor.py              21      0   100%
 botinterface/postprocessor_example.py      20      0   100%
 botinterface/preprocessor.py               20      0   100%
 botinterface/rivescript_loader.py          13      1    92%
------------------------------------------------------------
-TOTAL                                     139     12    91%
-~~~
-
-Unit tests coverage for the *categorize* package[^pickle]:
-
-~~~
----------- coverage: platform linux2, python 2.7.9-final-0 -----------
-Name                                   Stmts   Miss  Cover
+categorize/__init__.py                      0      0   100%
+categorize/classifierDeserializer.py        5      0   100%
+categorize/classifierSerializer.py          4      0   100%
+categorize/dataset_reading.py              12      4    67%
+categorize/dataset_splitting.py            10      0   100%
+categorize/develop.py                      10     10     0%
+categorize/evaluation.py                   46      2    96%
+categorize/training.py                      4      0   100%
+concerns/__init__.py                        0      0   100%
+concerns/concern.py                        10      0   100%
+concerns/concern_factory.py                13      0   100%
+concerns/drive_conversation.py             54      0   100%
+concerns/drive_conversation_abstract.py    11      5    55%
+concerns/equivalence.py                    32      1    97%
+concerns/rivescriptmacros.py               24      3    88%
+concerns/topics.py                         14      0   100%
+messagelog/__init__.py                      0      0   100%
+messagelog/conversation.py                  6      0   100%
+messagelog/conversation_logging.py         21      0   100%
+messagelog/message.py                       8      0   100%
+postprocess/__init__.py                     0      0   100%
+postprocess/keyword_extractor.py            5      2    60%
+postprocess/keyword_extractor_single.py    30      0   100%
+postprocess/message_decorator.py            5      2    60%
+postprocess/message_decorator_single.py    29      0   100%
+postprocess/postprocessor_builder.py        5      0   100%
+postprocess/search_adapter.py               5      2    60%
+preprocess/__init__.py                      0      0   100%
+preprocess/preprocessor_builder.py          6      0   100%
+preprocess/stemmer_factory.py               3      0   100%
+preprocess/stemming.py                      5      2    60%
+preprocess/stemming_lancaster.py            7      1    86%
+preprocess/stopword_remover_nltk.py         6      0   100%
+preprocess/stopwords_remover.py            17      1    94%
+preprocess/stopwords_remover_lenient.py     5      0   100%
+preprocess/tokenizer.py                     5      2    60%
+preprocess/tokenizer_simple.py              7      1    86%
+synonym/__init__.py                         0      0   100%
+synonym/rivescript_array.py                 9      0   100%
+synonym/rivescript_writer.py                7      7     0%
+synonym/store_synonyms.py                   4      4     0%
+synonym/synonym_extractor.py                5      2    60%
+synonym/synonym_extractor_factory.py       13      5    62%
+synonym/synonym_word2vecextractor.py       17      0   100%
 ----------------------------------------------------------
-categorize/__init__.py                     0      0   100%
-categorize/classifierDeserializer.py       5      0   100%
-categorize/classifierSerializer.py         4      0   100%
-categorize/dataset_reading.py             12      4    67%
-categorize/dataset_splitting.py           10      0   100%
-categorize/develop.py                     10     10     0%
-categorize/evaluation.py                  46      2    96%
-categorize/training.py                     4      0   100%
-----------------------------------------------------------
-TOTAL                                     91     16    82%
+TOTAL                                     527     52    89%
 ~~~
-
-Unit tests coverage for the *concerns* package:
-
-~~~
----------- coverage: platform cygwin, python 2.7.10-final-0 ----------
-Name                                      Stmts   Miss  Cover
--------------------------------------------------------------
-concerns/__init__.py                          0      0   100%
-concerns/concern.py                          10      0   100%
-concerns/concern_factory.py                  13      0   100%
-concerns/drive_conversation.py               54      0   100%
-concerns/drive_conversation_abstract.py      11      5    55%
-concerns/equivalence.py                      32      1    97%
-concerns/rivescriptmacros.py                 24      3    88%
-concerns/topics.py                           14      0   100%
--------------------------------------------------------------
-TOTAL                                       158      9    94%
-~~~
-
-Unit tests coverage for the *messagelog* package:
-
-~~~
----------- coverage: platform cygwin, python 2.7.10-final-0 ----------
-Name                                 Stmts   Miss  Cover
---------------------------------------------------------
-messagelog/__init__.py                   0      0   100%
-messagelog/conversation.py               6      0   100%
-messagelog/conversation_logging.py      21      0   100%
-messagelog/message.py                    8      0   100%
---------------------------------------------------------
-TOTAL                                   35      0   100%
-~~~
-
-Unit tests coverage for the *postprocess* package:
-
-~~~
----------- coverage: platform cygwin, python 2.7.10-final-0 ----------
-Name                                      Stmts   Miss  Cover
--------------------------------------------------------------
-postprocess/__init__.py                       0      0   100%
-postprocess/keyword_extractor.py              5      2    60%
-postprocess/keyword_extractor_single.py      30      0   100%
-postprocess/message_decorator.py              5      2    60%
-postprocess/message_decorator_single.py      29      0   100%
-postprocess/postprocessor_builder.py          5      0   100%
-postprocess/search_adapter.py                 5      2    60%
--------------------------------------------------------------
-TOTAL                                        79      6    92%
-~~~
-
-Unit tests coverage for the *preprocess* package:
-
-~~~
----------- coverage: platform cygwin, python 2.7.10-final-0 ----------
-Name                                      Stmts   Miss  Cover
--------------------------------------------------------------
-preprocess/__init__.py                        0      0   100%
-preprocess/preprocessor_builder.py            6      0   100%
-preprocess/stemmer_factory.py                 3      0   100%
-preprocess/stemming.py                        5      2    60%
-preprocess/stemming_lancaster.py              7      1    86%
-preprocess/stopword_remover_nltk.py           6      0   100%
-preprocess/stopwords_remover.py              17      1    94%
-preprocess/stopwords_remover_lenient.py       5      0   100%
-preprocess/tokenizer.py                       5      2    60%
-preprocess/tokenizer_simple.py                7      1    86%
--------------------------------------------------------------
-TOTAL                                        61      7    89%
-~~~
-
-Unit tests coverage for the *synonym* package:
-
-~~~
----------- coverage: platform cygwin, python 2.7.10-final-0 ----------
-Name                                   Stmts   Miss  Cover
-----------------------------------------------------------
-synonym/__init__.py                        0      0   100%
-synonym/rivescript_array.py                9      0   100%
-synonym/rivescript_writer.py               7      7     0%
-synonym/store_synonyms.py                  4      4     0%
-synonym/synonym_extractor.py               5      2    60%
-synonym/synonym_extractor_factory.py      13      5    62%
-synonym/synonym_word2vecextractor.py      17      0   100%
-----------------------------------------------------------
-TOTAL                                     55     18    67%
-~~~
-
-Total:
-
-- 527 executable statements
-- 52 missed statements
-- 88.83% averaged percentage
 
 Note that there are several abstract classes that are also counted in the total
 executable statements even though they should not, for example *MessageProcessor*:
 
 ~~~ python
+#botinterface/message_processor.py
 class MessageProcessor(object):
     '''Interface a message content processor is expected to implement'''
     def __init__(self):
@@ -329,13 +272,26 @@ class MessageProcessor(object):
 ~~~
 
 The two "raise" statements are counted when they should not be, similarly with
-many other classes.
+many other classes. This means that the actual test coverage is slightly higher.
+There are 27 statements from interfaces[^abstract] that should not
+be counted as statements at all, bringing the metrics to 500 total statements
+and 25 missed statements bringing coverage to 95%.
+
+[^abstract]: Specifically, the interfaces: *botinterface/bot_abstract.py*,
+*botinterface/message_processor.py*, *concerns/drive_conversation_abstract.py*,
+*postprocess/keyword_extractor.py*, *postprocess/message_decorator.py*,
+*postprocess/search_adapter.py*, *preprocess/stemming.py*, *preprocess/tokenizer.py*,
+*synonym/store_synonyms.py*, *synonym/synonym_extractor.py*, finally the constructor
+of the abstract class *preprocess/stopwords_remover.py* should also not be counted.
+
+## Brain Integration Tests
 
 The tests also test the RiveScript brain data, and possible conversation paths
 within it, specifically it is the integration tests for the *botinterface* package
 that test "conversation cases" against the chatbot, for example:
 
 ~~~ python
+#tests/tests_integration/test_botinterface/test_preprocessedpractical.py
 def test_work():
     resetpractical()
 
@@ -364,26 +320,28 @@ brain, then sends topic pertinent user chat messages to the bot for processing.
 The both reply is tested at each message against a set of pertinent replies (
   which represents all of the replies that have been coded into the chatbot
   brain for that particular type of topic).
+
 This and other tests like it are run to verify the behaviour of the chatbot at
-the brain level (the messages are piped through the BotRivescript object).
+the brain level (with the messages piped through preprocessing).
 Furthermore, other tests verify that the chatbot brain changes its state based
 on the topics that have been discussed throughout the conversation, and other
 criteria (such as whether it is appropriate to make a query through the search
-  enginge) are also run. All such tests can be found between the
+  enginge). All such tests can be found between the
 *tests/tests_integration/test_botinterface* and *tests/tests_integration/test_concerns*
-folders.
+folders. There are other integration tests testing the interaction of two
+or more independent units, or other aspects of the system that do not belong to
+unit testing, such as using the actual word2vec model instead of a mock. Again,
+all such tests were made to pass.
 
-Finally, the RiveScript Python macro code within *FlaskWebProject/chatbot/brain/python.rive*
-is not considered and not covered by tests and is in fact impossible to test in isolation. This is because
-of the fact that the RiveScript object instance "rs" accessible within these
+Finally, the RiveScript Python macro code within *brain/python.rive*
+is not considered and not directly covered by any tests and is in fact
+impossible to test in isolation. This is because
+the RiveScript object instance "rs" accessible within these
 macros cannot be called from inside separate and isolated methods (as it was the
 author's original intention) and will raise an error if it is passed as a variable
 to an externally defined unit of Pyhon code. This aspect of RiveScript is poorly documented, and
-another reason to move away from the framework in the future.
-
-[^pickle]: You may notice the different platform running the tests for the
-categorizer (linux) this is due to an issue with the pickle package on Windows,
-see: <https://github.com/DataTeaser/textteaser/issues/3>
+another reason to move away from the framework in the future (Petherbridge, 2009,
+    <https://www.rivescript.com/wd/RiveScript#OBJECT-MACROS>).
 
 # Categorizer Evaluation
 
@@ -396,15 +354,16 @@ a Maximum Entropy classifier.
 The data splitting logic in the *categorize* package by default simply takes
 10% of the labelled data set for training, and another 10% for developement:
 
-\rule{14.75cm}{0.4pt}
 ~~~ python
+#categorize/dataset_splitting.py
 def split(labelled_data, testsizepercent = 0.1, devsizepercent = 0.1, \
           shuffle = False):
 ~~~
-\rule{14.75cm}{0.4pt}
 
 The results of running the Naive Bayes classifier against the test set
 (around 22 test cases) is disappointing:
+
+\pagebreak
 
 \rule{14.75cm}{0.4pt}
 ~~~
