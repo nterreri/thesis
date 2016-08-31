@@ -18,7 +18,7 @@ chatbot brain. The scope of the author work is limited to the implementation of
 the chatbot and supporting systems. The overall architecture of the components is illustrated
 below.
 
-![System component diagram](componentChatbot.jpg)
+![System component diagram](componentChatbot.pdf)
 
 ## Software Architecture
 
@@ -115,7 +115,7 @@ a clear and sensible separation of concerns with the message coming into the sys
 being preprocessed prior to being forwarded to the chatbot framework, and then
 postprocessed as needed.
 
-![BotRivescript class](classBotInterfaceChatbot.jpg)
+![BotRivescript class](classBotInterfaceChatbot.pdf)
 
 This provides a degree of decoupling from the chatbot
 framework, instead of making it a central component of the system, allowing it to be changed for
@@ -183,7 +183,7 @@ that may cause matching to fail, even though they do not modify the meaning of
 the sentence significantly, for example "I do like you" (auxilliary verbs are
 used in English for emphasis).
 
-![Preprocessor class diagram](classMessagePreprocessorChatbot.jpg)
+![Preprocessor class diagram](classMessagePreprocessorChatbot.pdf)
 
 Modules responsible for the preprocessing are defined within the "preprocess"
 subpackage. The creation of stemmers is handled through a factory that is minimal
@@ -220,7 +220,7 @@ preprocessor, is also a façade. The role of the postprocessor in the current
 implementation relates to the integration with the search engine being worked
 on by Rim Ahsaini.
 
-![Postprocessor class diagram](clasMessageProcessorChatbot.jpg)
+![Postprocessor class diagram](classMessageProcessorChatbot.pdf)
 
 The modules it defers to apparently extract a keyword from the system output message,
 perform a query with that keyword and then decorate the message with the result

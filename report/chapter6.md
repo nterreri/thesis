@@ -1,10 +1,13 @@
 # Conclusion
 
 This chapter reviews the project goals and aims, finally, the author expresses
-his thoughts on the project going forward, informed by a critical review of the
-open source tools used.
+his thoughts on the project going forward.
 
-## Project Goals Review (#MAP TO REQUIREMENTS)
+## Project Goals Review
+
+The goals and aims introduced in Chapter 1 are here reviewd.
+All references to "RQ" below refer to the requirements
+table in Chapter 3.
 
 - **Design and implement a chatbot architecture tailored to the issues surrounding
 software systems in healthcare (in particular around treatment of sensitive patient data)**
@@ -12,29 +15,40 @@ software systems in healthcare (in particular around treatment of sensitive pati
 As discussed in Chapter 2, there are crucial compliance concerns around the sensitivity
 of patient data that have driven the implementation decision not to employ third
 party APIs for the processing of natural language user input, even where this
-may have significantly simplified the chatbot brain implementation task.
+may have significantly simplified the chatbot brain implementation task (see RQNF0, RQ1).
+From this it is possible to see the project achieved all key requirements and
+several additional requirements[^missedreqs].
 
 - **To integrate with a specialized search engine (developed by another member of the team)**
 
 While development over the current project had terminated before the search engine
 was completed, a clear reference on how to integrate between the systems had
-been provided (and materialized in the integration testing "MockSearch" class).
+been provided (and materialized in the integration testing "MockSearch" class
+and shown integrated at the postprocessing stage; see also RQ5).
 
 - **To explore other applications of NLP that could be useful to extract information from natural language data.**
 
 The current project has used NLP to investigate a hybrid approach to chatbot
 technology, making use of both rule or grammar based technologies and machine
-learning with the categorizer. Secondly, NLP was used for the synonym generation.
+learning with the categorizer (RQ0, RQ2, RQ3). Secondly, NLP was used for the synonym generation (RQ8).
 
 - **To implement a chatbot brain using open source technology.**
 As mentioned, a chatbot brain was implemented in RiveScript, after reviewing
-the available choice of technologies given the restrictions on patient data.
+the available choice of technologies given the restrictions on patient data (RQNF0, RQ1).
 
 - **To develop the system with Macmillan eHNA as the main reference.**
 
 As discussed in Chapter 2, it was with reference to the CC used in one of Macmillan
 eHNA forms that was used for the concrete implementation of the topics in the
-"concerns" subpackage.
+"concerns" subpackage (RQNF1).
+
+[^missedreqs]: The requirements not covered by this list were not selected as strictly necessary
+for the project success (*May* under MoSCoW: RQ8, RQ9).
+RQ7 and RQ8 echo the initial uncertainty with respect to the
+technologies the other team members were going to use, later the whole team used
+Python making such concerns redundant, however they are left in the list as they
+would need to be considered should the technologies around the chatbot component
+change in the future.
 
 ## Personal Aims Review
 
@@ -74,31 +88,42 @@ expansion.
 
 The "plugin" model makes the system independent of the IO device that delivers it
 (in the case of the group project, a webserver) which may be in the future a mobile app,
-a CLI client, or a Java Swing interface. It is, in fact, the caller's
+a CLI client, or anything else. It is, in fact, the caller's
 responsibility to import this project's packages and modules, and to use them
-as documented in the test cases. The data models gathering conversation and
+as documented in the test cases. Similarly, the data models gathering conversation and
 user concerns data should be used in a similar fashion: independently of the
 durable storage solution adopted (whether this is SQL, NoSQL, host filesystem
 or any other) it should be the caller's responsibility to import this project
-to serialize the data.
+to serialize the data[^facade].
 
-### Evaluation of Technologies Used
-#### RiveScript
-While the choice of RiveScript as the chatbot brain framework was sensible at the
-time given the prior research, the author reccomends other options are investigated
-during the next iteration, for the following reasons.
+[^facade]:  Although both consumers of the
+system would benefit from the creation of a unified façade instead of having dependencies
+across multiple subpackages of the system (Gamma et al, 1995, Chapter 4.5).  
 
-The undocumented problems encountered with it during
-development, its limitations with respect to matching semantic patterns of input
-(unlike others like ChatScript), the chatbot brain implementation provided with the
-current project is not very extensive.
+There are various ways in which the project could be extended. First of all,
+the author advises exploring an open source framework different from RiveScript
+given the limitations discovered within it during this project (or if the client believes
+it appropriate using third party remote APIs.). See Appendix A
+for instructions on how to replace RiveScript with some other alternative, and
+see Chapter 2 for a discussion of alternatives.
 
-#### NLTK and Gensim
-The NTLK proved to be a versatile tool, used primarily in the categorization
-and message processing modules. Its main limitation is the lack of sequence
-classifier support (as lamented in Chapter 2). For this reason it is recommended
-that alternatives that offer such models are investigated during the next
-iteration (see for example Schreiber et al, 2016).
+Secondly, the categorizer module (to which only a week was dedicated during this
+project) could be made more robust and extended to use sequence classifiers, potentially
+extending the NLTK open source project (see Chapter 2 and Appendix (#??) for
+initial research in this direction). Eventually, this should become part of the
+preprocessing layer to inform the input to the rule-based chatbot enigne with the
+output of a machine learning component.
 
-The use made of Gensim in the current iteration was very minimal, but this tool
-seems so highly specialized that it is difficult to find alternatives to it.
+Third, generation of RiveScript (or other specialized languages) could be investigated
+following up on the initial results with the synonym generation package. This could
+dynamically generate synonyms to help improve pattern matchers.
+
+Finally and most importantly, it may be desirable to investigate information-retrieval techniques to
+extract information from the conversation data gathered during conversations.
+One of the biggest obstacles to providing cancer patients with better care is the
+time it takes to create a care plan. Through the extraction
+of information about the patient's concerns ahead of time, it may be possible
+to shorten the duration of the care plan appointments, and therefore allow
+a larger number of patients to be provided with a care plan. Of course, it would
+still be necessary to first gather relevant data through the conversational UI
+or a different solution.
