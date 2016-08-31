@@ -219,7 +219,10 @@ synonym generation tests which require a very large amount of RAM to run efficie
 It takes around 3-4 minutes on an 8-core desktop with 8GBs and the amount
 of memory required to run
 it *without* thrashing happening as pages are swapped in and out of virtual memory
- is higher than 8GBs.
+ is higher than 8GBs[^word2vec].
+
+ [^word2vec]: The publically available model used is not provided with the system, but obtainable from:
+  https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit
 
 It is good to notice at this point the difference in runtime between the decoupled unit tests
 and the integration tests in this case, running all unit tests for the project takes
@@ -343,54 +346,11 @@ and 25 missed statements bringing coverage to 95%.
 *synonym/store_synonyms.py*, *synonym/synonym_extractor.py*, finally the constructor
 of the abstract class *preprocess/stopwords_remover.py* should also not be counted.
 
-## Brain Integration Tests
-
-The tests also test the RiveScript brain data, and possible conversation paths
-within it, specifically it is the integration tests for the *botinterface* package
-that test "conversation cases" against the chatbot, for example:
-
-~~~ python
-#tests/tests_integration/test_botinterface/test_preprocessedpractical.py
-def test_work():
-    resetpractical()
-
-    # perform:
-    messages = ["I am underperforming at work because of stress",
-    "Something about work ...", "I am afraid to lose my job"]
-
-    for msg in messages[:]:
-        reply = bot.reply(Message(USERID, msg))
-        # test:
-        found = False
-        good_replies = ["Are you afraid for your job security?",
-        "Would you say this is also a money concern?",
-        "How has your condition been affecting your work?"]
-
-        for good_reply in good_replies:
-            if good_reply == reply:
-                found = True
-                break
-
-        assert found, reply
-~~~
-
-This test first resets the conversation to the "practical" topic in the RiveScript
-brain, then sends topic pertinent user chat messages to the bot for processing.
-The both reply is tested at each message against a set of pertinent replies (
-  which represents all of the replies that have been coded into the chatbot
-  brain for that particular type of topic).
-
-This and other tests like it are run to verify the behaviour of the chatbot at
-the brain level (with the messages piped through preprocessing).
-Furthermore, other tests verify that the chatbot brain changes its state based
-on the topics that have been discussed throughout the conversation, and other
-criteria (such as whether it is appropriate to make a query through the search
-  enginge). All such tests can be found between the
-*tests/tests_integration/test_botinterface* and *tests/tests_integration/test_concerns*
-folders. There are other integration tests testing the interaction of two
+There are also integration tests testing the interaction of two
 or more independent units, or other aspects of the system that do not belong to
 unit testing, such as using the actual word2vec model instead of a mock. Again,
-all such tests were made to pass.
+all such tests were made to pass. As mentioned in Chapter 5, the RiveScript brain
+logic is also extensively tested via integration tests.
 
 Finally, the RiveScript Python macro code within *brain/python.rive*
 is not considered and not directly covered by any tests and is in fact
