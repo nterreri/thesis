@@ -110,7 +110,7 @@ something like code listing (#SOMENUMBER) is necessary.
 #### Replacing RiveScript
 
 In order to replace the RiveScript interpreter, it is necessary to create another
-implementation of the BotInterface class, readapting the implementation
+implementation of the BotInterface class, adapting the implementation
 provided in BotRivescript:
 
 ~~~ python
@@ -128,14 +128,42 @@ def __init__(self, preprocessor=None,
 Depending on the framework used, it may be necessary
 to create a proxy for a unit of software implemented in other languages than
 Python. This is made easier by the various Python compilers that allow other
-languages to be used together with Python (see Reitz and Schlusser, 2016
-here: <http://docs.python-guide.org/en/latest/starting/which-python/>).
+languages to be used together with Python[^hitchhike] (indeed, the design of
+the system would benefit from having a proxy putting further distance between
+the chatbot framework and the system).
 
-It would also be necessary to alter the *bot_builder* module to include the
-new or modified implementation in oder to use it as a "bot assembling" facility.
+In order to keep the implementation of BotRivescript it may be best to modify it
+to take a proxy to another chatbot framework that exposes a "reply" method.
+Effectively, the BotRivescript class only expects its interpreter to expose a
+"reply" method, but other aspects of the implementation may change as well such as
+how to start the conversation with the user, requiring further changes to be
+made.
+
+[^hitchhike]: See Reitz and Schlusser, 2016
+here: <http://docs.python-guide.org/en/latest/starting/which-python/>
+
 Requirements for the pre- and postprocessing of messages are also likely to change,
-and similar considerations apply to the relevant packages.
+therefore similar considerations apply to their packages.
+Finally, it would be necessary to alter the *bot_builder* module to include the
+new or modified implementation, as
+this would need to know and name (import) the new implementations:
 
+~~~ python
+#adapted from botinterface/bot_builder
+import rivescript
+import bot_rivescript
+    ...
+class BotBuilder(object):
+    ...
+    def build(self):
+        self.interpreter = rivescript.RiveScript(debug=False)
+
+        return bot_rivescript.BotRivescript(
+            preprocessor=self.preprocessor,
+            postprocessor=self.postprocessor,
+            interpreter=self.interpreter,
+            brain=self.brain)
+~~~
 See also the discussion of alternatives to RiveScript in Chapter 2.
 
 ### Categorizer
