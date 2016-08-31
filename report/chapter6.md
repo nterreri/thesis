@@ -98,7 +98,7 @@ to serialize the data[^facade].
 
 [^facade]:  Although both consumers of the
 system would benefit from the creation of a unified façade instead of having dependencies
-across multiple subpackages of the system.  
+across multiple subpackages of the system (Gamma et al, 1995, Chapter 4.5).  
 
 There are various ways in which the project could be extended. First of all,
 the author advises exploring an open source framework different from RiveScript
