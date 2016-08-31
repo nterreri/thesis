@@ -59,7 +59,8 @@ working on the core chatbot system, with the full questionnaire being completed
 by the user through interaction with the chatbot.
 
 During the first meeting, the idea of a specialized search engine
-emerged, with Rim Ahsaini interested in taking charge of that system. From there
+emerged, with Rim Ahsaini interested in making the implementation of that system
+her project. From there
 came also the idea of integration between the two systems, with the chatbot
 system having to decide whether to make a query during the interaction with the
 user.
@@ -77,9 +78,9 @@ supervisor on the basis of what would be most useful to investigate from a techn
 point of view looking at the future of the project. Objectives were decided on
 a weekly basis, in line with agile methodology.
 
-## Requirements Listing
-
-\renewcommand{\arraystretch}{2}
+\newgeometry{top=2cm}
+\bgroup
+\def\arraystretch{2.75}
 \setstretch{1.0}
 \begin{table}[]
 \centering
@@ -88,46 +89,51 @@ a weekly basis, in line with agile methodology.
 \begin{tabular}{|l|l|l|} \hline
 \textbf{Label} & \textbf{Requirement}                                       & \textbf{Priority}\\
 \hline
-RQ0            & \pbox{25cm}{The chatbot will categorize userinput into\\
-                    predefined concern categories}                          & {\color[HTML]{FE0000} Must}   \\
+RQ0            & \pbox{10cm}{The chatbot will categorize userinput into predefined
+                concern categories}                          & {\color[HTML]{FE0000} Must}   \\
 \hline
-RQ1            & \pbox{25cm}{The chatbot will generate replies aimed at\\
-                    asking the user for more details, and gather \\
-                    information on concern raised}                          & {\color[HTML]{FE0000} Must}   \\
+RQ1            & \pbox{10cm}{The chatbot will generate replies aimed at asking
+                    the user for more details, and gather information on concern
+                     raised}                          & {\color[HTML]{FE0000} Must}   \\
 \hline
-RQ2            & \pbox{25cm}{The chatbot will decide whether to reply with \\
-                    a generative or non-generative reply}                    & {\color[HTML]{FE0000} Must}\\
+RQ2            & \pbox{10cm}{The chatbot will decide whether the generative reply
+                should be provided as the result of a query or bot-brain generated
+                 reply}                                            & {\color[HTML]{F8A102} Should}\\
 \hline
-RQ3            & \pbox{25cm}{The chatbot will decide whether the generative \\
-                reply should be provided as the result of a query or bot-brain\\
-                generated reply}                                            & {\color[HTML]{F8A102} Should}\\
-\hline
-RQ4            & \pbox{25cm}{The chatbot will model the data gathered appropriately\\
+RQ3            & \pbox{10cm}{The chatbot will model the data gathered appropriately
                             for durable storage in datastore}                  & {\color[HTML]{FE0000} Must}   \\
 \hline
-RQ5            & \pbox{25cm}{The chatbot will interface with the search/query \\
-                engine component of the larger system it is part of}         & {\color[HTML]{F8A102} Should} \\
+RQ4            & \pbox{10cm}{The chatbot will interface with the search/query engine
+                 component of the larger system it is part of}         & {\color[HTML]{F8A102} Should} \\
 \hline
-RQ6            & \pbox{25cm}{The chatbot may performsentiment analysison user \\
-                input}                                                       & {\color[HTML]{32CB00} Could}  \\
+RQ5            & \pbox{10cm}{The chatbot may performsentiment analysison user input}   & {\color[HTML]{32CB00} Could}  \\
 \hline
-RQ7            & \pbox{25cm}{The chatbot may use the preprocessed input \\
+RQ6            & \pbox{10cm}{The chatbot may use the preprocessed input
                 (categorization/sentiment analysis) to inform the bot-brain} & {\color[HTML]{F8A102} Should} \\
 \hline
-RQ8            & \pbox{25cm}{The chatbot may interface with server side request\\
+RQ7            & \pbox{10cm}{The chatbot may interface with server side request
                 handling logic}                                              & {\color[HTML]{F8A102} Should} \\
 \hline
-RQ9            & \pbox{25cm}{The chatbot mayreceive/return queries in the form of\\
+RQ8            & \pbox{10cm}{If a rule-based approach is taken, steps should be
+                taken to automate the generation of rules}                   & {\color[HTML]{F8A102} Should} \\
+\hline
+RQ9            & \pbox{10cm}{The chatbot mayreceive/return queries in the form of
                 JSON/XML documents}                                          & {\color[HTML]{32CB00} Could}  \\
 \hline
-RQ10           & \pbox{25cm}{The chatbot may be deployed outside the context of \\
-                        eHNAs as an independently accessible service}        & {\color[HTML]{32CB00} Could}  \\
+RQ10           & \pbox{10cm}{The chatbot may be deployed outside the context of
+                        eHNAs as an independently accessible service}        & {\color[HTML]{32CB00} Could} \\
 \hline
-RQN0           & \pbox{25cm}{The chatbot will not have an offline/cached \\
-                operating mode}                                              & Will not  \\              
+RQNF0           & \pbox{10cm}{The chatbot will use open source technologies instead
+                     of remote APIs due to the sensitive nature of patient data}                                                  & {\color[HTML]{FE0000} Must}\\
+\hline
+RQNF1           & \pbox{10cm}{To use Macmillan Cancer Support's eHNA and the Concerns
+                     Checklist questionnaire as references for the project}  & {\color[HTML]{FE0000} Should}\\
+\hline
+RQN0           & \pbox{10cm}{The chatbot will not have an offline/cached operating
+                 mode}                                              & Will not  \\              
 \hline
 \end{tabular}
-\end{table}}
+\end{table}
+\egroup
 \setstretch{1.5}
-
-## Use Case Diagram
+\restoregeometry

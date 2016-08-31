@@ -14,6 +14,7 @@ secnumdepth: 2
 
 bibliography: bibl.bib
 header-includes:
+    - \usepackage[a4paper]{geometry}
     - \usepackage{pbox}
     - \usepackage[table,xcdraw]{xcolor}
     - \usepackage{url}
