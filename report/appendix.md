@@ -387,37 +387,44 @@ see: <https://github.com/DataTeaser/textteaser/issues/3>
 
 # Categorizer Evaluation
 
+The survey gathered 222 data points in total. The same split was used for the
+training and testing of both classifier implementations used.
 The single-label categorizers used in the project where the two that are adapted
 from the nltk into the TextBlob package. A Naive Bayes classifier and
 a Maximum Entropy classifier.
 
-The results of running the first against a test set (which is 10% the size of
-  the complete dataset of 222 data points, around 22 test cases) is disappointing:
+The data splitting logic in the *categorize* package by default simply takes
+10% of the labelled data set for training, and another 10% for developement:
 
+\rule{14.75cm}{0.4pt}
+~~~ python
+def split(labelled_data, testsizepercent = 0.1, devsizepercent = 0.1, \
+          shuffle = False):
+~~~
+\rule{14.75cm}{0.4pt}
+
+The results of running the Naive Bayes classifier against the test set
+(around 22 test cases) is disappointing:
+
+\rule{14.75cm}{0.4pt}
 ~~~
 Accuracy: 0.36
-
-Recall for 'phys': 0.67
-Precision for 'phys': 0.33
-F for 'phys': 0.44
-Recall for 'pract': 0.0
-Precision for 'pract': 0.0
-F for 'pract': 0
-Recall for 'family': 0.4
-Precision for 'family': 1.0
-F for 'family': 0.57
-Recall for 'emotion': 0.4
-Precision for 'emotion': 0.4
-F for 'emotion': 0.4
-Recall for 'spiritual': 0.0
-Precision for 'spiritual': 0.0
-F for 'spiritual': 0
-
 Macro averaged recall: 0.29
 Macro averaged precision: 0.35
 Micro averaged recall: 0.36
 Micro averaged precision: 0.36
+
+Recall for 'pract': 0.0         Recall for 'phys': 0.67
+Precision for 'pract': 0.0      Precision for 'phys': 0.33
+F for 'pract': 0                F for 'phys': 0.44
+Recall for 'family': 0.4        Recall for 'emotion': 0.4
+Precision for 'family': 1.0     Precision for 'emotion': 0.4
+F for 'family': 0.57            F for 'emotion': 0.4
+Recall for 'spiritual': 0.0
+Precision for 'spiritual': 0.0
+F for 'spiritual': 0
 ~~~
+\rule{14.75cm}{0.4pt}
 
 All metrics for the 'pract' and 'spiritual' labels are 0 which means the classifier
 systematically gets them wrong over the data set. The micro and macro averages
@@ -426,25 +433,28 @@ of precision and recall for all labels score around 33%.
 The MaxEntClassifier, instead, scores over the same data split (10% test, 10% dev,
   80% train) when made to iterate over the dev set for 10 iterations:
 
+\pagebreak
+
+\rule{14.75cm}{0.4pt}
 ~~~
 Accuracy: 0.55
+Macro averaged recall: 0.4467
+Macro averaged precision: 0.4911
+Micro averaged recall: 0.5454
+Micro averaged precision: 0.5454
 
-Recall for 'phys': 0.83             |Macro averaged recall: 0.4467
-Precision for 'phys': 0.56          |Macro averaged precision: 0.4911
-F for 'phys': 0.67                  |Micro averaged recall: 0.5454
-Recall for 'pract': 0.4             |Micro averaged precision: 0.5454
-Precision for 'pract': 0.4
-F for 'pract': 0.4
-Recall for 'family': 0.4
-Precision for 'family': 1.0
-F for 'family': 0.57
-Recall for 'emotion': 0.6
-Precision for 'emotion': 0.5
-F for 'emotion': 0.55
+Recall for 'pract': 0.4         Recall for 'phys': 0.83
+Precision for 'pract': 0.4      Precision for 'phys': 0.56
+F for 'pract': 0.4              F for 'phys': 0.67
+Recall for 'family': 0.4        Recall for 'emotion': 0.6
+Precision for 'family': 1.0     Precision for 'emotion': 0.5
+F for 'family': 0.57            F for 'emotion': 0.55
 Recall for 'spiritual': 0.0
 Precision for 'spiritual': None
 F for 'spiritual': None
 ~~~
+\rule{14.75cm}{0.4pt}
+
 Like the Naive Bayes classifier, it scores a 0 in every metric for the 'spiritual'
 label, but scores better in other global metrics (averaged over all labels).
 
@@ -453,23 +463,34 @@ label, but scores better in other global metrics (averaged over all labels).
 The reason for the performance is most likely the lack of problem-specific feature
 extraction. The feature extractors that both classifiers use in the current
 implementation, in fact, is simply that both use the default feature extractor
-provided with TextBlob (see <http://textblob.readthedocs.io/en/dev/_modules/textblob/classifiers.html#basic_extractor>).
+provided with TextBlob [^features].
 
 This feature extractor simply looks at all the words contained within the train set,
 and encodes features as the occurrence of the word within the document.
 This means that when the classifier is asked to classify a document it will look
 simply at what words in the vocabulary seen at training time occur in the it.
 The purpose of having a development set is exactly to improve our feature
-extraction, but the timeline of the current project unfortunately left no time
-to work on this aspect of the system.
+extraction, but the timeline and priorities of the current project unfortunately
+ left no time to work on this aspect of the system.
+
+Secondly, given that the data is split in the exact same way for evaluation
+of the classifier, the failure to correctly label any of the "spiritual" category
+data points may have to do with idiosyncrasies with the data split, such as no
+data points of that category occurring in the test set. This has partly to do with
+the small amount of data available, but could be alleviated using more advanced
+evaluation techniques, such as k-fold validation (Bird et al, 2015, Chapter 6
+section 3.5; Sebastiani, 2002, pp.9-10).
 
 Furthermore, see the discussion of sequence classifier for what is perhaps a more
 interesting direction than simply improving the performance single-label classifers
 (#REFERENCE).
 
+[^features]: See     
+<http://textblob.readthedocs.io/en/dev/_modules/textblob/classifiers.html#basic_extractor>
+
 # Code Listing
 
-Partial code listings follow. The entire source code can be obtained following
+Partial code listings follow. The full source code can be obtained following
 the instructions in Appendix A.
 
 # References
