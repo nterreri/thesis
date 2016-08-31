@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>310</x>
+      <y>530</y>
+      <w>200</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+&lt;&lt;package&gt;&gt;
+botinterface</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>80</x>
+      <y>470</y>
+      <w>200</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+&lt;&lt;package&gt;&gt;
+messagelog</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>310</x>
+      <y>390</y>
+      <w>200</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+&lt;&lt;package&gt;&gt;
+preprocess</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>310</x>
+      <y>460</y>
+      <w>200</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+&lt;&lt;package&gt;&gt;
+postprocess</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>570</x>
+      <y>480</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>BotBuilder</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>80</x>
+      <y>540</y>
+      <w>200</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+&lt;&lt;package&gt;&gt;
+concerns</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>700</x>
+      <y>470</y>
+      <w>200</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+&lt;&lt;package&gt;&gt;
+categorizer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>700</x>
+      <y>540</y>
+      <w>200</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+&lt;&lt;package&gt;&gt;
+synonym</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>70</x>
+      <y>430</y>
+      <w>220</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=.
+data models and 
+conversation management</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>300</x>
+      <y>360</y>
+      <w>380</w>
+      <h>250</h>
+    </coordinates>
+    <panel_attributes>lt=.
+core processing</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>690</x>
+      <y>440</y>
+      <w>220</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>lt=.
+machine learning</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>500</x>
+      <y>400</y>
+      <w>140</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;120.0;20.0;120.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>500</x>
+      <y>470</y>
+      <w>90</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;70.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>500</x>
+      <y>500</y>
+      <w>140</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;70.0;120.0;70.0;120.0;10.0</additional_attributes>
+  </element>
+</diagram>
