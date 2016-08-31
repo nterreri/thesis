@@ -2,9 +2,10 @@
 
 This chapter reviews the project goals and aims, finally, the author expresses
 his thoughts on the project going forward, informed by a critical review of the
-open source tools used.
+open source tools used. All references to "RQ" below refer to the requirements
+table in Chapter 3.
 
-## Project Goals Review (#MAP TO REQUIREMENTS)
+## Project Goals Review
 
 - **Design and implement a chatbot architecture tailored to the issues surrounding
 software systems in healthcare (in particular around treatment of sensitive patient data)**
@@ -12,29 +13,40 @@ software systems in healthcare (in particular around treatment of sensitive pati
 As discussed in Chapter 2, there are crucial compliance concerns around the sensitivity
 of patient data that have driven the implementation decision not to employ third
 party APIs for the processing of natural language user input, even where this
-may have significantly simplified the chatbot brain implementation task.
+may have significantly simplified the chatbot brain implementation task (see RQNF0, RQ1).
+From this it is possible to see the project achieved all key requirements and
+several additional requirements[^missedreqs].
 
 - **To integrate with a specialized search engine (developed by another member of the team)**
 
 While development over the current project had terminated before the search engine
 was completed, a clear reference on how to integrate between the systems had
-been provided (and materialized in the integration testing "MockSearch" class).
+been provided (and materialized in the integration testing "MockSearch" class
+and shown integrated at the postprocessing stage; see also RQ5).
 
 - **To explore other applications of NLP that could be useful to extract information from natural language data.**
 
 The current project has used NLP to investigate a hybrid approach to chatbot
 technology, making use of both rule or grammar based technologies and machine
-learning with the categorizer. Secondly, NLP was used for the synonym generation.
+learning with the categorizer (RQ0, RQ2, RQ3). Secondly, NLP was used for the synonym generation (RQ8).
 
 - **To implement a chatbot brain using open source technology.**
 As mentioned, a chatbot brain was implemented in RiveScript, after reviewing
-the available choice of technologies given the restrictions on patient data.
+the available choice of technologies given the restrictions on patient data (RQNF0, RQ1).
 
 - **To develop the system with Macmillan eHNA as the main reference.**
 
 As discussed in Chapter 2, it was with reference to the CC used in one of Macmillan
 eHNA forms that was used for the concrete implementation of the topics in the
-"concerns" subpackage.
+"concerns" subpackage (RQNF1).
+
+[^missedreqs]: The requirements not covered by this list were not selected as strictly necessary
+for the project success (*May* under MoSCoW: RQ8, RQ9).
+RQ7 and RQ8 echo the initial uncertainty with respect to the
+technologies the other team members were going to use, later the whole team used
+Python making such concerns redundant, however they are left in the list as they
+would need to be considered should the technologies around the chatbot component
+change in the future.
 
 ## Personal Aims Review
 
