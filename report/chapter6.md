@@ -1,11 +1,13 @@
 # Conclusion
 
 This chapter reviews the project goals and aims, finally, the author expresses
-his thoughts on the project going forward, informed by a critical review of the
-open source tools used. All references to "RQ" below refer to the requirements
-table in Chapter 3.
+his thoughts on the project going forward.
 
 ## Project Goals Review
+
+The goals and aims introduced in Chapter 1 are here reviewd.
+All references to "RQ" below refer to the requirements
+table in Chapter 3.
 
 - **Design and implement a chatbot architecture tailored to the issues surrounding
 software systems in healthcare (in particular around treatment of sensitive patient data)**
@@ -86,31 +88,42 @@ expansion.
 
 The "plugin" model makes the system independent of the IO device that delivers it
 (in the case of the group project, a webserver) which may be in the future a mobile app,
-a CLI client, or a Java Swing interface. It is, in fact, the caller's
+a CLI client, or anything else. It is, in fact, the caller's
 responsibility to import this project's packages and modules, and to use them
-as documented in the test cases. The data models gathering conversation and
+as documented in the test cases. Similarly, the data models gathering conversation and
 user concerns data should be used in a similar fashion: independently of the
 durable storage solution adopted (whether this is SQL, NoSQL, host filesystem
 or any other) it should be the caller's responsibility to import this project
-to serialize the data.
+to serialize the data[^facade].
 
-### Evaluation of Technologies Used
-#### RiveScript
-While the choice of RiveScript as the chatbot brain framework was sensible at the
-time given the prior research, the author reccomends other options are investigated
-during the next iteration, for the following reasons.
+[^facade]:  Although both consumers of the
+system would benefit from the creation of a unified façade instead of having dependencies
+across multiple subpackages of the system.  
 
-The undocumented problems encountered with it during
-development, its limitations with respect to matching semantic patterns of input
-(unlike others like ChatScript), the chatbot brain implementation provided with the
-current project is not very extensive.
+There are various ways in which the project could be extended. First of all,
+the author advises exploring an open source framework different from RiveScript
+given the limitations discovered within it during this project (or if the client believes
+it appropriate using third party remote APIs.). See Appendix A
+for instructions on how to replace RiveScript with some other alternative, and
+see Chapter 2 for a discussion of alternatives.
 
-#### NLTK and Gensim
-The NTLK proved to be a versatile tool, used primarily in the categorization
-and message processing modules. Its main limitation is the lack of sequence
-classifier support (as lamented in Chapter 2). For this reason it is recommended
-that alternatives that offer such models are investigated during the next
-iteration (see for example Schreiber et al, 2016).
+Secondly, the categorizer module (to which only a week was dedicated during this
+project) could be made more robust and extended to use sequence classifiers, potentially
+extending the NLTK open source project (see Chapter 2 and Appendix (#??) for
+initial research in this direction). Eventually, this should become part of the
+preprocessing layer to inform the input to the rule-based chatbot enigne with the
+output of a machine learning component.
 
-The use made of Gensim in the current iteration was very minimal, but this tool
-seems so highly specialized that it is difficult to find alternatives to it.
+Third, generation of RiveScript (or other specialized languages) could be investigated
+following up on the initial results with the synonym generation package. This could
+dynamically generate synonyms to help improve pattern matchers.
+
+Finally and most importantly, it may be desirable to investigate information-retrieval techniques to
+extract information from the conversation data gathered during conversations.
+One of the biggest obstacles to providing cancer patients with better care is the
+time it takes to create a care plan. Through the extraction
+of information about the patient's concerns ahead of time, it may be possible
+to shorten the duration of the care plan appointments, and therefore allow
+a larger number of patients to be provided with a care plan. Of course, it would
+still be necessary to first gather relevant data through the conversational UI
+or a different solution.
