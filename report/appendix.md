@@ -107,6 +107,37 @@ As mentioned before, the conversation logging facilities provided by the
 *messagelog* package are not automatically used by the chatbot instance, instead
 something like code listing (#SOMENUMBER) is necessary.
 
+#### Replacing RiveScript
+
+In order to replace the RiveScript interpreter, it is necessary to create another
+implementation of the BotInterface class, readapting the implementation
+provided in BotRivescript:
+
+~~~ python
+#botinterface/bot_rivescript
+def __init__(self, preprocessor=None,
+                   brain="./brain",
+                   interpreter=rivescript.RiveScript(),
+                   postprocessor=None):
+    '''The chatbot interface includes an optional message preprocessing and
+    reply postprocessing layers'''
+    self._preprocessor   = preprocessor
+    self._interpreter    = rivescript_loader.loadBrain(interpreter, brain)
+    self._postprocessor  = postprocessor
+~~~
+Depending on the framework used, it may be necessary
+to create a proxy for a unit of software implemented in other languages than
+Python. This is made easier by the various Python compilers that allow other
+languages to be used together with Python (see Reitz and Schlusser, 2016
+here: <http://docs.python-guide.org/en/latest/starting/which-python/>).
+
+It would also be necessary to alter the *bot_builder* module to include the
+new or modified implementation in oder to use it as a "bot assembling" facility.
+Requirements for the pre- and postprocessing of messages are also likely to change,
+and similar considerations apply to the relevant packages.
+
+See also the discussion of alternatives to RiveScript in Chapter 2.
+
 ### Categorizer
 
 The categorizer can be used through the *demo.py* module. Effectively, this module
