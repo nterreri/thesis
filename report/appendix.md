@@ -6,13 +6,14 @@ As stated before, the scope of this report is limited to the core chatbot system
 which interfaces with a webserver for delivery to
 a user in the larger team effor. For this reason, no user manual is provided.
 
-## Installation
+## Source Code
 
-The full project source code (including the code of the other team members)
+The full project source code
 is available at: <https://github.com/nterreri/peach-bot>.
 
 It can also be found under the PEACH chatbot team project repository
-under the '/FlaskWebProject/chatbot/' directory therein
+under the '/FlaskWebProject/chatbot/' directory therein, together with the code
+produced by the rest of the PEACH chatbot team
  (<https://github.com/andreallorerung/peach-chatbot-alpha/tree/master/FlaskWebProject/chatbot>).
 
 In order to obtain the code it is possible to download the repository as a zip
@@ -24,16 +25,16 @@ content. To download all submodules when cloning, use
 *$ git clone --recursive https://github.com/andreallorerung/peach-chatbot-alpha*.
 It is not possible to do the same if downloading the repository as a zip file,
 which means it is necessary to navigate manually to the categorizer repository
-(<https://github.com/nterreri/peach-categorize>) before downloading it.
-
-When wanting to download the submodule after having cloned into the repository
-non-recursively, use *$ git submodule update --init --recursive* to download
-the submodule.
+(<https://github.com/nterreri/peach-categorize>) before downloading it[^nonrecursive].
 
 The project is meant to be compiled through a Python 2.7 interpreter, no support
 is provided for Python 3.x. This is primarily because of the preference of memebers
 of PEACH. The project has been only compiled and tested using the default C
 Python compiler which should come by default with any official Python distribution.
+
+[^nonrecursive]: When wanting to download the submodule after having cloned into the repository
+non-recursively, use *$ git submodule update --init --recursive* to download
+the submodule.
 
 ### Dependencies
 
@@ -79,12 +80,12 @@ chatbot/
 The *botinterface/* package exposes the interface class for the core chatbot
 component in the *botinterface/bot_interface.py*, and provides an implementation
 in *botinterface/bot_rivescript.py*. In order to depend only on the API, it is
-possible to ask the *botinterface/bot_builder.py* package to construct a concrete
-subtype of the interface.
+possible to ask the *bot_builder.py* module (located in the project top level directory)
+to construct a concrete subtype of the interface.
 
 This last module exposes a *build()* method that will return a default instance
 of the bot, which will assume the RiveScript brain files are located within
-a *brain/* directory immediately accessible. Should that not work, the same
+a *brain/* directory immediately accessible. The same
 package defines a *BotBuilder* class that the caller can use to customize the
 chatbot instance being returned. For example, the following code listing will
 initialize a chatbot with a brain located at the specified filepath ("path/to/brain"):
@@ -101,43 +102,64 @@ simply requires that both a userid and message content be provided. This is
 to enforce conformity with the interface defined in the *botinterface/bot_abstract.py*
 module: the *reply(message)* method should take a single argument while the caller
 retains control of the creation and management of userids independently of
-the chatbot component.
+the core chatbot component (Figure 4.1).
 
 As mentioned before, the conversation logging facilities provided by the
 *messagelog* package are not automatically used by the chatbot instance, instead
 something like code listing (#SOMENUMBER) is necessary.
 
+#### Why RiveScript should be removed
+
+Overall, RiveScript has been a really useful tool to rapidly set up and start
+programming a chatbot brain. Unfortunately, many shortcomings were found with it
+as the project evolved.
+
+The first
+thing to take into account is that the current implementation of the chatbot brain
+is incomplete and not very articulate. It is incomplete because it is at the moment
+impossible to move on from any of the topics other than the phyisical issues topic,
+therefore any user who has concerns other than physical will never trigger the macro
+that changes the state of the DistressConversationDriver data model for the user
+to move on to the next topic. It is not articulate because very little time was
+spent working on the brain implementation, given the focus of the present project: the system architecture.
+
+The hand written rules that frameworks like RiveScript (and competitors as described
+  in Chapter 2) need take a significant amount of time to write and test, more than common programming code.
+Secondly, numerous issues were met during development, including textbook use of RiveScript language syntax
+constructs causing uncaught exceptions to be thrown from within the RiveScript
+class, and issues with inconsistent internal state within the framework internal uservariables that
+took three days (amounting to 10% of project core development time) to debug
+and fix, due to poorly documented behaviour when changing and using the same
+user variable in the breath of the same pattern matcher (including redirects).
+
+Finally, the Python statements in the RiveScript object macros cannot be
+extracted to a separate file. This is because the "rs" reference available
+therein (which is the running RiveScript interpreter instance) refuses to be
+called outside of a .rive file, and will fail with an exception if an attempt is
+made to do so. To call this object's properties is necessary to gather information
+such as the current user session, and the current state of the user variables.
+This makes the statements in the macros untestable.
+
+Due to these shortcomings, the recommendation going forward is to consider using
+a different chatbot framework. As mentioned, only a minimal brain implementation
+has been provided with the architecture and it would not be an irreparable loss
+to start with this aspect of the system from scratch. The reader is redirected
+to the discussion of alternatives in Chapter 2.
+
 #### Replacing RiveScript
 
 In order to replace the RiveScript interpreter, it is necessary to create another
-implementation of the BotInterface class, adapting the implementation
-provided in BotRivescript:
-
-~~~ python
-#botinterface/bot_rivescript
-def __init__(self, preprocessor=None,
-                   brain="./brain",
-                   interpreter=rivescript.RiveScript(),
-                   postprocessor=None):
-    '''The chatbot interface includes an optional message preprocessing and
-    reply postprocessing layers'''
-    self._preprocessor   = preprocessor
-    self._interpreter    = rivescript_loader.loadBrain(interpreter, brain)
-    self._postprocessor  = postprocessor
-~~~
+implementation of the Interpreter class, adapting the implementation
+provided in RivescriptProxy.
 Depending on the framework used, it may be necessary
 to create a proxy for a unit of software implemented in other languages than
 Python. This is made easier by the various Python compilers that allow other
-languages to be used together with Python[^hitchhike] (indeed, the design of
-the system would benefit from having a proxy putting further distance between
-the chatbot framework and the system).
+languages to be used together with Python[^hitchhike].
 
-In order to keep the implementation of BotRivescript it may be best to modify it
-to take a proxy to another chatbot framework that exposes a "reply" method.
 Effectively, the BotRivescript class only expects its interpreter to expose a
 "reply" method, but other aspects of the implementation may change as well such as
-how to start the conversation with the user, requiring further changes to be
-made.
+how to start the conversation with the user, all changes necessary should however
+be confined to the new proxy (see also Figure 4.3).
 
 [^hitchhike]: See Reitz and Schlusser, 2016
 here: <http://docs.python-guide.org/en/latest/starting/which-python/>
@@ -146,25 +168,9 @@ Requirements for the pre- and postprocessing of messages are also likely to chan
 therefore similar considerations apply to their packages.
 Finally, it would be necessary to alter the *bot_builder* module to include the
 new or modified implementation, as
-this would need to know and name (import) the new implementations:
+this would need to know and name (import) the new implementations.
 
-~~~ python
-#adapted from botinterface/bot_builder
-import rivescript
-import bot_rivescript
-    ...
-class BotBuilder(object):
-    ...
-    def build(self):
-        self.interpreter = rivescript.RiveScript(debug=False)
-
-        return bot_rivescript.BotRivescript(
-            preprocessor=self.preprocessor,
-            postprocessor=self.postprocessor,
-            interpreter=self.interpreter,
-            brain=self.brain)
-~~~
-See also the discussion of alternatives to RiveScript in Chapter 2.
+See Chapter 2 for a discussion of alternatives to RiveScript.
 
 ### Categorizer
 
@@ -183,8 +189,8 @@ an instance of the *Word2VecSynonymExtractor* class (defined in *synonym/synonym
 Instantiating this object requires will take up around 6-8 GBs of main memory,
 due to the size of the pretrained data model it uses. After it has been loaded,
 it is possible to obtain synonyms from it given a word. Doing this may cause
-a lot of pages to be swapped in and out of virtual memory (on modern operating
-systems) as the model retrieves similar words based on cosin distances. Sample
+a lot of pages to be swapped in and out of virtual memory
+as the model retrieves similar words based on cosin distances. Sample
 usage of this module (adapted from */tests/tests_integration/test_synonym/test_synonymmodelfactory.py*):
 
 ~~~ python
@@ -196,9 +202,10 @@ for word in WORDS_TO_GET_SYNONYMS_FOR:
 ~~~
 
 This will return a list of words which the model believes are synonyms of the
-argument to the *extractSynonyms()* method. As mentioned in Chapter 5, this
+argument to the *extractSynonyms()* method. As described in Appendix C, this
 particular implementation was underperforming, but provides
-the blueprint to future better performing implementations.
+the blueprint for future better performing implementations (see Chapter 2 for
+a discussion of alternatives).
 
 ## Running py.test
 
@@ -215,21 +222,14 @@ python -m py.test tests/
 Running this command will run all the tests in the package, which on a fairly
 powerful machine can take up to 5 minutes, but can potentially make a slower
 machine hang as for an unreasonable amount of time. This is chiefly due to the
-synonym generation tests which require a very large amount of RAM to run efficiently.
-It takes around 3-4 minutes on an 8-core desktop with 8GBs and the amount
-of memory required to run
-it *without* thrashing happening as pages are swapped in and out of virtual memory
- is higher than 8GBs[^word2vec].
-
- [^word2vec]: The publically available model used is not provided with the system, but obtainable from:
-  https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit
+synonym generation tests which require a very large amount of RAM to run efficiently
+(see above).
 
 It is good to notice at this point the difference in runtime between the decoupled unit tests
 and the integration tests in this case, running all unit tests for the project takes
 mere seconds (as it should).
 
-The unit tests, in fact, are designed for quick execution (they are meant
-to be ran many times an hour during TDD; see F.I.R.S.T. Martin, 2009, p.132).
+The unit tests, in fact, are designed for quick execution (see Martin, 2009, p.132).
 Running these tests should take less than a minute.
 Finally, if the pytest-cov package is been installed (Schlaich, 2016) then it
 is possible to get reports for code coverage about individual subpackages
@@ -362,12 +362,17 @@ to an externally defined unit of Pyhon code. This aspect of RiveScript is poorly
 another reason to move away from the framework in the future (Petherbridge, 2009,
     <https://www.rivescript.com/wd/RiveScript#OBJECT-MACROS>).
 
-# Categorizer Evaluation
+# Machine Learning Evaluation
 
-The survey gathered 222 data points in total. The same split was used for the
+In this section, detailed evaluation results are provided for the categorization
+task, and a summary evaluation is provided for the synonym generation task.
+
+## Categorizer Evaluation
+
+The survey gathered 222 data points in total (see Chapter 2). The same split was used for the
 training and testing of both classifier implementations used.
-The single-label categorizers used in the project where the two that are adapted
-from the nltk into the TextBlob package. A Naive Bayes classifier and
+The single-label categorizers used in the project are provided by
+the nltk through the TextBlob package. A Naive Bayes classifier and
 a Maximum Entropy classifier.
 
 The data splitting logic in the *categorize* package by default simply takes
@@ -381,8 +386,6 @@ def split(labelled_data, testsizepercent = 0.1, devsizepercent = 0.1, \
 
 The results of running the Naive Bayes classifier against the test set
 (around 22 test cases) is disappointing:
-
-\pagebreak
 
 \rule{14.75cm}{0.4pt}
 ~~~
@@ -411,8 +414,6 @@ of precision and recall for all labels score around 33%.
 The MaxEntClassifier, instead, scores over the same data split (10% test, 10% dev,
   80% train) when made to iterate over the dev set for 10 iterations:
 
-\pagebreak
-
 \rule{14.75cm}{0.4pt}
 ~~~
 Accuracy: 0.55
@@ -436,7 +437,7 @@ F for 'spiritual': None
 Like the Naive Bayes classifier, it scores a 0 in every metric for the 'spiritual'
 label, but scores better in other global metrics (averaged over all labels).
 
-## Comment on Performance
+### Comment on Performance
 
 The reason for the performance is most likely the lack of problem-specific feature
 extraction. The feature extractors that both classifiers use in the current
@@ -465,6 +466,48 @@ interesting direction than simply improving the performance single-label classif
 
 [^features]: See     
 <http://textblob.readthedocs.io/en/dev/_modules/textblob/classifiers.html#basic_extractor>
+
+## Word2Vec Synonym Generation Evaluation
+
+The model used in the implementation is a publically available model that has
+been trained over a very large data set of Google News data[^word2vec].  
+As mentioned in Chapter 2 and 4, the implementation here for synonym extraction
+was not used in the system delivered by the team because of poor performance.
+
+[^word2vec]: The publically available model used is not provided with the system, but obtainable from:
+  <https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit>
+
+As it is possible to see from the integration tests
+the cosin distance does not always appear to capture semantic synonymity (Mikolov, 2015; McCormick, 2016b
+  ). For example, while perfomance may be judged adequate with
+respect to words like "dad" or "friend", there are cases when it can only associate
+the word with either misspellings or completely irrelevant terms (such as names
+  of reporters). This is maybe interesting linguistically, but does not help
+with generating synonyms.
+
+~~~ python
+#from tests/tests_integration/test_synonym/test_synonymmodelfactory.py
+{
+    "dad":["Dad","father","grandpa","daddy","mom","stepdad","son","granddad",
+            "uncle","brother"]
+    ,"hopeless":["utterly_hopeless","forlorn","hopelessly","miserable",
+                "pathetic","pitiful","helpless","seemingly_hopeless","bleak",
+                "futile"]
+    ,"education":["eduction","eduation","LISA_MICHALS_covers",
+                    "Matt_Krupnick_covers","educational","educa_tion",
+                    "edu_cation","educations","professionals_CEC_SmartBrief",
+                    "curriculum"]}
+~~~
+
+As mentioned in the discussion, the implementation of this concrete class was
+done with the help of the Gensim library (Rehurek, 2014; Rehurek and Sojka, 2010;
+  McCormick, 2016a). The reader is redirected to the discussion of alternatives
+in Chapter 2.
+
+In general for the project going forward,
+as long as RiveScript or similar rule-driven chatbot frameworks are used,
+it may well be possible to similarly generate data for use in similar ways,
+prior exploration of other alternatives to the particular model used in this implementation.
 
 # Code Listing
 
