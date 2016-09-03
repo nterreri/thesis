@@ -67,7 +67,8 @@ in order to keep the efficiency of the eHNA software model.
 The rest of the requirements were mostly decided by the author and project
 supervisor on the basis of what would be most useful to investigate from a technical
 point of view looking at the future of the project. Objectives were decided on
-a weekly basis, in line with agile methodology (Table 3.1).
+a weekly basis, in line with agile methodology. Table 3.1 lists the requirements
+gathered according to the MoSCoW method.
 
 ## Use Cases
 
