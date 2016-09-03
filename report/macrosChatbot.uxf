@@ -4,7 +4,7 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>460</x>
+      <x>490</x>
       <y>360</y>
       <w>100</w>
       <h>80</h>
@@ -42,12 +42,12 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>660</x>
+      <x>690</x>
       <y>360</y>
-      <w>100</w>
+      <w>110</w>
       <h>80</h>
     </coordinates>
-    <panel_attributes>BotRivescript
+    <panel_attributes>RivescriptProxy
 
 
 --
@@ -71,29 +71,29 @@ reads the state</panel_attributes>
     <coordinates>
       <x>370</x>
       <y>350</y>
-      <w>110</w>
+      <w>140</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 calls</panel_attributes>
-    <additional_attributes>10.0;20.0;90.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>370</x>
       <y>380</y>
-      <w>110</w>
+      <w>140</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 returns</panel_attributes>
-    <additional_attributes>90.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>120.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>550</x>
+      <x>580</x>
       <y>410</y>
       <w>130</w>
       <h>40</h>
@@ -101,5 +101,44 @@ returns</panel_attributes>
     <panel_attributes>lt=&lt;.
 defers to</panel_attributes>
     <additional_attributes>10.0;20.0;110.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>680</x>
+      <y>290</y>
+      <w>170</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+&lt;&lt;package&gt;&gt;
+botinterface</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>470</x>
+      <y>290</y>
+      <w>140</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+&lt;&lt;package&gt;&gt;
+rivescript</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>180</x>
+      <y>290</y>
+      <w>230</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+&lt;&lt;package&gt;&gt;
+concerns</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
