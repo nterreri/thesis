@@ -19,29 +19,6 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>230</x>
-      <y>360</y>
-      <w>150</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>rivescript_macros.py
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>210</x>
-      <y>460</y>
-      <w>190</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>/ConversationDriver/</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
       <x>690</x>
       <y>360</y>
       <w>110</w>
@@ -57,38 +34,26 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>300</x>
-      <y>400</y>
-      <w>120</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.
-reads the state</panel_attributes>
-    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>370</x>
+      <x>400</x>
       <y>350</y>
-      <w>140</w>
+      <w>110</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 calls</panel_attributes>
-    <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;90.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>370</x>
+      <x>400</x>
       <y>380</y>
-      <w>140</w>
+      <w>110</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 returns</panel_attributes>
-    <additional_attributes>120.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>90.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -105,9 +70,9 @@ defers to</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>680</x>
+      <x>670</x>
       <y>290</y>
-      <w>170</w>
+      <w>150</w>
       <h>160</h>
     </coordinates>
     <panel_attributes>symbol=component
@@ -131,10 +96,10 @@ rivescript</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>180</x>
-      <y>290</y>
-      <w>230</w>
-      <h>210</h>
+      <x>280</x>
+      <y>360</y>
+      <w>130</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>symbol=component
 &lt;&lt;package&gt;&gt;
