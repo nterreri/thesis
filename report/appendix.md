@@ -10,7 +10,6 @@ a user in the larger team effor. For this reason, no user manual is provided.
 
 The full project source code
 is available at: <https://github.com/nterreri/peach-bot>.
-
 It can also be found under the PEACH chatbot team project repository
 under the '/FlaskWebProject/chatbot/' directory therein, together with the code
 produced by the rest of the PEACH chatbot team
@@ -28,7 +27,7 @@ which means it is necessary to navigate manually to the categorizer repository
 (<https://github.com/nterreri/peach-categorize>) before downloading it[^nonrecursive].
 
 The project is meant to be compiled through a Python 2.7 interpreter, no support
-is provided for Python 3.x. This is primarily because of the preference of memebers
+is provided for Python 3.x. This is primarily because of the preference of members
 of PEACH. The project has been only compiled and tested using the default C
 Python compiler which should come by default with any official Python distribution.
 
@@ -121,13 +120,13 @@ impossible to move on from any of the topics other than the phyisical issues top
 therefore any user who has concerns other than physical will never trigger the macro
 that changes the state of the DistressConversationDriver data model for the user
 to move on to the next topic. It is not articulate because very little time was
-spent working on the brain implementation, given the focus of the present project: the system architecture.
+spent working on the brain implementation, given the focus system architecture and design.
 
 The hand written rules that frameworks like RiveScript (and competitors as described
   in Chapter 2) need take a significant amount of time to write and test, more than common programming code.
 Secondly, numerous issues were met during development, including textbook use of RiveScript language syntax
-constructs causing uncaught exceptions to be thrown from within the RiveScript
-class, and issues with inconsistent internal state within the framework internal uservariables that
+constructs causing uncaught exceptions to be thrown from within the external framework
+, and issues with inconsistent internal state with the framework uservariables that
 took three days (amounting to 10% of project core development time) to debug
 and fix, due to poorly documented behaviour when changing and using the same
 user variable in the breath of the same pattern matcher (including redirects).
@@ -146,7 +145,7 @@ has been provided with the architecture and it would not be an irreparable loss
 to start with this aspect of the system from scratch. The reader is redirected
 to the discussion of alternatives in Chapter 2.
 
-#### Replacing RiveScript
+#### How to Replace RiveScript
 
 In order to replace the RiveScript interpreter, it is necessary to create another
 implementation of the Interpreter class, adapting the implementation
@@ -169,7 +168,6 @@ therefore similar considerations apply to their packages.
 Finally, it would be necessary to alter the *bot_builder* module to include the
 new or modified implementation, as
 this would need to know and name (import) the new implementations.
-
 See Chapter 2 for a discussion of alternatives to RiveScript.
 
 ### Categorizer
@@ -253,6 +251,12 @@ Emotional concerns 2        Spiritual or religious concerns
                                 the past
 ~~~
 
+# Unit Tests Results
+
+This appendix reports the unit testing code coverage for all modules in the
+project. The testing framework of choice is py.test.
+
+
 ## Running py.test
 
 The tests included are meant to be run using py.test (Krekel, 2016).
@@ -271,12 +275,8 @@ machine hang as for an unreasonable amount of time. This is chiefly due to the
 synonym generation tests which require a very large amount of RAM to run efficiently
 (see above).
 
-It is good to notice at this point the difference in runtime between the decoupled unit tests
-and the integration tests in this case, running all unit tests for the project takes
-mere seconds (as it should).
-
+Running only the unit tests should take less than a minute[^fast].
 The unit tests, in fact, are designed for quick execution (see Martin, 2009, p.132).
-Running these tests should take less than a minute.
 Finally, if the pytest-cov package is been installed (Schlaich, 2016) then it
 is possible to get reports for code coverage about individual subpackages
 by providing the desired subpackage name as an argument in the following manner:
@@ -287,13 +287,16 @@ python -m py.test --cov=botinterface tests/tests_unit/
 
 This will provide an executable statement test coverage report.
 The reader is redirected to Chapter 5 for more
-information about the tests and Appendix B for a collected test coverage
-report.
+information about the testing strategy.
 
-# Unit Tests Results
+[^fast]:
+It is good to notice at this point the difference in runtime between the decoupled unit tests
+and the integration tests in this case, running all unit tests for the project takes
+seconds.
 
-This appendix reports the unit testing code coverage for all modules in the
-project. These reports are taken from the pytest CLI because pytest-cov can only
+## Code Coverage Report
+
+These reports are taken from the pytest CLI because pytest-cov can only
 write HTML, XML or annotated source code to file, but not plain text as shown here.
 All tests were, of course, made to pass. Test coverage data follows[^legend]:
 
@@ -376,7 +379,6 @@ class MessageProcessor(object):
     def process(self, sentence):
         '''To preprocess the sentence (content of a message)'''
         raise NotImplementedError("MessageProcessor is an interface")
-
 ~~~
 
 The two "raise" statements are counted when they should not be, similarly with
@@ -415,10 +417,10 @@ task, and a summary evaluation is provided for the synonym generation task.
 
 ## Categorizer Evaluation
 
-The survey gathered 222 data points in total (see Chapter 2). The same split was used for the
+The survey gathered 222 data points in total (see Chapter 5). The same split was used for the
 training and testing of both classifier implementations used.
 The single-label categorizers used in the project are provided by
-the nltk through the TextBlob package. A Naive Bayes classifier and
+the nltk through the TextBlob package: a Naive Bayes classifier and
 a Maximum Entropy classifier.
 
 The data splitting logic in the *categorize* package by default simply takes
@@ -559,10 +561,9 @@ as long as RiveScript or similar rule-driven chatbot frameworks are used,
 it may well be possible to similarly generate data for use in similar ways,
 prior exploration of other alternatives to the particular model used in this implementation.
 
-
 # Advanced Research into Categorization
 
-So far, we have looked at how classifiers would be used to give labels to distinct
+The classifiers used in the project would be used to give labels to distinct
 documents, however the documents we are interested in classifying
 are not independent from each other: a conversation is a rich in context, and no
 feature of the approach outlined so far even considers this aspect of the problem.
@@ -629,15 +630,7 @@ $O = \langle o_1, o_2, ... o_m\rangle$
 A function describing the probability of observation $o_j$ being generated (called probability of emission) from state $i$:
 $b_i : O \mapsto [0, 1]$
 
-The tasks that Jurafsky and Martin identify for such models are three (ibid, p.6):
-
-- Likelihood: given a model M and a sequence of observations $O$, determine $P(O|M)$
-- Decoding: given a model M and a sequence of observations $O$, determine the "best" corresponding
-sequence of states $Q$
-- Training: given an observation sequence $O$ and a set (not a sequence) of states $Q$,
-train a model M
-
-For our problem: at any point during the conversation, we are really interested
+At any point during the conversation, we are really interested
  in determining the probability distribution of the *reachable states* given the sequence of observations
 and the corresponding sequence of states so far identified, in order to determine
 what the best *next state* is. Given the next observation,
@@ -650,7 +643,6 @@ The problem that still needs to be addressed is how we determine the emission pr
 distribution. The user input will likely vary from session to session: no two sequences
 of user inputs, representing the half of the conversation the user contributes, are
 going to be alike.
-
 It may be possible to reduce each user input to a set of semantically salient terms,
 terms that are associated with one or another topic. For example, mention of
 proper names or nouns denoting family members (such as mother, aunt etc) may be
@@ -661,14 +653,11 @@ sequence classifier should be.
 
 ## The limits of the NLTK
 
-The implementation produced by this project does not make use of sequence classification, but
-instead uses simple classifiers that consider each user input in isolation. There are two
-reasons for this.
-
+The implementation produced by this project does not make use of sequence classification.
+There are two reasons for this.
 The first is that, as may have become evident through the preceeding section, the
 problem is complex enough to warrant exploration in a separate dissertation. And
-given that the focus of the current project is laying down the fundamental architecture
-of a chatbot, to dedicate more resources to this topic would
+given the focus of the current project, to dedicate more resources to this topic would
 require neglecting other, perhaps more important aspects of the problem to be solved.
 
 The second is that the NLTK does not provide implementations of any sequence
@@ -677,7 +666,6 @@ repository it is possible to see that an interface sequence classifiers would be
 expected to conform to within the NTLK package has been written, but is commented out
 in the code, and no implementation
 of the interface can be found[^nltksource].
-
 There are open source implementations of Hidden Markov Models available, but
 work would be required in order to either fit these to the NTLK system, or to
 incorporate them within the current project. See for example, "pomegranate"
