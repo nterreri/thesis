@@ -126,8 +126,18 @@ label being tested for, and either macro- or micro-averaging should be used
 to extract global classifier effectivness metrics (Sebastiani, ibid p.33;
 Yang and Liu, 1999, p.43).
 
-Because of the fact that all of the data extracted via the questionnaire (see
-Chapter 2) has a balanced number of expected labels for categories, there is no
+The type of data we wanted our classifier to produce a label for was a short chat
+message. The label had to be in the specified range of categories, in order to
+better inform the chatbot with the capacity for generalization of a machine learning
+approach. There is no corpus of pairs of message - label of the relevant kind.
+Therefore, the author created a survey which Dr Ramachandran asked the team to
+complete[^survey].
+This resulted in 222 data points.
+
+[^survey]: The survey can be found here: <https://goo.gl/forms/ylkI50XckV9yvCCm2>.
+
+Because of the fact that all of the data extracted via the questionnaire
+has a balanced number of expected labels for categories, there is no
 concern about the training data being skewed with low positive cases for any one
 category, therefore micro-averaging is probably the best overall measure, although both are
 included in the evaluation results.

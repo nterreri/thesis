@@ -207,6 +207,52 @@ particular implementation was underperforming, but provides
 the blueprint for future better performing implementations (see Chapter 2 for
 a discussion of alternatives).
 
+## Full Concerns Checlist
+
+As mentioned in Chapter 2, the full concerns checklist is presented here for
+reference, these are encoded in the *concerns/topics.py* module:
+
+~~~
+Physical concerns 1         Physical concerns 2
+- Breathing difficulties    - Sore or dry mouth
+- Passing urine             - Nausea or vomiting
+- Constipation              - Sleep problems/nightmares
+- Diarrhoea                 - Tired/exhausted or fatigued
+- Eating or appetite        - Swollen tummy or limb
+- Indigestion               - High temperature or fever
+
+Physical concerns 3         Physical concerns 4
+- Getting around (walking)  - Changes in weight
+- Tingling in hands/feet    - Memory or concentration
+- Pain                      - Taste/sight/hearing
+- Hot flushes/sweating      - Speech problems
+- Dry, itchy or sore skin   - My appearance
+- Wound care after surgery  - Sexuality
+
+Practical concerns 1        Practical concerns 2
+- Caring responsibilities   - Housework or shopping
+- Work and education        - Washing and dressing
+- Money or housing          - Preparing meals/drinks
+- Insurance and travel
+- Transport or parking
+- Contact/communication
+    with NHS staff
+
+Family concerns             Emotional concerns 1
+- Partners                  - Difficulty making plans
+- Children                  - Loss of interest/activities
+- Other relatives/friends   - Unable to express feelings
+                            - Anger or frustration
+                            - Guilt
+                            - Hopelessness
+
+Emotional concerns 2        Spiritual or religious concerns
+- Loneliness or isolation   - Loss of faith or other spiritual concerns
+- Sadness or depression     - Loss of meaning or purpose of life
+- Worry, fear or anxiety    - Not being at peace with or feeling regret about
+                                the past
+~~~
+
 ## Running py.test
 
 The tests included are meant to be run using py.test (Krekel, 2016).
@@ -501,13 +547,146 @@ with generating synonyms.
 
 As mentioned in the discussion, the implementation of this concrete class was
 done with the help of the Gensim library (Rehurek, 2014; Rehurek and Sojka, 2010;
-  McCormick, 2016a). The reader is redirected to the discussion of alternatives
+  McCormick, 2016a).  The cause
+  for the poor performance with respect to the task at hand is perhaps to be found
+  with the dimension of the vectors the model used was trained with (as a training parameter, see
+  Ellenberg, 2015).
+  The reader is redirected to the discussion of alternatives
 in Chapter 2.
 
 In general for the project going forward,
 as long as RiveScript or similar rule-driven chatbot frameworks are used,
 it may well be possible to similarly generate data for use in similar ways,
 prior exploration of other alternatives to the particular model used in this implementation.
+
+
+# Advanced Research into Categorization
+
+So far, we have looked at how classifiers would be used to give labels to distinct
+documents, however the documents we are interested in classifying
+are not independent from each other: a conversation is a rich in context, and no
+feature of the approach outlined so far even considers this aspect of the problem.
+
+One thing we could do to improve the classifier is to provide a level of uncertainty,
+where user inputs may fail to be assigned any of the predefined labels. This not an
+attempt to account for essentially neutral inputs such as "Yes" or "I don't know",
+that do not contribute to establishing the topic of the conversation. This is rather
+a way to try and account for indeterminateness of the topic at hand.
+
+If a patient were to mention an issue that scores a reasonable confidence level from
+the classifier in both emotional and family categories, but both scores are below
+a certain threshold, then perhaps the best thing for the classifier is to not assign
+a label to the input. This accounts for the inherent "fuzziness" of certain topics of discussion.
+
+Something else we could do is consider conversation topics as the states in a
+finite state machine, and account for varying probabilities to move into different
+topics, given the current state. Emotional issues may, for example, seem closer to family
+issues than physical issues. However, this seems quite an ambitious architecture to
+impose over a simple classifier, which leads us onto the next topic.
+
+## Sequence Classifiers
+
+A sequence classifier is similar to a single or multi-lable classifier, except
+it considers each data point as a member of a sequence: the data points are assigned
+labels not independently of each other but as part of one sequence
+(Bird et al, 2015, Chapter 6 sections 1.6-1.7; Jurafsky and Martin, 2014, p.1).
+This type of classifier intuitively better suits the task of classifying sequences
+of utterances in a conversation, than a classifier that only decides a label for
+the input considered in isolation.
+
+A Markov chain is a weighted finite state automaton (a directed weighted graph
+with a finite number of nodes), where the weight on all transitions from any state
+represent the probability of moving to the state the transition points to (Jurafsky and Martin, 2014, p.2).
+[#PICTUREWOULDBENICE?]
+
+More formally:
+A set of states:
+$Q = \{q_1, q_2, ..., q_n\}$
+A transition probability matrix:
+$A = \{ a_{01}, a_{02}, ..., a_{n1}, ...,  a_{nn}\}$
+And a start and an end (accepting) state: $q_0, q_F$
+
+A Markov chain may already be sufficient for us to do some useful modelling. In particular,
+we may construct a simple (ergodic, fully connected) directed weighted graph
+(with appropriate constraints on the weights to represent a probability distribution
+from each state) that connects our five states together
+represeting the macro categories of concerns in the CC. Having manually set probabilities
+for state transitions, we would use our simple classifier to decide the category
+for the next user input in isolation, then confront this result against the likelihood
+of a transition in that direction, before finally deciding the label.
+
+We could take the problem one step further: a Hidden Markov Model (HMM) is a generalization
+of a Markov chain that distinguishes between observed and hidden events. For example,
+in a part of speech tagging task, the observed is the surface level sequence of words,
+the hidden is the sequence of tags describing the syntactic structure of the
+utterance. This distiction would allow, in our case, to distinguish between a sequence
+of natural language user inputs, and the sequence of conversational topics "hidden"
+within.
+
+Formally, to the properties of a Markov chain outlined above we add:
+A sequence of non-hidden observations:
+$O = \langle o_1, o_2, ... o_m\rangle$
+A function describing the probability of observation $o_j$ being generated (called probability of emission) from state $i$:
+$b_i : O \mapsto [0, 1]$
+
+The tasks that Jurafsky and Martin identify for such models are three (ibid, p.6):
+
+- Likelihood: given a model M and a sequence of observations $O$, determine $P(O|M)$
+- Decoding: given a model M and a sequence of observations $O$, determine the "best" corresponding
+sequence of states $Q$
+- Training: given an observation sequence $O$ and a set (not a sequence) of states $Q$,
+train a model M
+
+For our problem: at any point during the conversation, we are really interested
+ in determining the probability distribution of the *reachable states* given the sequence of observations
+and the corresponding sequence of states so far identified, in order to determine
+what the best *next state* is. Given the next observation,
+we compute the probability of emission of that observation from all the plausible states
+reachable from the current state. We then may want to do a harmonized average of
+these probabilities and the known state transition probabilites, in order to decide
+the next state (the next label for the user input in our case).
+
+The problem that still needs to be addressed is how we determine the emission probability
+distribution. The user input will likely vary from session to session: no two sequences
+of user inputs, representing the half of the conversation the user contributes, are
+going to be alike.
+
+It may be possible to reduce each user input to a set of semantically salient terms,
+terms that are associated with one or another topic. For example, mention of
+proper names or nouns denoting family members (such as mother, aunt etc) may be
+indicative that the topic is family. In contrast, terms associated with emotional
+problems may be indicative of the topic being emotional issues. In a way, we are returning
+back to a simple classifier to decide what the observation to be then fed to the
+sequence classifier should be.
+
+## The limits of the NLTK
+
+The implementation produced by this project does not make use of sequence classification, but
+instead uses simple classifiers that consider each user input in isolation. There are two
+reasons for this.
+
+The first is that, as may have become evident through the preceeding section, the
+problem is complex enough to warrant exploration in a separate dissertation. And
+given that the focus of the current project is laying down the fundamental architecture
+of a chatbot, to dedicate more resources to this topic would
+require neglecting other, perhaps more important aspects of the problem to be solved.
+
+The second is that the NLTK does not provide implementations of any sequence
+classifier (at the time of writing). Looking through the public open source
+repository it is possible to see that an interface sequence classifiers would be
+expected to conform to within the NTLK package has been written, but is commented out
+in the code, and no implementation
+of the interface can be found[^nltksource].
+
+There are open source implementations of Hidden Markov Models available, but
+work would be required in order to either fit these to the NTLK system, or to
+incorporate them within the current project. See for example, "pomegranate"
+(Schreiber et al, 2016)[^pomegranate].
+
+[^nltksource]: This link should reference the latest commit to the NLTK project as of 21/08/16:
+ <https://github.com/nltk/nltk/blob/991f2cd1e31f7c1ad144589ab4d2c76bee05aa7b/nltk/classify/api.py>.
+
+[^pomegranate]: Here: <https://github.com/jmschrei/pomegranate#hidden-markov-models>
 
 # Code Listing
 

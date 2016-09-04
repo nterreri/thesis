@@ -62,7 +62,9 @@ of concerns, between two and six depending on what type of cancer they have.
 Furthermore, the questionnaire itself takes a relatively small amount of time.
 The requirements for the core chatbot system were afterwards revised to
 allow the user to first fill out the questionnaire before talking to the chatbot
-in order to keep the efficiency of the eHNA software model.
+in order to keep the efficiency of the eHNA software model. This made certain
+tasks, such as sentiment analysis, less useful for the project, given that the
+user would independently specify their level of distress.
 
 The rest of the requirements were mostly decided by the author and project
 supervisor on the basis of what would be most useful to investigate from a technical

@@ -1,9 +1,8 @@
 # System Design and Implementation {#Chapter4}
 
 > *"Out of all the documentation that software projects normally generate, was
-> there anything that could truly be considered an eningeering document?"* The
-> answer that came to me was, *"Yes, there was such a document, and only one--the source code."*
-
+> there anything that could truly be considered an eningeering document?" ...
+ "Yes, there was such a document, and only one--the source code."*
 **J. Reeves, 2001**
 
 This chapter describes the most interesting aspects of the delivered system
@@ -25,14 +24,13 @@ below (Figure 4.1).
 
 SOLID principles of software design were followed in the design of the system;
 these are dependency management principles (policing the "import" statements
-throughout the project) and clean design principles, chief among them the Separation
-of Concerns principle (Martin, 2003, Section 2).
-Additionally, the clean code design guidelines (Martin, 2009) were also followed.
+throughout the project) and clean design principles (Martin, 2003, Section 2).
+Additionally, clean code design guidelines (Martin, 2009) were also followed.
 The chief purpose of these efforts is to design the system for change, and
 make the code readable to *humans* (Martin, ibid, pp.13-14).
 This approach leads to extremely specialized and short class bodies and functions, and
 the separation of different levels of abstraction.
-Additionally, the project was structured with the "plugin model" architecture:
+Furthermore, the project was structured with the "plugin model" architecture:
 ensuring that the direction of dependency flow in the direction of the core of the
 system (Figure 4.1).
 
@@ -45,8 +43,7 @@ the interfaces and the abstract classes (Dependency Inversion Principle: Martin,
 
 The programmer accessing the package structure
 should be able to understand what the purpose of the system and of the
-modules within is without further assistance (see Martin, 2011).
-
+modules within is without further assistance (Martin, 2011).
 The architecture diagram details the high level blocks of abstraction in the
 system (Figure 4.2).
 We will look at the core message processing logic of the system first, then
@@ -303,9 +300,14 @@ language model through the use of the gensim library.
 This can then be asked to produce synonyms for a given word.
 The synonyms produced are then used to produce RiveScript arrays.
 
-These are represented in Python by the RivescriptArray class, the *\__str__()* method
+These are represented in Python by the RivescriptArray class, the \__str__() method
+(equivalent to Java's toString())
 of which is used by the RivescriptArrayWriter to write syntactically correct
-RiveScript arrays to file.
+RiveScript arrays to file[^streaming].
+
+[^streaming]: The RiveScript framework offer ways to stream RiveScript code into a running
+interpreter, see:
+     <http://rivescript.readthedocs.io/en/latest/rivescript.html#rivescript.rivescript.RiveScript.stream>.
 
 ## Conclusion
 
