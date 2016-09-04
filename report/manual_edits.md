@@ -3,8 +3,13 @@
 - \usepackage[unicode=true, breaklinks]{hyperref}
 - \usepackage{url}
 - \usepackage{breakurl}
+
+either:
 - \usepackage{natbib}
 - \bibliographystyle{abbrvnat}
+or:
+-\usepackage[backend=bibtex]{biblatex-chicago}
+-\bibliography{bibl.bib}
 ~~~
 The above has to be put the latex manually to get the urls to format properly
 in the references.
