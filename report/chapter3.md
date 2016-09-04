@@ -41,25 +41,16 @@ a basic proof-of-concept implementation of the system, with *the core of the
 chatbot system being an easy to replace implementation detail* rather than the core focus of
 the project effort.
 
-Note that, in accordance with agile methodology principles (as per the author's aims), "architecture"
-here does not refer *exclusively* to the production of documents such as class and
-component diagrams, or other UML artifacts (Object Management Group, 2015); but rather
-the *primary* document ideintified as the technical design document produced by the engineering activity is the source code.
-Just like in other engineering industries, software engineers design a meticulously
-crafted document that is then passed on to the manufacturing staff, requiring no further input from
-the designers to produce a concrete artifact. The manufacturing "staff", in this
-case, being compilers, linkers, interpreters and virtual machines (Reeves, 2001).
-
 ## Requirements Gathering
 
-The project was first proposed by Dr Ramachandran, who also organized a meeting
-between Macmillan staff (including the technical lead of the Macmillan eHNA,
+The project was first proposed by Dr Ramachandran, who also organized meetings
+between the chatbot team and Macmillan staff (including the technical lead of the Macmillan eHNA,
 Andrew Brittle). The original plan was to have both the author and Rim Ahsaini
 working on the core chatbot system, with the full questionnaire being completed
 by the user through interaction with the chatbot.
 
-During the first meeting, the idea of a specialized search engine
-emerged, with Rim Ahsaini interested in making the implementation of that system
+During the first meeting with Macmillan, the idea of a specialized search engine
+was presented, with Rim Ahsaini interested in making the implementation of that system
 her project. From there
 came also the idea of integration between the two systems, with the chatbot
 system having to decide whether to make a query during the interaction with the
@@ -71,12 +62,21 @@ of concerns, between two and six depending on what type of cancer they have.
 Furthermore, the questionnaire itself takes a relatively small amount of time.
 The requirements for the core chatbot system were afterwards revised to
 allow the user to first fill out the questionnaire before talking to the chatbot
-in order to keep the efficiency of the eHNA software model.
+in order to keep the efficiency of the eHNA software model. This made certain
+tasks, such as sentiment analysis, less useful for the project, given that the
+user would independently specify their level of distress.
 
 The rest of the requirements were mostly decided by the author and project
 supervisor on the basis of what would be most useful to investigate from a technical
 point of view looking at the future of the project. Objectives were decided on
-a weekly basis, in line with agile methodology.
+a weekly basis, in line with agile methodology. Table 3.1 lists the requirements
+gathered according to the MoSCoW method.
+
+## Use Cases
+
+Given the role of the project in the larger team effort, use case modelling was
+considered inadequate to describing the project requirements, and more suited
+to a user-facing system. Therefore, no use cases were produced.
 
 \newgeometry{top=2cm}
 \bgroup
@@ -127,7 +127,7 @@ RQNF0           & \pbox{10cm}{The chatbot will use open source technologies inst
                      of remote APIs due to the sensitive nature of patient data}                                                  & {\color[HTML]{FE0000} Must}\\
 \hline
 RQNF1           & \pbox{10cm}{To use Macmillan Cancer Support's eHNA and the Concerns
-                     Checklist questionnaire as references for the project}  & {\color[HTML]{FE0000} Should}\\
+                     Checklist questionnaire as references for the project}  & {\color[HTML]{F8A102} Should}\\
 \hline
 RQN0           & \pbox{10cm}{The chatbot will not have an offline/cached operating
                  mode}                                              & Will not  \\              
