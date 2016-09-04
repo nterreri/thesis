@@ -16,7 +16,8 @@ the individual's very personal and unique concerns they incurred into in relatio
 to their condition. These concerns are gathered through variants
 of an electronic questionnaire offered by Macmillan to selected trial sites.
 Paper versions and variants of the questionnaire
-existed before the introduction of the eHNA in 2010, and have been in use since before then (Mac Voice, 2014) (NCAT, 2011).
+existed before the introduction of the eHNA in 2010, and have been in use since before then
+(Watson, 2014; Brittle, 2014; NCAT, 2011).
 
 The electronic questionnaire is designed to be carried out on site mostly through
 haptic devices (such as tablets), just ahead of meeting the clinician that will help draft a care plan for the patient. There
@@ -86,7 +87,7 @@ the chatbot project.
 ## The Chatbot
 
 The very high level general architecture of a chatbot system is normally described in terms of
-(Bird et al, 2015, Chapter 1 section 5.5; Jurafsky and Martin, 2009, pp.857-867):
+(Bird et al, 2014, Chapter 1 section 5.5; Jurafsky and Martin, 2009, pp.857-867):
 
 1. A natural language understanding layer
 2. A dialogue and or task manager
@@ -132,7 +133,8 @@ ways to set up an initial chatbot. Open source projects available mostly
 make use of the patter/grammar and template model described above, but there is
 a notable alternative in emerging (yet immature) technology using neural networks or
 similar tools to build conversational models. Finally, there are
-AIaaS providers: providers of remote intelligent agents and related services [^aiaas], similarly to
+AIaaS providers: providers of remote intelligent agents and related services
+(Pandorabots, 2016; Riedel et al, 2016; Microsoft Cognitive Services, 2016), similarly to
 the web hosting solutions of Amazon or Microsoft (AWS, 2016; Azure 2016).
 For the reasons outlined in the above section on the particular legal issues around
 the problem domain, it was deemed unfeasible to use external services that would
@@ -172,8 +174,11 @@ to follow to implement a AiML reader (or "interpreter"). The set of files making
 the AiML "bot" are commonly called the chatbot "brain" and
 there are a number of interpreters available for AiML in various programming languages.
 There are freely available "libraries" of AiML files for others to include
-into their own chatbot (Wallace, 2011; Pandorabots, 2016; <http://www.alicebot.org/downloads/sets.html>,
-<http://www.square-bear.co.uk/aiml/>).
+into their own chatbot[^base] (Wallace, 2011).
+
+[^base]: <https://github.com/pandorabots/rosie/>,         
+<http://www.alicebot.org/downloads/sets.html>,          
+<http://www.square-bear.co.uk/aiml/>.
 
 #### RiveScript
 RiveScript is an alternative standard to AiML the objectives of which are to be
@@ -186,8 +191,10 @@ This seemed useful to define synonyms and allow certain patterns of user
 expression to be captured if they matched some synonym.
 
 But what made RiveScript particularly attractive was not just its simpler syntax,
-it was rather the fact that (at the time of writing) there are no easily traceable
-AiML interpreters implemented in Python. The best candidates are pyAIML and pyAiml-2.0
+it was rather the fact that there is an official Python RiveScript interpreter
+but (at the time of writing) there are no easily traceable
+AiML interpreters implemented in Python (Petherbridge, 2016).
+The best candidates are pyAIML and pyAiml-2.0
 (Tomer, 2014; Iaia, 2016), neither of which has either been maintained for a long time,
 or is very stable. This also applies to most other open source AiML interpreters
 implementations at the time of writing, leaving only a couple standing
@@ -283,17 +290,14 @@ possibility to classify user input according to the topic being mentioned
  It may be useful to add tags to user
 inputs to be matched within a chatbot brain that would otherwise be unable to
 generalize. This would effectively represent a hybrid model where both a machine learning
-component and a "rule-based" (or rather input-pattern driven) approach are
+component and a "rule-based" (input-patterns) approach are
 used as part of a more complex system[^experience].
 
 [^experience]: Generalization
  is characteristic of approaches to artificial intelligence resembling
-experience as a way humans acquire knowledge (Russell and Norvig, 1995, p.592; Biermann, 1986, pp.134-135;
-  Hawthorne, 2014; Hume, 1777, section 4, part 2).
- More rigid rule-based approaches to AI enforce focusing on the information gathering phase
-for the creation of the care plan, where a set of heuristics or rules of
-inference is used
-(Russell and Norvig, 1995, pp.163-165, Beall and Restall, 2014).
+experience as a way humans acquire knowledge (Russell and Norvig, 1995, pp.163-165,
+592; Biermann, 1986, pp.134-135; Hawthorne, 2014; Beall and Restall, 2014;
+Hume, 1777, section 4, part 2).
 
 ### Text Classification
 Text classification is the NLP task of assigning a category to an input from a
@@ -316,7 +320,7 @@ Manning et al, 2009, pp.271-272)[^sentiment].
 [^sentiment]: The task of sentiment analysis was also deemed
 important to the assessment of the user distress level with respect to issues
 the user would be discussing with the chatbot. But became less important as
-requirements where clarified (Chapter 3). The reader is directed to Liu, 2010, p.628, 637--
+requirements where clarified (Chapter 3). The reader is directed to Liu, 2010, p.628, 637--;
 and Ding, Liu and Yu, 2008 for more information on the topic.
 
 ### Open Source NLP Libraries
@@ -335,7 +339,7 @@ other work.
 It was decided, primarily based on the experience of the memebers of the
 PEACH team that had previously worked with NLP to use the Natural Lanugage Tool-Kit
 (NLTK) as a baseline, but to not be afraid to adopt other tools as needed by
-individual projects (Bird, Klein and Loper, 2015). The decision was also made on the basis of
+individual projects (Bird et al, 2014). The decision was also made on the basis of
 the expected needs of the individual subprojects.
 Its focus on Python also made it a better solution with respect to
 other suites such as the Stanford CoreNLP, due to lack of extensive Python bindings
@@ -344,7 +348,7 @@ The present project thus made primarily use of the NLTK, and packages built on
 top of it.
 
 The NLTK exposes a range of natural language corpora and ready available implementations of
-various types of classifiers, exposing an intuitive API (Bird et al, 2015, Chapter 6 see also
+various types of classifiers, exposing an intuitive API (Bird et al, 2014, Chapter 6 see also
 Manning et al, 2009, pp.271--).
 An obvious problem
 with the present project is that no data of the relevant shape was available whatsoever.

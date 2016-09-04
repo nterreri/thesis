@@ -110,7 +110,7 @@ See Appendix B for test coverage listings and more details.
 
 A classifier is evaluated by looking at certain metrics of its perfomance during
 testing. A very simple metric is accuracy: the number of correctly labelled
-data points over the total number of test cases (Bird et al, 2015, Section 3.2).
+data points over the total number of test cases (Bird et al, 2014, Section 3.2).
 
 The way the categorization package provides an evaluation of the classifier is
 through the ClassifierEvaluator class. The interface of this class allows access

@@ -23,7 +23,7 @@ The completion of the questionnaire is followed by the creation of a care plan
 through a consultation with a clinician, with further advice and referrals as
 needed. Macmillan began trialing an electronic version of the questionnaire in
 2010, progressively extending provision of the eHNA to more and more sites
-(Mac Voice, 2014).
+(Rowe, 2014).
 
 This project is a about the use of an intelligent conversational system
 to gather further information about the patient's concerns through an electronic
@@ -35,18 +35,21 @@ computer advisors to Macmillan's eHNA in a growing effort to improve the
 quality of support cancer patients receive across the UK.
 
 Intelligent conversation systems have enjoyed an increasing amount of media
-attention over the last year[^aiarticles]. With applications of artificial
+attention over the last year (numerous articles among which: The Economist, 2016;
+Berger, 2016; Knowledge@Wharton, 2016; Finextra Research, 2016; Yuan, 2016; French, 2016).
+With applications of artificial
 intelligence to using natural language inputs for different purposes, including
-general purpose mobile device interfaces[^viv]. Furthermore, several technology
+general purpose mobile device interfaces (Viv, 2016; Dillet, 2016). Furthermore, several technology
 companies have started offering "Artificial Intelligence as a Service" products.
 Among these are BloomsburyAI (founded at UCL) and bespoken companies such as
-Google and Microsoft[^aiaas]. This appears indicative of the fact that chatbot
+Google and Microsoft (Pandorabots, 2016; Riedel et al, 2016; Microsoft Cognitive Services, 2016).
+This appears indicative of the fact that chatbot
 and natural language processing technologies have reached a level of maturity
 comparable to that achieved years ago by haptic technology, that we find almost ubiquitously
 in human-computer interfaces and everyday use of computing devices today.
 
 This project is part of PEACH: Platform for Enhanced Analytics and Computational
-Healthcare (Project PEACH, 2016). PEACH is a data science project that
+Healthcare (PEACH, 2016). PEACH is a data science project that
 originated at University College London (UCL) in 2016 that sees Master level
 candidates working together on the data platform and on related projects. With
 more than twenty students across multiple Master courses, it is one of the
@@ -68,11 +71,6 @@ support cancer patients based on their concerns (to be available both through
 conversation with the chatbot and independently), Deborah Wacks (MSc CS) as lead
 UX designer working on the implementation of a webserver through which deliver
  the chatbot and search engine to users.
-
-[^aiarticles]: Numerous articles, among which: (The Economist, 2016),
-(Berger, 2016), (Knowledge@Wharton, 2016), (Finextra Research, 2016)
-[^viv]: (Viv, 2016), (Dillet, 2016)
-[^aiaas]: (Pandorabots, 2016), (Riedel et al, 2016), (Microsoft Cognitive Services, 2016)
 
 [hna]: http://www.macmillan.org.uk/aboutus/healthandsocialcareprofessionals/macmillansprogrammesandservices/recoverypackage/holisticneedsassessment.aspx
 "Holistic Needs Assessment"

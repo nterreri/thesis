@@ -1,5 +1,10 @@
 # Conclusion
 
+> When are you done? Since design is open-ended, the most common answer to that
+question is "When you're out of time."
+
+**McConnell, 2004**
+
 This chapter reviews the project goals and aims, finally, the author expresses
 his thoughts on the project going forward.
 
@@ -109,7 +114,7 @@ see Chapter 2 for a discussion of alternatives.
 
 Secondly, the categorizer module (to which only a week was dedicated during this
 project) could be made more robust and extended to use sequence classifiers, potentially
-extending the NLTK open source project (see Chapter 2 and Appendix (#??) for
+extending the NLTK open source project (see Appendix D for
 initial research in this direction). Eventually, this should become part of the
 preprocessing layer to inform the input to the rule-based chatbot enigne with the
 output of a machine learning component.

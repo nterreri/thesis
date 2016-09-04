@@ -505,12 +505,12 @@ of the classifier, the failure to correctly label any of the "spiritual" categor
 data points may have to do with idiosyncrasies with the data split, such as no
 data points of that category occurring in the test set. This has partly to do with
 the small amount of data available, but could be alleviated using more advanced
-evaluation techniques, such as k-fold validation (Bird et al, 2015, Chapter 6
-section 3.5; Sebastiani, 2002, pp.9-10).
+evaluation techniques, such as k-fold validation (Bird et al, 2014, Chapter 6
+section 3.5; Sebastiani, 2002, pp.9-10; Yang, 1999).
 
 Furthermore, see the discussion of sequence classifier for what is perhaps a more
 interesting direction than simply improving the performance single-label classifers
-(#REFERENCE).
+(Appendix D).
 
 [^features]: See     
 <http://textblob.readthedocs.io/en/dev/_modules/textblob/classifiers.html#basic_extractor>
@@ -590,7 +590,7 @@ impose over a simple classifier, which leads us onto the next topic.
 A sequence classifier is similar to a single or multi-lable classifier, except
 it considers each data point as a member of a sequence: the data points are assigned
 labels not independently of each other but as part of one sequence
-(Bird et al, 2015, Chapter 6 sections 1.6-1.7; Jurafsky and Martin, 2014, p.1).
+(Bird et al, 2014, Chapter 6 sections 1.6-1.7; Jurafsky and Martin, 2014, p.1).
 This type of classifier intuitively better suits the task of classifying sequences
 of utterances in a conversation, than a classifier that only decides a label for
 the input considered in isolation.

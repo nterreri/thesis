@@ -25,7 +25,8 @@ below (Figure 4.1).
 SOLID principles of software design were followed in the design of the system;
 these are dependency management principles (policing the "import" statements
 throughout the project) and clean design principles (Martin, 2003, Section 2).
-Additionally, clean code design guidelines (Martin, 2009) were also followed.
+Additionally, clean code design guidelines (Martin, 2009; McConnell, 2004, chapter 5)
+ were also followed.
 The chief purpose of these efforts is to design the system for change, and
 make the code readable to *humans* (Martin, ibid, pp.13-14).
 This approach leads to extremely specialized and short class bodies and functions, and
@@ -276,7 +277,8 @@ same time.
 
 The reason this subpackage was not used in the final pipeline
 implementation is that it took too long for the survey
-that was created to collect relevant data to produce results (#REFERENCERELEVANTPART). But it is possible
+that was created to collect relevant data to produce results.
+But it is possible
 in principle to plug a trained categorizer at the preprocessor level of the
 message pipeline in order to add a tag to the user message, in order for this
 to be used by the chatbot framework to provide better replies to the user,
