@@ -9,10 +9,13 @@ either:
 - \bibliographystyle{abbrvnat}
 or:
 -\usepackage[backend=bibtex]{biblatex-chicago}
--\bibliography{bibl.bib}
+-\bibliography{MSC16.bib}
 ~~~
 The above has to be put the latex manually to get the urls to format properly
 in the references.
+
+Also, it is necessary to run $ bibtex made.aux after making the latex document
+in order for latex to know what to do with it.
 
 # Edit 2:
 ~~~
