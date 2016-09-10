@@ -8,15 +8,16 @@ This chapter describes the process followed to produce the suite of tests that
 verify the functioning of the system at the level of core logic and the higher
 level system behaviour. This chapter also describes the process of
 classifier evaluation provided by the classification package.
-
 The full test coverage results and categorizer evaluation listings are found in
 Appendices B and C.
 
 ## Testing Strategy
 
 Given the topic of the project, the testing strategy adopted focuses on verifying
-the behaviour of the individual units of code and the higher level behaviours
-of the system. This is accomplished through systematic testing
+the behaviour of the individual units of code, the integration of units together
+as well as performance intensive operations (Gensim) or units that perform heavy
+IO (RiveScript).
+This is accomplished through systematic testing
 with a test-first approach: the test defining the specification for the next
 system increment is constructed before the unit that will have to pass it
 (Beck and Andres, 2004, pp.50-51, 97-102; McConnell, 2004, pp.499-).
@@ -30,16 +31,16 @@ does not fall within a predefined range of acceptable replies. For example:
 def test_work():
     resetpractical()
     # perform:
-    messages = ["I am underperforming at work because of stress",
-    "Something about work ...", "I am afraid to lose my job"]
+    messages = ["I am underperforming at work because of stress"
+    , "Something about work ...", "I am afraid to lose my job"]
 
     for msg in messages[:]:
         reply = bot.reply(Message(USERID, msg))
         # test:
         found = False
-        good_replies = ["Are you afraid for your job security?",
-        "Would you say this is also a money concern?",
-        "How has your condition been affecting your work?"]
+        good_replies = ["Are you afraid for your job security?"
+        , "Would you say this is also a money concern?"
+        , "How has your condition been affecting your work?"]
 
         for good_reply in good_replies:
             if good_reply == reply:
@@ -99,7 +100,7 @@ def _sendUserMessageAndLog(userid, message):
 
 [^TDD]: TDD is not free of controversy, see Hansson (2014) and Fowler et al (2014).
 
-[^notall]: Not all tests strictly adhere to the rules of TDD because the author was learning
+[^notall]: Not all tests were written strictly adhering to the rules of TDD because the author was learning
 the discipline while working on the project.
 As a result, the later a unit was designed, the better the tests for it were.
 
@@ -108,8 +109,8 @@ See Appendix B for test coverage listings and more details.
 
 ## Categorization Evaluation Strategy
 
-A classifier is evaluated by looking at certain metrics of its perfomance during
-testing. A very simple metric is accuracy: the number of correctly labelled
+A classifier is evaluated by looking at metrics of its performance.
+A very simple metric is accuracy: the number of correctly labelled
 data points over the total number of test cases (Bird et al, 2014, Section 3.2).
 
 The way the categorization package provides an evaluation of the classifier is
@@ -123,11 +124,11 @@ to all data points.
 It is important to note, however, that the precision and recall the evaluation
 module provides for a classifier are individual to the particular
 label being tested for, and either macro- or micro-averaging should be used
-to extract global classifier effectivness metrics (Sebastiani, ibid p.33;
+to extract global classifier effectiveness metrics (Sebastiani, ibid p.33;
 Yang and Liu, 1999, p.43).
 
-The type of data we wanted our classifier to produce a label for was a short chat
-message. The label had to be in the specified range of categories, in order to
+The type of data we wanted to produce a label for was a short chat
+message. The label had to be in the specified range of categories (Chapter 2.1.1), in order to
 better inform the chatbot with the capacity for generalization of a machine learning
 approach. There is no corpus of pairs of message - label of the relevant kind.
 Therefore, the author created a survey which Dr Ramachandran asked the team to
@@ -136,13 +137,13 @@ This resulted in 222 data points.
 
 [^survey]: The survey can be found here: <https://goo.gl/forms/ylkI50XckV9yvCCm2>.
 
-Because of the fact that all of the data extracted via the questionnaire
+Since all of the data extracted via the questionnaire
 has a balanced number of expected labels for categories, there is no
 concern about the training data being skewed with low positive cases for any one
 category, therefore micro-averaging is probably the best overall measure, although both are
-included in the evaluation results.
+included in the evaluation results (Sebastiani, 2002, p.33).
 
-The results themselves for the categorizer implementations provided by the NLTK
+The performance of the categorizer implementations tried
 are disappointing, primarily because of lack of problem-specific feature selection
 and possibly idiosyncrasies in the test set. See Appendix C for full results listings
 and further discussion.

@@ -26,7 +26,7 @@ effort aiming at the delivery of a complete user-facing application, specificall
  modelled after Macmillan's eHNA system for cancer patients in the UK.
 It involved research in open source chatbot technologies, and related NLP tasks
 such as text categorization, as well as the design, testing and basic implementation
-of the system. The developement was carried out in weekly iterations in continuous
+of the system. The development was carried out in weekly iterations in continuous
 consultation with a client for the University College London Hospital.
 The project delivered an extensible implementation in the form of a software
 package meant for use with an external system of delivery to the user (a

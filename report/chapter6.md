@@ -10,12 +10,12 @@ his thoughts on the project going forward.
 
 ## Project Goals Review
 
-The goals and aims introduced in Chapter 1 are here reviewd.
+The goals and aims introduced in Chapter 1 are here reviewed.
 All references to "RQ" below refer to the requirements
 table in Chapter 3.
 
 - **Design and implement a chatbot architecture tailored to the issues surrounding
-software systems in healthcare (in particular around treatment of sensitive patient data)**
+software systems in healthcare**
 
 As discussed in Chapter 2, there are crucial compliance concerns around the sensitivity
 of patient data that have driven the implementation decision not to employ third
@@ -31,13 +31,14 @@ was completed, a clear reference on how to integrate between the systems had
 been provided (and materialized in the integration testing "MockSearch" class
 and shown integrated at the postprocessing stage; see also RQ5).
 
-- **To explore other applications of NLP that could be useful to extract information from natural language data.**
+- **To explore other applications of NLP that could be useful to extract information from natural language data**
 
 The current project has used NLP to investigate a hybrid approach to chatbot
 technology, making use of both rule or grammar based technologies and machine
 learning with the categorizer (RQ0, RQ2, RQ3). Secondly, NLP was used for the synonym generation (RQ8).
 
 - **To implement a chatbot brain using open source technology.**
+
 As mentioned, a chatbot brain was implemented in RiveScript, after reviewing
 the available choice of technologies given the restrictions on patient data (RQNF0, RQ1).
 
@@ -45,7 +46,7 @@ the available choice of technologies given the restrictions on patient data (RQN
 
 As discussed in Chapter 2, it was with reference to the CC used in one of Macmillan
 eHNA forms that was used for the concrete implementation of the topics in the
-"concerns" subpackage (RQNF1).
+"concerns" sub-package (RQNF1).
 
 [^missedreqs]: The requirements not covered by this list were not selected as strictly necessary
 for the project success (*May* under MoSCoW: RQ8, RQ9).
@@ -95,11 +96,10 @@ The "plugin" model makes the system independent of the IO device that delivers i
 (in the case of the group project, a webserver) which may be in the future a mobile app,
 a CLI client, or anything else. It is, in fact, the caller's
 responsibility to import this project's packages and modules, and to use them
-as documented in the test cases. Similarly, the data models gathering conversation and
+as documented in the unit and integration tests. Similarly, the data models gathering conversation and
 user concerns data should be used in a similar fashion: independently of the
 durable storage solution adopted (whether this is SQL, NoSQL, host filesystem
-or any other) it should be the caller's responsibility to import this project
-to serialize the data[^facade].
+or any other)[^facade].
 
 [^facade]:  Although both consumers of the
 system would benefit from the creation of a unified façade instead of having dependencies
@@ -113,15 +113,13 @@ for instructions on how to replace RiveScript with some other alternative, and
 see Chapter 2 for a discussion of alternatives.
 
 Secondly, the categorizer module (to which only a week was dedicated during this
-project) could be made more robust and extended to use sequence classifiers, potentially
+project) could be made more robust to use sequence classifiers, potentially
 extending the NLTK open source project (see Appendix D for
 initial research in this direction). Eventually, this should become part of the
-preprocessing layer to inform the input to the rule-based chatbot enigne with the
-output of a machine learning component.
-
-Third, generation of RiveScript (or other specialized languages) could be investigated
-following up on the initial results with the synonym generation package. This could
-dynamically generate synonyms to help improve pattern matchers.
+preprocessing layer to inform the input to the rule-based chatbot engine with the
+output of a machine learning component (as outlined in Chapter 2.4).
+Third, generation of RiveScript (or similar specialized languages) could be investigated
+following up on the initial results with the synonym generation package.
 
 Finally and most importantly, it may be desirable to investigate information-retrieval techniques to
 extract information from the conversation data gathered during conversations.
