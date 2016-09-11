@@ -1,9 +1,9 @@
 
 # Introduction
-> "Pointing will still be the way to express nouns as we command our machines;
-> speech is surely the right way to express the verbs."
+>> *"Pointing will still be the way to express nouns as we command our machines;
+>> speech is surely the right way to express the verbs."*[^brooks]
 
-**Frederick Brooks, 1995**
+[^brooks]: Frederick Brooks, 1995.
 
 \pagenumbering{arabic}
 

@@ -1,9 +1,9 @@
 # Conclusion
 
-> When are you done? Since design is open-ended, the most common answer to that
-question is "When you're out of time."
+>> *"When are you done? Since design is open-ended, the most common answer to that
+>> question is 'When you're out of time.'"*[^connell]
 
-**McConnell, 2004**
+[^connell]: McConnell, 2004.
 
 This chapter reviews the project goals and aims, finally, the author expresses
 his thoughts on the project going forward.

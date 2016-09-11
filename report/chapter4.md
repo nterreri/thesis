@@ -1,9 +1,10 @@
 # System Design and Implementation {#Chapter4}
 
-> *"Out of all the documentation that software projects normally generate, was
-> there anything that could truly be considered an eningeering document?" ...
- "Yes, there was such a document, and only one--the source code."*
-**J. Reeves, 2001**
+>> *"Out of all the documentation that software projects normally generate, was
+>> there anything that could truly be considered an eningeering document?" ...
+>> "Yes, there was such a document, and only one--the source code."*[^reeves]
+
+[^reeves]: J. Reeves, 2001.
 
 This chapter describes the most interesting aspects of the delivered system
 architecture and implementation. First, the design principles followed during

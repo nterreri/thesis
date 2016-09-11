@@ -1,8 +1,8 @@
 # System Testing and Evaluation
 
-> "The act of writing a unit test is more an act of design than of verification."
+>> *"The act of writing a unit test is more an act of design than of verification."*[^martin]
 
-**Martin, 2003**
+[^martin]: Martin, 2003.
 
 This chapter describes the process followed to produce the suite of tests that
 verify the functioning of the system at the level of core logic and the higher
