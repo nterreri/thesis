@@ -5,7 +5,7 @@ requirements was produced and agreed on by the stakeholders. Recall that the sco
 of this project is the architecture of the core system, not a full end-to-end
 implementation, which is the objective of the PEACH chatbot team. UI/UX design
 does not fall within the scope, and neither does a data persistence strategy
-(datastore solutions etc.) nor a full deployment plan.
+nor a deployment plan.
 
 ## Building the Right System
 

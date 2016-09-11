@@ -5,7 +5,7 @@ the background reading, and the tools and frameworks selection process.
 
 ## The electronic Health Needs Assessment questionnaire
 
-The primary already existing reference for the software to be built by the team
+The primary reference for the software to be built by the team
 is Macmillan's eHNA. Macmillan Cancer Support developed the eHNA for the purpose of extending the
 range of cancer patients in the UK covered by individual care plans, made to address
 the individual's very personal and unique concerns they incurred into in relation
@@ -21,14 +21,10 @@ is the option to complete the questionnaire remotely, although the adoption of
 this alternative is made difficult by the work habits of key personnel, who are
 used to providing a device to the patient in person and ask them to carry out the
 questionnaire while at the clinic.
-The patient uses device touch interface to navigate through various pages
+The patient uses a touch interface to navigate through various pages
 selecting concern categories from a predefined list. There are several versions
 of questionnaires available, modelled after the various paper versions, depending on which
 one the clinic previously used.
-
-Patients typically select three-four concerns (up to around six, mostly depending
-on the type of cancer they have). The questionnaire takes on average less than
-10 minutes to complete.
 The front end of the system is implemented as web-app.
 Access to the assessment is restricted to scheduled appointments that clinics set up
 for individual patients, either via delivering the questionnaire on the clinic site,
@@ -37,7 +33,7 @@ number, alongside the patient's name and date of birth.
 
 ### The Concerns Checklist {#ConcernsChecklist}
 Given the variety of different versions of the questionnaire, the team was advised
-by the client to focus on the one that is most commonly used: the Concerns Checklist (NCSI, 2012).
+by the client to focus on the one that is most commonly used: the Concerns Checklist (NCAT, 2011).
 
 In this version of the questionnaire, the patient selects their concerns from a
 range of more than 50 individual issues, each falling into one of 10 categories,
@@ -125,24 +121,24 @@ the web hosting solutions of Amazon or Microsoft (AWS, 2016; Azure 2016).
 For the reasons outlined in the above section on the particular legal issues around
 the problem domain, it was deemed unfeasible to use external services that would
 host the chatbot service and as a consequence receive and process patient
-information (even in anonymized form)[^chatbotSources].
-
-[^chatbotSources]: The main sources for this section of
-the report are the individual websites of the tools explored, and the forum of
-<https://www.chatbots.org/ai_zone/> and related readings (Morton, 2011; Wilcox, 2011).
+information (even in anonymized form)].
 
 In the architecture model proposed above, the open source resources available make
  it easy to write documents that define the patterns and templates of a "frame-based"
 system, simplifying the process to build all three of the above defined layers.
 We now proceed to review the various options, and motivate the choice of tool
-used in this project.
+used in this project[^chatbotSources.
+
+[^chatbotSources]: The main sources for this section of
+the report are the individual websites of the tools explored, and the forum of
+<https://www.chatbots.org/ai_zone/> and related readings (Morton, 2011; Wilcox, 2011).
 
 #### The Artificial intelligence Markup Language
 AiML is a version of the Extensible Markup Language (XML) that was specifically
 designed around providing a transferrable standard to define rules, patterns and grammars to
 match user inputs to appropriate templates. On top of the basic patterns and
-template, AiML provides ways to use wildcards or optional sub-patterns in the
-input pattern and to capture parts of the user input for processing or to repeat
+template, AiML provides ways to use wildcards or optional sub-patterns
+to capture parts of the user input for processing or to repeat
 back to the user by decorating the template (for examples see: Wallace, 2014).
 
 AiML also provides ways to define topics as restrictions over the set of match-able
@@ -187,10 +183,10 @@ implementations at the time of writing, leaving only a couple standing
  (ALICE A.I. Foundation, 2014; Morton and Perreau, 2014).
 
 #### ChatScript
-ChatScript is in many ways similar to RiveScript in that instead of extending XML
+ChatScript is in many ways similar to RiveScript in that
 it provides a very easy to read syntax (Wilcox, 2011; Wilcox, 2016b).
 In ChatScript, it is possible to
-define "concepts" like RiveScript "arrays". ChatScript also is also integrated in WordNet: a
+define "concepts" like RiveScript "arrays". ChatScript is also integrated in WordNet: a
 lexical database for the English language that primarily models synonymy and hyponymy
 between English words (Fellbaum, 2005).
 Like the others, ChatScript supports external procedure calls, wildcards, optional sub-patterns
@@ -210,7 +206,7 @@ in other applications (on the webserver for example), and while there are workar
 to having to keep multiple versions of Node, there is the risk of making it more
 and more difficult to maintain the system as Node and SuperScript evolve[^mota].
 
-[^node]: While the author is personally unfamiliar
+[^node]: While the author is unfamiliar
 with Node, this came across as a red flag. The recommended version of NodeJS for
 most users at the time of writing is 4.5.0, while the latest build version is
 6.4.0 (Node Core Technical Committee and Collaborators, 2016;         
@@ -256,12 +252,12 @@ Wilcox, 2016b, pp.5--).
 [^petherbridge2009]: <https://www.rivescript.com/wd/RiveScript#topic>.
 
 Another point of interest (again, given the author's aim to explore Python) is
-the open source software available for use with the project. Given the considerations
+the open source software available for use. Given the considerations
 already provided, SuperScript seemed like the least comfortable option from this
 perspective (Node), with ChatScript (whose only interpreter is in C++) being second least.
 This would leave RiveScript and AiML, with RiveScript's simpler but expressive
 syntax and its currently maintained Python interpreter being the final deciding
-factor for the current implementation.
+factors for the current implementation.
 
 ## Natural Language Processing
 As stated in Chapter 1, part of the author personal aims included learning about
@@ -331,7 +327,7 @@ See Chapter 5 and Appendix C for more information on the solution adopted.
 ## Generating Chatbot Brain Data
 
 Given the conclusion of using a software package that works based on input patterns matchers
-and output templates, which have to hard coded, investigation began into automated
+and output templates, which have to be hard coded, investigation began into automated
 generation of matchers and templates. One area that it became clear early on
 could benefit from automated generation was with patterns to match not against a
 particular set of terms, defined inline into the pattern, but English words close
@@ -364,8 +360,7 @@ Since the sort of data relevant to the training of a word2vec model for the purp
 of synonym generation did not require domain-specific data, but was in fact best
 gathered through general English sources, the model that was used for the synonym
 generation task was a model that had been pre-trained over a significant amount of
-Google News data (McCormick, 2016a). See
-Appendix C for results and evaluation.
+Google News data (McCormick, 2016a).
 
 ### Alternatives
 

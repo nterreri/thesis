@@ -78,7 +78,7 @@ UX designer working on the implementation of a webserver through which deliver
 The main project goal is the delivery of a basic but easy to extend and modify
 chatbot software system, specifically targeted at assisting with the identification
 and gathering of information around cancer patient issues, modelled after the
-Concerns Checklist (CC) electronic questionnaire form (NCSI, 2012; see Section 2.1.1).
+Concerns Checklist (CC) electronic questionnaire form (NCAT, 2011; see Section 2.1.1).
 Finally, one of the major challenges with eHealth problems is represented by
 having to handle confidential patient data (Chapter 2.2). Summarily:
 
@@ -108,8 +108,9 @@ Great emphasis was also put on testing as part of development, in particular the
 of Test Driven Development.
 A top-down system design and implementation was also adopted, with the next largest system
 abstraction being prioritized first in order to always have a
-working system being progressively refined (Brooks, 1995, pp.143-144, 200-201, 267-271; Martin, 2009, pp.121-133; 2003, chapter
- 2, 4, 5; Beck and Andres, 2004, pp.46-47; Beck et al, 2001.)
+working system being progressively refined (Brooks, 1995, pp.143-144, 200-201,
+  267-271; Martin, 2009, pp.121-133; 2003, chapter
+ 2, 4, 5; Beck and Andres, 2004, pp.46-47; Beck et al, 2001).
 
 ## Report overview
 This report is structured as follows:

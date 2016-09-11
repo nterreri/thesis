@@ -115,7 +115,7 @@ across multiple subpackages of the system (Gamma et al, 1995, Chapter 4.5).
 There are various ways in which the project could be extended. First of all,
 the author advises exploring an open source framework different from RiveScript
 given the limitations discovered within it during this project (or if the client believes
-it appropriate using third party remote APIs.). See Appendix A
+it appropriate using third party remote APIs.). See Appendix A (A.2.2)
 for instructions on how to replace RiveScript, and
 Chapter 2 for a discussion of alternatives.
 

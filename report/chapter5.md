@@ -27,7 +27,6 @@ messages are sent to the bot brain and the test fails if the reply returned
 does not fall within a predefined range of acceptable replies. For example:
 
 ~~~ python
-#tests/tests_integration/test_botinterface/test_preprocessedpractical.py
 def test_work():
     resetpractical()
     # perform:
@@ -74,20 +73,21 @@ it encourages to take on the perspective of the caller of the code, before any
 code has been written which makes the code easy to call and use to the programmer
 who is going to consume it. Secondly, it encourages a loosely coupled design.
 Testing the BotRivescript class in isolation, for example, requires that its
-associated objects be replaced with mocks providing very predictable behaviour, so
+associated objects be replaced with mocks providing predictable behaviour, so
 that the logic of the class can be scrutinized without external interferences.
 
 Third, it leads to self-documenting code. The tests
 describe how to use the system and as long as the tests
 are continuously made to pass, they will never be out of date as comments and
-Docstrings are always at risk of becoming[^notall].For example, the following function of the messagelog package
+Docstrings are always at risk of becoming[^notall].
+For example, the following function of the messagelog package
 integration test demonstrates how to use both the chatbot and message
 logging facilities provided by the present package in a way that is technically
 accurate and intuitive
 enough that programmers should be able to understand how to use
-it without further guidance (*_sendUserMessageAndLog(userid, message)* in code listing E.8 Appendix E).
+it without further guidance (*sendUserMessageAndLog(userid, message)* in code listing E.8 Appendix E).
 
-[^TDD]: TDD is not free of controversy, see Hansson (2014) and Fowler et al (2014).
+[^TDD]: See also Hansson (2014) and Fowler et al (2014).
 
 [^notall]: Not all tests were written strictly adhering to the rules of TDD because the author was learning
 the discipline while working on the project.
@@ -103,7 +103,7 @@ A very simple metric is accuracy: the number of correctly labelled
 data points over the total number of test cases (Bird et al, 2014, Section 3.2).
 
 The way the categorization package provides an evaluation of the classifier is
-through the ClassifierEvaluator class. The interface of this class allows access
+through the *ClassifierEvaluator* class. The interface of this class allows access
 to accuracy, precision, recall and F metrics for the given classifier over a
 "gold" standard data set (Perkins, 2010; Sebastiani, 2002, pp.32-37). Perhaps the most useful of these is
 the F measure, as Sebastiani (ibid, p.34) warns that accuracy tends to be

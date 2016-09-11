@@ -56,14 +56,14 @@ packages of the system.
 The *botinterface/* package exposes the interface class for the core chatbot
 component in the *botinterface/bot_interface.py*, and provides an implementation
 in *botinterface/bot_rivescript.py*. In order to depend only on the API, it is
-possible to ask the *bot_builder.py* module (located in the project top level directory)
+possible to ask the *bot_builder.py* module
 to construct a concrete subtype of the interface.
 
 This last module exposes a *build()* method that will return a default instance
 of the bot, which will assume the RiveScript brain files are located within
 a *brain/* directory immediately accessible. The same
 module defines a *BotBuilder* class that the caller can use to customize the
-chatbot instance being returned. For example, the following code listing will
+chatbot instance being returned. For example, the following will
 initialize a chatbot with a brain located at the specified filepath ("path/to/brain"):
 
 ~~~ python
@@ -73,7 +73,7 @@ chatbot = botBuilder.build()
 ~~~
 
 The RiveScript-based chatbot instance returned expects messages to be forwarded
-to it in the form of a *messagelog.message.Message* instance. The Message class
+to it in the form of a *messagelog.message.Message* instance. The *Message* class
 simply requires that both a user ID and message content be provided. This is
 to enforce conformity with the interface defined in the *botinterface/bot_abstract.py*
 module: the *reply(message)* method should take a single argument while the caller
@@ -82,7 +82,7 @@ the core chatbot component (Figure 4.1; listing E.1 in Appendix E).
 
 As mentioned before, the conversation logging facilities provided by the
 *messagelog* package are not automatically used by the chatbot instance, instead
-something like the *_sendUserMessageAndLog(userid, message)* method is necessary
+something like the *sendUserMessageAndLog(userid, message)* method is necessary
 (listing E.8 Appendix E).
 
 ### Why RiveScript should be removed
@@ -96,19 +96,18 @@ thing to take into account is that the current implementation of the chatbot bra
 is incomplete and not very articulate. It is incomplete because it is at the moment
 impossible to move on from any of the topics other than the physical issues topic,
 therefore any user who has concerns other than physical will never trigger the macro
-that changes the state of the DistressConversationDriver data model for the user
+that changes the state of the *DistressConversationDriver* data model for the user
 to move on to the next topic. It is not articulate because little time was
-spent working on the brain implementation, given the focus system architecture and design.
+spent working on the brain implementation, given the focus on system architecture and design.
 
 Furthermore hand written rules that frameworks like RiveScript
- need take a significant amount of time to write and test, more than common programming languages.
-Secondly, numerous issues were met during development, including textbook use of RiveScript language syntax
+take a significant amount of time to write and test, more than common programming languages.
+Secondly, numerous issues were encountered during development, including textbook use of RiveScript language syntax
 constructs causing uncaught exceptions to be thrown from within the external framework,
 and issues with inconsistent internal state with the framework user variables that
 took three days (amounting to 10% of project core development time) to debug
 and fix, due to poorly documented behaviour when changing and using the same
-user variable in the breath of the same pattern matcher (including redirects;
-  Petherbridge, 2016).
+user variable in the breath of the same pattern matcher (including redirects).
 
 Finally, the Python statements in the RiveScript object macros cannot be
 extracted to a separate file. This is because the "rs" reference available
@@ -126,7 +125,7 @@ to start with this aspect of the system from scratch.
 
 #### How to Replace RiveScript
 
-In order to replace the RiveScript interpreter, it is necessary to create another
+In order to replace the RiveScript framework, it is necessary to create another
 implementation of the *Interpreter* class, adapting the implementation
 provided in *RivescriptProxy*.
 Depending on the framework used, it may be necessary
@@ -151,10 +150,10 @@ this would need to know and name (import) the new implementations.
 ### Categorizer
 
 The categorizer can be used through the *demo.py* module. Effectively, this module
-should in the future become a more complete utility callable from the command
-line, that would train or load a serialized classifier before running it against
-a development or test set. As it stands, running the module will always result in
-the classifier being trained, run against the dev set and finally tested automatically.
+should in the future become a more complete utility that would train or load a
+serialized classifier before running it against a development or test set.
+As it stands, running the module will always result in the classifier being
+trained, run against the dev set and finally tested automatically.
 
 ### Synonym Generation
 
@@ -162,7 +161,7 @@ The synonym generation facilities are meant to be accessed through the
 *synonym/synonym_extractor_factory.py* module. This module lazily instantiates
 an instance of the *Word2VecSynonymExtractor* class (defined in *synonym/synonym_word2vecextractor.py*).
 
-Instantiating this object requires will take up around 6-8 GBs of main memory,
+Instantiating this object will take up around 6-8 GBs of main memory,
 due to the size of the pre-trained data model it uses. After it has been loaded,
 it is possible to obtain synonyms from it given a word. Doing this may cause
 a lot of pages to be swapped in and out of virtual memory
@@ -228,8 +227,8 @@ Emotional concerns 2        Spiritual or religious concerns
 # Unit Tests Results
 
 This appendix reports the unit testing code coverage for all modules in the
-project. The testing framework of choice is py.test (Krekel, 2016; Reitz and Schlusser, 2016
-, pp.76-86)[^pythontesting].
+project. The testing framework of choice is py.test (Krekel, 2016;
+Reitz and Schlusser, 2016, pp.76-86)[^pythontesting].
 
 [^pythontesting]: <http://docs.python-guide.org/en/latest/writing/tests/>.
 
@@ -251,7 +250,7 @@ synonym generation tests which require a very large amount of RAM to run efficie
 (see Appendix A above).
 
 Running *only* the unit tests should take less than a minute.
-The unit tests, in fact, are designed for quick execution (see Martin, 2009, p.132)[^fast].
+The unit tests, in fact, are designed for quick execution (see Martin, 2009, p.132).
 Finally, if the pytest-cov package is installed (Schlaich, 2016) then it
 is possible to get reports for code coverage about individual sub-packages
 by providing the desired sub-package name as an argument in the following manner:
@@ -263,11 +262,6 @@ python -m py.test --cov=botinterface tests/tests_unit/
 This will provide an executable statement test coverage report.
 The reader is redirected to Chapter 5 for more
 information about the testing strategy.
-
-[^fast]:
-It is good to notice at this point the difference in runtime between the decoupled unit tests
-and the integration tests in this case, running all unit tests for the project takes
-seconds.
 
 ## Code Coverage Report
 
@@ -343,8 +337,10 @@ TOTAL                                     622     69    89%
 ~~~
 
 This total excludes the RiveScript brain logic, which is covered through integration
-tests exclusively. Note that there are several abstract classes that are also counted in the total
-executable statements even though they should not, for example *MessageProcessor*:
+tests exclusively, as well as other classes that focus on disc IO or similar tasks
+such as *rivescript_writer*. Note that there are several abstract classes that
+are also counted in the total executable statements even though they should not,
+for example *MessageProcessor*:
 
 ~~~ python
 #botinterface/message_processor.py
@@ -380,7 +376,7 @@ logic is also extensively tested via integration tests.
 
 Finally, the RiveScript Python macro code within *brain/python.rive*
 is not considered in the count above and not directly covered by any unit tests
-and is in fact impossible to test in isolation. This is because
+and is in fact impossible to test in isolation (Appendix E.9). This is because
 the RiveScript object instance "rs" accessible within these
 macros cannot be called from inside separate and isolated methods (as it was the
 author's original intention) and will raise an error if it is passed as a variable
@@ -404,7 +400,8 @@ The survey gathered 222 data points in total (see Chapter 5). The same split was
 training and testing of both classifier implementations used.
 The single-label categorizers used in the project are provided by
 the NLTK through the TextBlob package: a Naive Bayes classifier and
-a Maximum Entropy classifier.
+a Maximum Entropy classifier (Manning et al., 2009, Chapter 13;
+Jurafsky and Martin, 2014, Chapter 7).
 
 The data splitting logic in the *categorize* package by default simply takes
 10% of the labelled data set for training, and another 10% for development:
@@ -473,7 +470,7 @@ label, but scores better in other global metrics (averaged over all labels).
 The reason for the performance is most likely the lack of problem-specific feature
 extraction. The feature extractors that both classifiers use in the current
 implementation, in fact, is simply that both use the default feature extractor
-provided with TextBlob [^features].
+provided with TextBlob[^features].
 
 This feature extractor simply looks at all the words contained within the train set,
 and encodes features as the occurrence of the word within the document.
@@ -492,7 +489,7 @@ the small amount of data available, but could be alleviated using more advanced
 evaluation techniques, such as k-fold validation (Bird et al, 2014, Chapter 6
 section 3.5; Sebastiani, 2002, pp.9-10; Yang, 1999).
 
-Furthermore, see the discussion of sequence classifier for what is perhaps a more
+See the discussion of sequence classifiers for what is perhaps a more
 interesting direction than simply improving the performance single-label classifiers
 (Appendix D).
 
@@ -503,10 +500,10 @@ interesting direction than simply improving the performance single-label classif
 
 The model used in the implementation is a publically available model that has
 been trained over a very large data set of Google News data[^word2vec].  
-As mentioned in Chapter 2 and 4, the implementation for synonym extraction
+As mentioned in Chapters 4 and 5, the implementation for synonym extraction
 was not used in the system delivered by the team because of poor performance.
 
-[^word2vec]: The publically available model used is obtainable from:
+[^word2vec]: The publically available model used is obtainable from:          
   <https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit>
 
 As it is possible to see from the integration tests
@@ -628,7 +625,7 @@ There are two reasons for this.
 The first is that, as may have become evident through the preceding section, the
 problem is complex enough to warrant exploration in a separate dissertation. And
 given the focus of the current project, to dedicate more resources to this topic would
-require neglecting other, perhaps more important aspects of the problem to be solved.
+have required neglecting other, perhaps more important aspects of the problem to be solved.
 
 The second is that the NLTK does not provide implementations of any sequence
 classifier (at the time of writing). Looking through the public open source

@@ -4,7 +4,7 @@
 >> there anything that could truly be considered an eningeering document?" ...
 >> "Yes, there was such a document, and only one--the source code."*[^reeves]
 
-[^reeves]: J. Reeves, 2001, p.517.
+[^reeves]: Reeves, 2001, p.517.
 
 This chapter describes the most interesting aspects of the delivered system
 architecture and implementation. First, the design principles followed during
@@ -14,15 +14,14 @@ sub-packages.
 The overall architecture of the system produced in the team effort
 is illustrated below (Figure 4.1).
 
-![System component diagram](componentChatbot.pdf)
+![System components diagram](componentChatbot.pdf)
 
 ## Software Architecture
 
 ### Principles of Software Design
 
 SOLID principles of software design were followed in the design of the system;
-these are dependency management principles (policing the "import" statements
-throughout the project) and design principles (Martin, 2003, Section 2).
+these are dependency management principles and design principles (Martin, 2003, Section 2).
 Additionally, clean code design guidelines (Martin, 2009; McConnell, 2004, chapter 5)
  were also followed.
 The chief purpose of these efforts is to design the system for change, and
@@ -41,10 +40,8 @@ system (Figure 4.1; Martin, 2012; Martin, 2014).
 The programmer accessing the package structure
 should be able to understand what the purpose of the system and of the
 modules within is without further assistance (Martin, 2011).
-The architecture diagram details the high level blocks of abstraction in the
-system (Figure 4.2).
-The core of a chatbot system are the high level abstractions precisely defined in
-the interfaces and the abstract classes (DPI: Martin, 2003)
+The internal architecture diagram details the high level blocks of abstraction in the
+system (Figure 4.2; Martin, 2003).
 We will look at the core message processing logic of the system first, then
 discuss the RiveScript brain implementation together with the data
 models and conversation management, and finally move to the machine learning components of the system.
@@ -66,9 +63,9 @@ to the bot, with a very restrictive set of methods that
 essentially make the abstraction a simple "response machine". Given a message,
 an appropriate natural language reply is expected[^interfaces].
 
-The concrete subclass of this interface (*BotRivescript*)[^botrivescriptcode] is a
+The concrete subclass of this interface (*BotRivescript*) is a
 FAÇADE: it essentially delegates the processing of the natural language message
-to other components of the system.
+to other components of the system (code listing E.1 in Appendix E).
 Specifically, it delegates to a message preprocessor to process the input to the
 system and a postprocessor to process the system output through a *MessageProcessor*
 interface both of these conform to.
@@ -78,8 +75,6 @@ a clear separation of concerns with the message coming into the system
 being preprocessed prior to being forwarded to the message interpreter through a
 PROXY, and then postprocessed as needed (Gamma et al, 1995, pp.185-193, 207-217; Martin, 2003, pp.327--).
 
-[^botrivescriptcode]: Code listing E.1 in Appendix E.
-
 This provides a degree of decoupling from the chatbot
 package, instead of making it a central component of the system, allowing it to be changed for
 another one of the options surveyed in Chapter 2 with relative ease (see Appendix A.2.1
@@ -88,9 +83,7 @@ the succession of assignments within the public *reply()* method serve to clarif
 the process to the (human) reader and enforce proper temporal succession
 by requiring the next method in the sequence to take in as argument the return
 value of the previous method (Martin, 2009, pp.302-303). This pattern is repeated
-elsewhere throughout the project[^replymethod].
-
-[^replymethod]: see *reply(message)* method in code listing E.1 in Appendix E.
+elsewhere throughout the project (see *reply(message)* method in code listing E.1 in Appendix E).
 
 #### BotBuilder
 
@@ -219,7 +212,7 @@ that lazily instantiates a *ConversationDriver* for each different user ID. Each
 *ConversationDriver* instance possesses
 a record of concerns for the user that it uses to make decisions[^distress].
 
-[^distress]: Concretely, in the implementation provided,
+[^distress]: Concretely,
 these are *DistressConversationDriver* instances that
 keep track of what the user concerns are and their priority
 order based on distress scores.
@@ -238,7 +231,7 @@ The *messagelog* package defines very simple message logging facilities, primari
 for use in the future to be stored durably (Figure 4.1; Figure 4.8).
 
 Additionally, the current implementation of the chatbot requires the argument
-to the reply method of the *BotRivescript* class to be a Message instance. This is
+to the reply method of the *BotRivescript* class to be a *Message* instance. This is
 so that the original single argument interface is preserved while both user ID
 and message content (as required by the underlying *RiveScript* object; see code
 listing E.4 Appendix E) can be forwarded. This is also so to leave it the caller
@@ -289,7 +282,7 @@ as originally intended (see Chapter 2, Chapter 5; and Figure 4.4).
 ![Synonym generator class diagram](classSynonym.pdf)
 
 The final package examined is the synonym generator (Figure 4.9).
-The use case for this package is to aid in the construction of
+The purpose for this package is to aid in the implementation of
 a RiveScript brain by avoiding having to manually define common synonyms to simplify
 the pattern matchers in the brain[^brainexample].
 
