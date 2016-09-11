@@ -296,22 +296,21 @@ of statements covered by the tests.
 ---------- coverage: platform cygwin, python 2.7.10-final-0 ----------
 Name                                    Stmts   Miss  Cover
 -----------------------------------------------------------
+bot_builder.py                             29      2    93%
 botinterface/__init__.py                    0      0   100%
 botinterface/bot_abstract.py                7      3    57%
-botinterface/bot_builder.py                23      5    78%
-botinterface/bot_rivescript.py             30      1    97%
+botinterface/bot_rivescript.py             24      1    96%
+botinterface/interpreter.py                 7      3    57%
 botinterface/message_processor.py           5      2    60%
-botinterface/postprocessor.py              21      0   100%
-botinterface/postprocessor_example.py      20      0   100%
-botinterface/preprocessor.py               20      0   100%
-botinterface/rivescript_loader.py          13      1    92%
+botinterface/rivescript_loader.py          14      1    93%
+botinterface/rivescript_proxy.py           16      1    94%
 categorize/__init__.py                      0      0   100%
-categorize/classifierDeserializer.py        5      0   100%
-categorize/classifierSerializer.py          4      0   100%
+categorize/classifier_deserializer.py       5      0   100%
+categorize/classifier_serializer.py         4      0   100%
 categorize/dataset_reading.py              12      4    67%
 categorize/dataset_splitting.py            10      0   100%
 categorize/develop.py                      10     10     0%
-categorize/evaluation.py                   46      2    96%
+categorize/evaluation.py                   48      2    96%
 categorize/training.py                      4      0   100%
 concerns/__init__.py                        0      0   100%
 concerns/concern.py                        10      0   100%
@@ -330,9 +329,11 @@ postprocess/keyword_extractor.py            5      2    60%
 postprocess/keyword_extractor_single.py    30      0   100%
 postprocess/message_decorator.py            5      2    60%
 postprocess/message_decorator_single.py    29      0   100%
+postprocess/postprocessor.py               20      0   100%
 postprocess/postprocessor_builder.py        5      0   100%
 postprocess/search_adapter.py               5      2    60%
 preprocess/__init__.py                      0      0   100%
+preprocess/preprocessor.py                 19      0   100%
 preprocess/preprocessor_builder.py          6      0   100%
 preprocess/stemmer_factory.py               3      0   100%
 preprocess/stemming.py                      5      2    60%
@@ -350,10 +351,11 @@ synonym/synonym_extractor.py                5      2    60%
 synonym/synonym_extractor_factory.py       13      5    62%
 synonym/synonym_word2vecextractor.py       17      0   100%
 ----------------------------------------------------------
-TOTAL                                     527     52    89%
+TOTAL                                     622     69    89%
 ~~~
 
-Note that there are several abstract classes that are also counted in the total
+This total excludes the RiveScript brain logic, which is covered through integration
+tests exclusively. Note that there are several abstract classes that are also counted in the total
 executable statements even though they should not, for example *MessageProcessor*:
 
 ~~~ python
@@ -370,16 +372,17 @@ class MessageProcessor(object):
 
 The two "raise" statements are counted when they should not be, similarly with
 many other classes. This means that the actual test coverage is slightly higher.
-There are 27 statements from interfaces[^abstract] that should not
-be counted as statements at all, bringing the metrics to 500 total statements
-and 25 missed statements bringing coverage to 95%.
+There are 65 statements from interfaces[^abstract] that should not
+be counted as statements at all, bringing the metrics to 557 total statements
+and 30 missed statements bringing coverage to around 95% (94.6).
 
 [^abstract]: Specifically, the interfaces: *botinterface/bot_abstract.py*,
+*botinterface/interpreter.py*,
 *botinterface/message_processor.py*, *concerns/drive_conversation_abstract.py*,
 *postprocess/keyword_extractor.py*, *postprocess/message_decorator.py*,
 *postprocess/search_adapter.py*, *preprocess/stemming.py*, *preprocess/tokenizer.py*,
 *synonym/store_synonyms.py*, *synonym/synonym_extractor.py*, finally the constructor
-of the abstract class *preprocess/stopwords_remover.py* should also not be counted.
+of the template-method class *preprocess/stopwords_remover.py* should also not be counted.
 
 There are also integration tests testing the interaction of two
 or more independent units, or other aspects of the system that do not belong to
@@ -388,15 +391,19 @@ all such tests were made to pass. As mentioned in Chapter 5, the RiveScript brai
 logic is also extensively tested via integration tests.
 
 Finally, the RiveScript Python macro code within *brain/python.rive*
-is not considered and not directly covered by any tests and is in fact
-impossible to test in isolation. This is because
+is not considered in the count above and not directly covered by any unit tests
+and is in fact impossible to test in isolation. This is because
 the RiveScript object instance "rs" accessible within these
 macros cannot be called from inside separate and isolated methods (as it was the
 author's original intention) and will raise an error if it is passed as a variable
 to an externally defined unit of Python code (Appendix A.2). This aspect of RiveScript is poorly documented, and
-another reason to move away from the framework in the future (Petherbridge, 2009)[^frameworkinfuture].
+another reason to move away from the framework in the future (Petherbridge, 2009;
+Petherbridge, 2016)[^frameworkinfuture].
 
-[^frameworkinfuture]: <https://www.rivescript.com/wd/RiveScript#OBJECT-MACROS>.
+[^frameworkinfuture]: RiveScript language specification on macros:            
+<https://www.rivescript.com/wd/RiveScript#OBJECT-MACROS>.
+RiveScript Python interpreter Python macros documentation:             
+<http://rivescript.readthedocs.io/en/stable/rivescript.html?highlight=macro#rivescript.python.PyRiveObjects>
 
 # Machine Learning Evaluation
 
@@ -584,7 +591,7 @@ $A = \{ a_{01}, a_{02}, ..., a_{n1}, ...,  a_{nn}\}$
 A Markov chain may already be sufficient for us to do some useful modelling. In particular,
 we may construct a simple (ergodic, fully connected) directed weighted graph
 (with appropriate constraints on the weights to represent a probability distribution
-from each state) that connects our five states together
+from each state) that connects five states together
 representing the macro categories of concerns in the CC. Having manually set probabilities
 for state transitions, we would use our simple classifier to decide the category
 for the next user input in isolation, then confront this result against the likelihood
