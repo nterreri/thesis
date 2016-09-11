@@ -84,17 +84,24 @@ project in the system design, implementation and testing.
 
 ## Future Work
 
-The primary goal of the project was to lay the ground work, architecture and
-research for further iterations of the project. As emphasized throughout Chapter 4,
-the system was designed for extension and modification. The coverage of unit and
+The implementation of
+a conversation agent provided is incomplete and inarticulate and neither
+of the two machine learning components of the system score excellently well.
+However, the primary goal of the project was to lay the ground work,
+research and software design for further iterations of the project;
+because of this, more time was spent on the implementation of the supporting
+infrastructure than on the chatbot brain and machine learning components
+implementation.
+The design of the system
+is modular, loosely coupled and easily extensible. The coverage of unit and
 integration tests provides confidence to any programmer continuing the work here
 started that the system still displays all behaviours it did when it was delivered
 at the end of this project, no matter what changes were made during revision and
 expansion.
 
 The "plugin" model makes the system independent of the IO device that delivers it
-(in the case of the group project, a webserver) which may be in the future a mobile app,
-a CLI client, or anything else. It is the caller's
+which may be in the future a mobile app,
+a CLI client, public chat platforms or anything else. It is the caller's
 responsibility to import this project's packages and modules, and to use them
 as documented in the unit and integration tests. Similarly, the data models gathering conversation and
 user concerns data should be used in a similar fashion: independently of the
@@ -110,7 +117,7 @@ the author advises exploring an open source framework different from RiveScript
 given the limitations discovered within it during this project (or if the client believes
 it appropriate using third party remote APIs.). See Appendix A
 for instructions on how to replace RiveScript, and
-see Chapter 2 for a discussion of alternatives.
+Chapter 2 for a discussion of alternatives.
 
 Secondly, the categorizer module (to which only a week was dedicated during this
 project) could be made more robust to use sequence classifiers, potentially

@@ -15,9 +15,6 @@ header-includes:
     - \usepackage[a4paper]{geometry}
     - \usepackage{pbox}
     - \usepackage[table,xcdraw]{xcolor}
-    - \usepackage{url}
-    - \usepackage{breakurl}
-    - \usepackage{mdframed}
     - \usepackage[backend=bibtex]{biblatex-chicago}
     - \bibliography{MSC16.bib}
 

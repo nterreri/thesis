@@ -649,8 +649,9 @@ incorporate them within the current project. See for example, "pomegranate"
 # Code Listing
 
 Partial code listings follow, adapted from the source code,
-first selected Python modules followed by extracts
-of RiveScript brain code. The full source code can be obtained following
+focusing the central message processing
+logic and presenting examples of RiveScript code.
+The full source code can be obtained following
 the instructions in Appendix A.
 
 ## bot_rivescript.py

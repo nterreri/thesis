@@ -13,8 +13,6 @@
     skipabove=\topsep,
     skipbelow=\topsep
 ]{siderules}
-\usepackage[backend=bibtex]{biblatex-chicago}
-\bibliography{MSC16.bib}
 ~~~
 The above has to be put the latex manually to get the urls to format properly
 in the references.
@@ -24,7 +22,7 @@ in order for latex to know what to do with it.
 
 # Edit 2:
 ~~~
-\pagenumbering{roman}
+\pagenumbering{arabic}
 {
 \setcounter{tocdepth}{2}
 \tableofcontents
@@ -34,11 +32,6 @@ The \pagenumbering{roman} command must appear around the above area.
 
 # Edit 3:
 ~~~
-%----------------------------------------------------------------------------------------
-%	THESIS INFORMATION
-%----------------------------------------------------------------------------------------
-
-
 \def\authorname{}
 \def\ttitle{}
 \newcommand*{\supervisor}[1]{\def\supname{#1}}
@@ -77,10 +70,6 @@ The \pagenumbering{roman} command must appear around the above area.
 
 \pagestyle{plain} % Default to the plain heading style until the thesis style is called for the body content
 
-%----------------------------------------------------------------------------------------
-%	TITLE PAGE
-%----------------------------------------------------------------------------------------
-
 \begin{titlepage}
 \begin{center}
 
@@ -107,16 +96,16 @@ The \pagenumbering{roman} command must appear around the above area.
 \end{flushright}
 \end{minipage}\\[2cm]
 
-{\today}\\[4cm] % Date
-
-\vfill
+{September, 2016}\\[4cm] % Date
 \emph{Disclaimer}
 \end{center}
+\pagestyle{empty}
 This report is submitted as part requirement for the MSc Computer Science
 degree at UCL. It is substantially the result of my own work except where
 explicitly indicated in the text. The report may be freely copied and
 distributed provided the source is explicitly acknowledged.
 \end{titlepage}
+\vfill
 ~~~
 Frontpage edit, appears in place of begin{document} and maketitle
 
