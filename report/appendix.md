@@ -1187,5 +1187,8 @@ def test_systemreplylogged():
 < topic
 ~~~
 
-\renewcommand\bibname{References}\label{references}
+\renewcommand\bibname{References}[^latexsource]\label{references}
 \printbibliography
+
+[^latexsource]: The raw format of this report can be obtained from:
+<https://github.com/nterreri/thesis>
