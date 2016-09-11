@@ -4,17 +4,15 @@
 >> there anything that could truly be considered an eningeering document?" ...
 >> "Yes, there was such a document, and only one--the source code."*[^reeves]
 
-[^reeves]: J. Reeves, 2001.
+[^reeves]: J. Reeves, 2001, p.517.
 
 This chapter describes the most interesting aspects of the delivered system
 architecture and implementation. First, the design principles followed during
 development are described, then a high level overview of the project structure
 is provided before moving on to more detailed descriptions of individual
 sub-packages.
-
-As mentioned before, the complete application is the product of a team effort.
-The overall architecture of the components is illustrated below (Figure 4.1; Martin,
-  2012; Martin, 2014).
+The overall architecture of the system produced in the team effort
+is illustrated below (Figure 4.1).
 
 ![System component diagram](componentChatbot.pdf)
 
@@ -24,7 +22,7 @@ The overall architecture of the components is illustrated below (Figure 4.1; Mar
 
 SOLID principles of software design were followed in the design of the system;
 these are dependency management principles (policing the "import" statements
-throughout the project) and clean design principles (Martin, 2003, Section 2).
+throughout the project) and design principles (Martin, 2003, Section 2).
 Additionally, clean code design guidelines (Martin, 2009; McConnell, 2004, chapter 5)
  were also followed.
 The chief purpose of these efforts is to design the system for change, and
@@ -32,25 +30,24 @@ make the code readable to *humans* (Martin, ibid, pp.13-14).
 This approach leads to extremely specialized and short class bodies and functions, and
 the separation of different levels of abstraction.
 Furthermore, the project was structured with the "plugin model" architecture:
-ensuring that the direction of dependency flow in the direction of the core of the
-system (Figure 4.1).
+ensuring that the dependencies flow in the direction of the core of the
+system (Figure 4.1; Martin, 2012; Martin, 2014).
 
-The core of a chatbot system are the high level abstractions precisely defined in
-the interfaces and the abstract classes (DPI: Martin, 2003)
 
 ### High Level Structure
 
-![Architecture diagram](architectureChatbot.pdf)
+![Internal package structure diagram](architectureChatbot.pdf)
 
 The programmer accessing the package structure
 should be able to understand what the purpose of the system and of the
 modules within is without further assistance (Martin, 2011).
 The architecture diagram details the high level blocks of abstraction in the
 system (Figure 4.2).
+The core of a chatbot system are the high level abstractions precisely defined in
+the interfaces and the abstract classes (DPI: Martin, 2003)
 We will look at the core message processing logic of the system first, then
-discuss the RiveScript brain implementation,
-then move on to the data
-models and conversation management, and finally the machine learning components of the system.
+discuss the RiveScript brain implementation together with the data
+models and conversation management, and finally move to the machine learning components of the system.
 
 ## Core Processing
 
@@ -63,17 +60,17 @@ results from the search engine when needed. We will look at each layer in detail
 
 ![Core processing class diagram](classBotInterfaceChatbot.pdf)
 
-Within the botinterface sub-package we can find the core high level
-abstractions of the system: the bot_abstract module defines the interface
+Within the *botinterface* sub-package we can find the core high level
+abstractions of the system: the *bot_abstract* module defines the interface
 to the bot, with a very restrictive set of methods that
 essentially make the abstraction a simple "response machine". Given a message,
 an appropriate natural language reply is expected[^interfaces].
 
-The concrete subclass of this interface (BotRivescript) is a
+The concrete subclass of this interface (*BotRivescript*)[^botrivescriptcode] is a
 FAÇADE: it essentially delegates the processing of the natural language message
 to other components of the system.
 Specifically, it delegates to a message preprocessor to process the input to the
-system and a postprocessor to process the system output through a MessageProcessor
+system and a postprocessor to process the system output through a *MessageProcessor*
 interface both of these conform to.
 The modularity
 of the design makes it easy to change implementation of these delegates, and provides
@@ -81,37 +78,31 @@ a clear separation of concerns with the message coming into the system
 being preprocessed prior to being forwarded to the message interpreter through a
 PROXY, and then postprocessed as needed (Gamma et al, 1995, pp.185-193, 207-217; Martin, 2003, pp.327--).
 
+[^botrivescriptcode]: Code listing E.1 in Appendix E.
+
 This provides a degree of decoupling from the chatbot
 package, instead of making it a central component of the system, allowing it to be changed for
 another one of the options surveyed in Chapter 2 with relative ease (see Appendix A.2.1
 for more details). Furthermore,
-the succession of assignments within the public "reply" method serve to clarify
+the succession of assignments within the public *reply()* method serve to clarify
 the process to the (human) reader and enforce proper temporal succession
 by requiring the next method in the sequence to take in as argument the return
 value of the previous method (Martin, 2009, pp.302-303). This pattern is repeated
-elsewhere throughout the project:
+elsewhere throughout the project[^replymethod].
 
-~~~~ {.python}
-#from botinterface/bot_rivescript.py
-def reply(self, message):
-      userid = message.getUserid()
-      messagecontent = self._preprocess(message.getContent())
-      reply = self._interpreter.reply(userid, messagecontent)
-      reply = self._postprocess(reply)
-
-      return reply
-~~~~
+[^replymethod]: see *reply(message)* method in code listing E.1 in Appendix E.
 
 #### BotBuilder
 
-The bot_builder module is responsible for creating the concrete instances of
+The *bot_builder* module is responsible for creating the concrete instances of
 message pre and post processors and their dependencies. Creational duties
 are "special" in the sense that they require explicit dependencies on
 concrete classes and modules that define the constructors for the objects that
 will be used throughout the system (DPI: see Martin, 2003).
-To clarify the meaning of "delegates" in Figure 4.2 and other figures in this chapter:
-the BotBuilder will wire up all of the relevant dependencies, so that the façades
-do not have to instantiate the concrete subtypes of the interfaces themselves.
+To clarify the meaning of "delegates" in Figure 4.3 and other figures in this chapter:
+the *BotBuilder* will wire up all of the relevant dependencies, so that the façades
+do not have to instantiate the concrete subtypes of the interfaces themselves (Figure 4.2;
+see also Appendix A, Section A.2.1).
 
 [^interfaces]: While dynamically typed languages (such as Python) do not require inheritance
 for polymorphism, having the interface clearly defined help specify the expectation
@@ -122,10 +113,11 @@ to other programmers. Therefore, interfaces are specified and inherited from in 
 ![Preprocessor class diagram](classMessagePreprocessorChatbot.pdf)
 
 The preprocessor is in turn another façade,
- like the BotRivescript class: it delegates to
+ like the *BotRivescript* class: it delegates to
 stopword removers, tokenizers and stemmers to normalize and simplify the user
 input so that it may be easier to match against the patterns specified in the
-chatbot framework grammar (Figure 4.4). This helps with RiveScript, as certain input patterns
+chatbot framework grammar (Figure 4.4; see code listing E.2 in Appendix E).
+This helps with RiveScript, as certain input patterns
 that should be matched do not match if the user misspells a word, uses a
 declination of a verb or adds
 stopwords (such as determiners) which had not been anticipated in the grammar.
@@ -139,31 +131,38 @@ to the external library, but to keep the coupling loose, so that in the future o
 tools or solutions may be used instead.
 
 More interesting is the application of the TEMPLATE METHOD pattern in the
-StopwordRemover abstract class (Gamma et al, 1995, pp.325-330).
+*StopwordRemover* abstract class (Gamma et al, 1995, pp.325-330).
 The stopword removal
-algorithm expressed in the StopwordRemover abstract class relies on subclasses
+algorithm expressed in the *StopwordRemover* abstract class relies on subclasses
 exposing an iterable defining the stopwords to remove from the tokens.
 The set of stopwords defined in the NLTK is too strict and would remove
 semantically meaningful tokens such as "no" and declinations of "to be"
-(presumably on account of the fact that this is also used as an auxiliary verb
-  and would create noise in some information retrieval tasks).
-Therefore, a more lenient implementation was provided and used in the system.
+(presumably on account of the fact that these would create noise in some
+information retrieval tasks). Therefore, a more lenient implementation was
+provided and used in the system.
 
 ### The Postprocessing Layer
 
 ![Postprocessor class diagram](classMessagePostprocessorChatbot.pdf)
 
-The postprocessor, inheriting from the same MessageProcessor interface as the
+The postprocessor, inheriting from the same *MessageProcessor* interface as the
 preprocessor, is also a façade. The role of the postprocessor in the current
 implementation relates to the integration with the external search engine component
-(Figure 4.5).
+(Figure 4.5; code listing E.3 Appendix E).
 
 The modules it defers to extract a keyword from the system output message,
 perform a query with that keyword and then decorate the message with the result
 before returning this to the main façade. We can see that the postprocessor subsystem
 is also defined within its own sub-package, currently using simple implementations aiming at
 extracting a single keyword from the system output message, then putting a single
-search query result back into the message.
+search query result back into the message[^notrivescript].
+
+[^notrivescript]: Note that RiveScript can achieve the same behaviour via macros.
+However, this approach decouples the integration with the external system from
+the chatbot package of choice (it does not matter if it is replaced in the future).
+Furthermore, it affords more control: the decorated system reply may be a
+complex object made of a message content and list of search results for the
+caller to handle as they prefer.
 
 This system was created ahead of the completion of the external search system,
 and was therefore built based on the author's assumptions about the information
@@ -189,39 +188,39 @@ discussing how messages and conversations are modelled (Figure 4.2).
 
 ![Conversation management diagram](macrosChatbot.pdf)
 
-The brain folder contains the RiveScript language files.
+The *brain/* folder contains the RiveScript language files.
 These define the matchable
 patterns and reply templates
 and topics structure as seen from the brain. Topics limit the scope of pattern
 matchers depending on the stage of the conversation between user and system,
 allowing only responses pertinent to the topic to be returned to the user.
 
-The begin.rive, the global.rive, and the python.rive
-files play each a special role: begin.rive defines basic grammar substitutions and
-basic synonyms as arrays. The global.rive file defines the
-global scope that the other topics inherit from. Finally, the python.rive
+The *begin.rive*, the *global.rive*, and the *python.rive*
+files play each a special role: *begin.rive* defines basic grammar substitutions and
+basic synonyms as arrays. The *global.rive* file defines the
+global scope that the other topics inherit from. Finally, the *python.rive*
 file defines the Python macros that can be called from within RiveScript conditionals
-and response templates.
+and response templates (Figure 4.6, code listings E.9, E.10 Appendix E).
 
 ### Conversation Management and Concern Models
 
 ![Concerns class diagram](classConcerns.pdf)
 
-The concerns package define data models to represent
+The *concerns* package define data models to represent
 the user concerns so that these can be queried by the brain to decide how to
 move the conversation forward. The conversation concern logic
-is accessed through Python object macros written into the python.rive brain file (see above).
+is accessed through Python object macros written into the *python.rive* brain file (see above).
 
 The Python statements in these macros import the rivescriptmacros module (Figure 4.6). This module
-communicates with the ConversationDriver interface, which decides
+communicates with the *ConversationDriver* interface, which decides
 what topic to talk about next, and whether a query via the search engine
-should be made (Figure 4.7). This is accessed through a static UserConcernsFactory module
-that lazily instantiates a ConversationDriver for each different user ID. Each
-ConversationDriver instance possesses
+should be made (Figure 4.7). This is accessed through a static *UserConcernsFactory* module
+that lazily instantiates a *ConversationDriver* for each different user ID. Each
+*ConversationDriver* instance possesses
 a record of concerns for the user that it uses to make decisions[^distress].
 
 [^distress]: Concretely, in the implementation provided,
-these are DistressConversationDriver instances that
+these are *DistressConversationDriver* instances that
 keep track of what the user concerns are and their priority
 order based on distress scores.
 
@@ -235,17 +234,18 @@ being discussed.
 
 ![Conversation class diagram](classMessagelog.pdf)
 
-The messagelog package defines very simple message logging facilities, primarily
+The *messagelog* package defines very simple message logging facilities, primarily
 for use in the future to be stored durably (Figure 4.1; Figure 4.8).
 
 Additionally, the current implementation of the chatbot requires the argument
-to the reply method of the BotRivescript class to be a Message instance. This is
+to the reply method of the *BotRivescript* class to be a Message instance. This is
 so that the original single argument interface is preserved while both user ID
-and message content (as required by the underlying RiveScript object) can be
-forwarded. This is also so to leave it the caller responsibility to decide
-user IDs from outside the system, to be able to keep track of the data models.
-The user ids, in fact, are used to retrieve the relevant data models (conversation logs,
-concerns) for all users.
+and message content (as required by the underlying *RiveScript* object; see code
+listing E.4 Appendix E) can be forwarded. This is also so to leave it the caller
+responsibility to decide user IDs from outside the chatbot system, to be able to keep
+track of the data models. The user ids, in fact, are used to retrieve the
+relevant data models (conversation logs, concerns) for all users
+(see listing E.8 Appendix E for example of use).
 
 ## Machine Learning
 
@@ -259,18 +259,19 @@ exposes essentially procedural code, and leverages the facilities of an NLP libr
 that is built on top of the NLTK: TextBlob (Loria et al, 2016). The reason why
 this other package was used for the categorization component instead of just the NLTK is primarily
 its capacity to easily deserialize a classifier and the facilities it exposes to
-classify several distinct sentences within a single String, which could
+classify several distinct sentences within a single *String*, which could
 prove useful when dealing with a single user input that consists of a sequence of
 distinct sentences[^sentences].
 
 [^sentences]: <https://textblob.readthedocs.io/en/dev/classifiers.html#classifying-textblobs>.
 
-The package provides a way to train, serialize, deserialize and
+The categorization package implemented provides a way to train, serialize, deserialize and
 evaluate a single label classifier, but no easy way to swap the concrete
 classifier instance and no high level abstraction in the form of an interface or
 a façade. This package is
-the least well designed element of the system: this was the product of the author
-learning Python, becoming more comfortable with
+the least well designed element of the system because it was the first to be
+created. This was the product of the author
+learning Python, learning about NLP and becoming more comfortable with
 the application of software design principles while working on the system at the
 same time.
 
@@ -281,7 +282,7 @@ But it is possible
 in principle to plug a trained categorizer at the preprocessor level of the
 message pipeline in order to add a tag to the user message, in order for this
 to be used by the chatbot framework to provide better replies to the user,
-as originally intended (see Chapter 2; and Figure 4.4).
+as originally intended (see Chapter 2, Chapter 5; and Figure 4.4).
 
 ### Synonym Generation
 
@@ -293,21 +294,22 @@ a RiveScript brain by avoiding having to manually define common synonyms to simp
 the pattern matchers in the brain[^brainexample].
 
 [^brainexample]: For example, in the following pattern we refer to arrays in order
-to capture semantically equivalent ways to express the desire to change topic:
+to capture semantically equivalent ways to express the desire to change topic
+(see also listing E.10 Appendix E):
 \+ [*] (\@desire) (\@discuss) (\@other) [\@topic]
 
-The SynonymExtractorFactory lazily instantiates a single pre-trained word2vec
+The *SynonymExtractorFactory* lazily instantiates a single pre-trained word2vec
 language model through the use of the Gensim library (McCormick, 2016a; Rehurek and
   Sojka, 2010).
 This can then be asked to produce synonyms for a given word.
 The synonyms produced are then used to produce RiveScript arrays.
 
-These are represented in Python by the RivescriptArray class, the \__str__() method
+These are represented in Python by the *RivescriptArray* class, the \__str__() method
 (equivalent to Java's toString())
-of which is used by the RivescriptArrayWriter to write syntactically correct
+of which is used by the *RivescriptArrayWriter* to write syntactically correct
 RiveScript arrays to file[^streaming].
 
-[^streaming]: The RiveScript framework also offers ways to stream RiveScript code into a running
+[^streaming]: There are also ways to stream RiveScript code into a running
 interpreter, see:
      <http://rivescript.readthedocs.io/en/latest/rivescript.html#rivescript.rivescript.RiveScript.stream>.
 
@@ -316,4 +318,4 @@ interpreter, see:
 This concludes the overview of the system design and implementation. We have
 looked at the general design principles adopted for the project, the high level
 abstractions provided, and the details of the particular subsystems in the
- implementation provided.
+ implementation.

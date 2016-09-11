@@ -11,12 +11,8 @@ a user in the larger team effort. For this reason, no user manual is provided.
 The full project source code
 is available at[^alsopeach]: <https://github.com/nterreri/peach-bot/tree/only-nic>.
 In order to obtain the code it is possible to download the repository as a zip
-file from the relevant github.com webpage, or use the git software to clone into the
-repository (*$ git clone https://github.com/nterreri/peach-bot*). The
-categorizer package is provided as a git submodule to the chatbot package.
-It is not possible to do the same if downloading the repository as a zip file,
-which means it is necessary to navigate manually to the categorizer repository
-(<https://github.com/nterreri/peach-categorize>) before downloading it[^nonrecursive].
+file from the relevant github.com webpage, or use git software to clone into the
+repository (*$ git clone https://github.com/nterreri/peach-bot*).
 
 The project is meant to be compiled through a Python 2.7 interpreter, no support
 is provided for Python 3.x. This is primarily because of the preference of members
@@ -27,13 +23,6 @@ Python compiler which should come by default with any official Python distributi
 under the '/FlaskWebProject/chatbot/' directory therein, together with the code
 produced by the rest of the PEACH chatbot team:
  <https://github.com/andreallorerung/peach-chatbot-alpha/tree/master/FlaskWebProject/chatbot>.
-
-[^nonrecursive]: Cloning or downloading the repository will not automatically download the submodule
-content. To download all submodules when cloning, use
-*$ git clone --recursive https://github.com/nterreri/peach-bot/tree/only-nic*.
-When wanting to download the submodule after having cloned into the repository
-non-recursively, use *$ git submodule update --init --recursive* to download
-the submodule.
 
 ### Dependencies
 
@@ -54,7 +43,7 @@ to install the dependencies is to use
 *pip install -r requirements.txt*, but the dependencies
 may also be installed piecemeal.
 
-[^pip]: <https://en.wikipedia.org/wiki/Pip_(package_manager)> Python Software Foundation, 2016
+[^pip]: <https://en.wikipedia.org/wiki/Pip_(package_manager)> Python Software Foundation, 2016.
 
 ## Package Structure
 
@@ -89,13 +78,14 @@ simply requires that both a user ID and message content be provided. This is
 to enforce conformity with the interface defined in the *botinterface/bot_abstract.py*
 module: the *reply(message)* method should take a single argument while the caller
 retains control of the creation and management of user IDs independently of
-the core chatbot component (Figure 4.1).
+the core chatbot component (Figure 4.1; listing E.1 in Appendix E).
 
 As mentioned before, the conversation logging facilities provided by the
 *messagelog* package are not automatically used by the chatbot instance, instead
-something like code listing (#SOMENUMBER) is necessary.
+something like the *_sendUserMessageAndLog(userid, message)* method is necessary
+(listing E.8 Appendix E).
 
-#### Why RiveScript should be removed
+### Why RiveScript should be removed
 
 Overall, RiveScript has been a really useful tool to rapidly set up and start
 programming a chatbot brain. Unfortunately, many shortcomings were found with it
@@ -110,8 +100,8 @@ that changes the state of the DistressConversationDriver data model for the user
 to move on to the next topic. It is not articulate because little time was
 spent working on the brain implementation, given the focus system architecture and design.
 
-The hand written rules that frameworks like RiveScript (and competitors as described
-  in Chapter 2.3) need take a significant amount of time to write and test, more than common programming languages.
+Furthermore hand written rules that frameworks like RiveScript
+ need take a significant amount of time to write and test, more than common programming languages.
 Secondly, numerous issues were met during development, including textbook use of RiveScript language syntax
 constructs causing uncaught exceptions to be thrown from within the external framework,
 and issues with inconsistent internal state with the framework user variables that
@@ -126,30 +116,30 @@ therein (which is the running RiveScript interpreter instance) refuses to be
 called outside of a .rive file, and will fail with an exception if an attempt is
 made to do so. To call this object's properties is necessary to gather information
 such as the current user session, and the current state of the user variables.
-This makes the statements in the macros untestable.
+This makes the statements in the macros untestable (Petherbridge, 2009;
+Petherbridge, 2016)[^frameworkinfuture].
 
 Due to these shortcomings, the recommendation going forward is to consider using
 a different chatbot framework. As mentioned, only a minimal brain implementation
-has been provided with the architecture and it would not be an irreparable loss
-to start with this aspect of the system from scratch. The reader is redirected
-to the discussion of alternatives in Chapter 2.
+has been provided and it would not be an irreparable loss
+to start with this aspect of the system from scratch.
 
 #### How to Replace RiveScript
 
 In order to replace the RiveScript interpreter, it is necessary to create another
-implementation of the Interpreter class, adapting the implementation
-provided in RivescriptProxy.
+implementation of the *Interpreter* class, adapting the implementation
+provided in *RivescriptProxy*.
 Depending on the framework used, it may be necessary
 to create a proxy for a unit of software implemented in other languages than
-Python. This is made easier by the various Python compilers that allow other
-languages to be called from Python code[^hitchhike].
+Python[^hitchhike].
 
-Effectively, the BotRivescript class only expects its interpreter to expose a
-"reply" method, but other aspects of the implementation may change as well such as
+Effectively, the *BotRivescript* class only expects its interpreter to expose a
+*reply()* method, but other aspects of the implementation may change as well such as
 how to start the conversation with the user, all changes necessary should however
 be confined to the new proxy (see also Figure 4.3).
 
-[^hitchhike]: See Reitz and Schlusser, 2016
+[^hitchhike]: This is made easier by the various Python compilers that allow other
+languages to be called from Python code: see Reitz and Schlusser, 2016
 here: <http://docs.python-guide.org/en/latest/starting/which-python/>
 
 Requirements for the pre- and postprocessing of messages are also likely to change,
@@ -186,9 +176,8 @@ for word in WORDS_TO_GET_SYNONYMS_FOR:
       synonymsFor[word] = synonymsExtracted
 ~~~
 
-This will return a list of words which the model believes are synonyms of the
-argument to the *extractSynonyms()* method (see Appendix C for
-an evaluation of performance of the current implementation).
+This will return a list of words which the model believes to be synonyms of the
+argument to the *extractSynonyms()* method.
 
 ## Full Concerns Checlist
 
@@ -239,15 +228,14 @@ Emotional concerns 2        Spiritual or religious concerns
 # Unit Tests Results
 
 This appendix reports the unit testing code coverage for all modules in the
-project. The testing framework of choice is py.test (Reitz and Schlusser, 2016
+project. The testing framework of choice is py.test (Krekel, 2016; Reitz and Schlusser, 2016
 , pp.76-86)[^pythontesting].
 
 [^pythontesting]: <http://docs.python-guide.org/en/latest/writing/tests/>.
 
 ## Running py.test
 
-The tests included are meant to be run using py.test (Krekel, 2016).
-In order to allow the required project packages to be imported, this should be
+In order to allow the required project packages to be imported, py.test should be
 run from the project top level directory (the one overseeing all the sub-packages
 and test folder). The directory or test file to run can be specified as an
 argument to the Python CLI interpreter:
@@ -260,10 +248,10 @@ Running this command will run all the tests in the package, which on a fairly
 powerful machine can take up to 5 minutes, but can potentially make a slower
 machine hang as for an unreasonable amount of time. This is chiefly due to the
 synonym generation tests which require a very large amount of RAM to run efficiently
-(see above).
+(see Appendix A above).
 
-Running *only* the unit tests should take less than a minute[^fast].
-The unit tests, in fact, are designed for quick execution (see Martin, 2009, p.132).
+Running *only* the unit tests should take less than a minute.
+The unit tests, in fact, are designed for quick execution (see Martin, 2009, p.132)[^fast].
 Finally, if the pytest-cov package is installed (Schlaich, 2016) then it
 is possible to get reports for code coverage about individual sub-packages
 by providing the desired sub-package name as an argument in the following manner:
@@ -493,7 +481,8 @@ This means that when the classifier is asked to classify a document it will look
 simply at what words in the vocabulary seen at training time occur in it.
 The purpose of having a development set is exactly to improve our feature
 extraction, but the timeline and priorities of the current project
- left no time to work on this aspect of the system.
+ left no time to work on this aspect of the system (Sebastiani, 2011, slide 66;
+ Manning et al, 2009, pp.271-272).
 
 Secondly, given that the data is split in the exact same way for evaluation
 of the classifier, the failure to correctly label any of the "spiritual" category
@@ -531,15 +520,15 @@ with generating synonyms.
 ~~~ python
 #from tests/tests_integration/test_synonym/test_synonymmodelfactory.py
 {
-    "dad":["Dad","father","grandpa","daddy","mom","stepdad","son","granddad"
-            ,"uncle","brother"]
+    "dad":["Dad","father","grandpa","daddy","mom","stepdad","son"
+          ,"granddad","uncle","brother"]
     ,"hopeless":["utterly_hopeless","forlorn","hopelessly","miserable"
-                ,"pathetic","pitiful","helpless","seemingly_hopeless","bleak"
-                ,"futile"]
+                ,"pathetic","pitiful","helpless","seemingly_hopeless"
+                ,"bleak","futile"]
     ,"education":["eduction","eduation","LISA_MICHALS_covers"
-                    ,"Matt_Krupnick_covers","educational","educa_tion"
-                    ,"edu_cation","educations","professionals_CEC_SmartBrief"
-                    ,"curriculum"]}
+                    ,"Matt_Krupnick_covers","educational"
+                    ,"educa_tion","edu_cation","educations"
+                    ,"professionals_CEC_SmartBrief","curriculum"]}
 ~~~
 
 As mentioned in the discussion, the implementation of this concrete class was
@@ -547,20 +536,20 @@ done with the help of the Gensim library (Rehurek, 2014; Rehurek and Sojka, 2010
   McCormick, 2016a).  The cause
   for the poor performance with respect to the task at hand is perhaps to be found
   with the dimension of the vectors the model used was trained with (as a training parameter, see
-  Ellenberg, 2015).
+  Ellenberg, 2016).
   The reader is redirected to the discussion of alternatives
 in Chapter 2.
 
 In general for the project going forward,
 as long as RiveScript or similar rule-driven chatbot frameworks are used,
-it may well be possible to similarly generate data for use in similar ways,
+it may be possible to similarly generate data for use in similar ways,
 prior exploration of other alternatives to the particular model used in this implementation.
 
 # Advanced Research into Categorization
 
 The classifiers used in the project would be used to give labels to distinct
 documents, however the documents we are interested in classifying
-are not independent from each other: a conversation is a rich in context, and no
+are not independent from each other: a conversation is rich in context, and no
 feature of the approach outlined so far even considers this aspect of the problem.
 
 ## Sequence Classifiers
@@ -576,8 +565,6 @@ the input considered in isolation.
 A Markov chain is a weighted finite state automaton (a directed weighted graph
 with a finite number of nodes), where the weight on all transitions from any state
 represent the probability of moving to the state the transition points to (Jurafsky and Martin, 2014, p.2).
-[#PICTUREWOULDBENICE?]
-
 More formally:
 
 - A set of states:
@@ -618,7 +605,7 @@ At any point during the conversation, we are really interested
 and the corresponding sequence of states so far identified, in order to determine
 what the best *next state* is. Given the next observation,
 we compute the probability of emission of that observation from all the plausible states
-reachable from the current state. We then may want to do a harmonized average of
+reachable from the current state. We then may want to take a harmonized average of
 these probabilities and the known state transition probabilities, in order to decide
 the next state (the next label for the user input in our case).
 
@@ -631,7 +618,7 @@ terms that are associated with one or another topic. For example, mention of
 proper names or nouns denoting family members (such as mother, aunt etc.) may be
 indicative that the topic is family. In contrast, terms associated with emotional
 problems may be indicative of the topic being emotional issues. In a way, we are returning
-back to a simple classifier to decide what the observation to be then fed to the
+back to a simple feature extraction to decide what the observation to be then fed to the
 sequence classifier should be.
 
 ## The limits of the NLTK
@@ -714,7 +701,6 @@ class BotRivescript(bot_abstract.BotInterface):
 ~~~
 ##preprocessor.py
 ~~~ python
-#chatbot\preprocess\preprocessor.py
 '''Module to provide an implementation of a preprocessor'''
 
 class MessagePreprocessor(object):
@@ -754,7 +740,6 @@ class MessagePreprocessor(object):
 
 ##postprocessor.py
 ~~~ python
-#chatbot\postprocess\postprocessor.py
 '''Module to define a concrete system reply processor'''
 
 
@@ -798,7 +783,6 @@ class MessagePostprocessor(object):
 
 ##rivescript_proxy.py
 ~~~ python
-#chatbot\botinterface\rivescript_proxy.py
 '''To define a proxy to the RiveScript package'''
 import interpreter
 import rivescript
@@ -834,7 +818,6 @@ class RiveScriptProxy(interpreter.Interpreter):
 ~~~
 ##stopwords_remover.py
 ~~~ python
-#chatbot\preprocess\stopwords_remover.py
 '''Module to define stopword remover interface'''
 
 class StopwordRemover(object):
@@ -875,7 +858,6 @@ class StopwordRemover(object):
 
 ##keyword_extractor_single.py
 ~~~ python
-#chatbot\postprocess\keyword_extractor_single.py
 '''Module to define a concrete keyword extractor that extracts only the
 first keyword it finds in the message'''
 import re
@@ -940,7 +922,6 @@ class SingleKeywordExtractor(keyword_extractor.KeywordExtractor):
 ~~~
 ##message_decorator_single.py
 ~~~ python
-#chatbot\postprocess\message_decorator_single.py
 '''Module to define the message decorating logic for a single
 decoration'''
 import string
@@ -1007,7 +988,6 @@ class MessageDecoratorSingle(message_decorator.MessageDecorator):
 ~~~
 ##test_integrationmessagelogbotinterface.py
 ~~~ python
-#chatbot/tests/tests_integration/test_messagelog/...
 import messagelog.conversation_logging
 import botinterface.bot_rivescript
 import messagelog.message
@@ -1055,25 +1035,6 @@ def test_systemreplylogged():
     currentValue = rivescriptInterpreter.get_uservar(currentUser,
                                                     uservarName)
     newValue = rivescriptmacros.increase(currentValue)
-
-    rivescriptInterpreter.set_uservar(currentUser,
-                                        uservarName,
-                                        newValue)
-< object
-
-> object decrease python
-    '''To descrease the value of a uservariable passed in as an
-    argument'''
-    from concerns import rivescriptmacros
-    rivescriptInterpreter = rs
-
-    rivescriptmacros.validateParametersNumber(args)
-    uservarName = args[0]
-
-    currentUser = rivescriptInterpreter.current_user()
-    currentValue = rivescriptInterpreter.get_uservar(currentUser,
-                                                    uservarName)
-    newValue = rivescriptmacros.decrease(currentValue)
 
     rivescriptInterpreter.set_uservar(currentUser,
                                         uservarName,
@@ -1165,7 +1126,6 @@ def test_systemreplylogged():
 
 ##physical.rive
 ~~~
-//chatbot\brain\physical.rive
 ! version = 2.0
 
 
@@ -1193,9 +1153,6 @@ def test_systemreplylogged():
     - <set physicalissue=<star1>>
     ^ <set counter=0>
     ^ Does the problem present itself in particular conditions?
-    //^ Are you having trouble sleeping in general, or is there
-    //^ somthing in particular that is preventing you from sleeping
-    //^ well?
 
     //follow up questions are asked twice before moving to the next
     //topic (keeping track of them through the counter uservariable)
@@ -1208,12 +1165,6 @@ def test_systemreplylogged():
     ^ <call>increase counter</call>
     - Is your <get physicalissue> problem affecting other areas of your
     ^ life?<call>increase counter</call>
-    // According to the documentation, <add counter=1> here could be
-    // used the same effect, however, an error is thrown with the
-    // present version when this is used:
-    // platform cygwin -- Python 2.7.10
-    // Rivescript version: 1.14.1
-    // "TypeError:coercing to Unicode:need string or buffer, int found"
 
     + internal matcher to check if should make query
     * <call>shouldMakeQuery</call> == True => {topic=query}Before we
