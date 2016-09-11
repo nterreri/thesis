@@ -1,7 +1,7 @@
 # System Design and Implementation {#Chapter4}
 
 >> *"Out of all the documentation that software projects normally generate, was
->> there anything that could truly be considered an eningeering document?" ...
+>> there anything that could truly be considered an engineering document?" ...
 >> "Yes, there was such a document, and only one--the source code."*[^reeves]
 
 [^reeves]: Reeves, 2001, p.517.
@@ -166,7 +166,7 @@ other side appropriately, in line with the "plugin model" architecture
 (Gamma et al, ibid, pp.139-150; Grenning, 2009, p.119; Figure 4.1).
 
 This concludes the explanation of the main message system exchange pipeline. This
-model allows us to keep the external tools "at arms length".
+model allows us to keep the external tools "at arm's length".
 The design also afforded us an intuitive way to overcome the limitations of RiveScript and
 to integrate with an external system. Finally, it exposes a simple
 API to the caller.

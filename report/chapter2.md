@@ -127,7 +127,7 @@ In the architecture model proposed above, the open source resources available ma
  it easy to write documents that define the patterns and templates of a "frame-based"
 system, simplifying the process to build all three of the above defined layers.
 We now proceed to review the various options, and motivate the choice of tool
-used in this project[^chatbotSources.
+used in this project[^chatbotSources].
 
 [^chatbotSources]: The main sources for this section of
 the report are the individual websites of the tools explored, and the forum of

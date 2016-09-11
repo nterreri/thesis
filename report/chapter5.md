@@ -80,7 +80,7 @@ Third, it leads to self-documenting code. The tests
 describe how to use the system and as long as the tests
 are continuously made to pass, they will never be out of date as comments and
 Docstrings are always at risk of becoming[^notall].
-For example, the following function of the messagelog package
+For example, the following function of the *messagelog* package
 integration test demonstrates how to use both the chatbot and message
 logging facilities provided by the present package in a way that is technically
 accurate and intuitive
@@ -127,7 +127,7 @@ This resulted in 222 data points.
 [^survey]: The survey can be found here: <https://goo.gl/forms/ylkI50XckV9yvCCm2>.
 
 The survey is a series of questions the chatbot may ask, grouped by topic. The
-label for each answer gathered is inferred from the implicit topic of the quesiton.
+label for each answer gathered is inferred from the implicit topic of the question.
 For example: a question about physical pain belongs to the physical concerns label.
 Since all of the data extracted via the questionnaire
 has a balanced number of expected labels for categories, there is no

@@ -120,7 +120,7 @@ chatbot and NLP open source resources that were explored.
 - Chapter 3 describes the requirements as gathered through the contacts in healthcare
 and the Macmillan charity available to PEACH.
 - Chapter 4 details the system architecture, design and the implementation.
-- Chapter 5 discusses the the system testing strategy, and the evaluation strategy of the machine learning components.
+- Chapter 5 discusses the system testing strategy, and the evaluation strategy of the machine learning components.
 - Chapter 6 concludes with an evaluation of the project results
 and recommendations for the direction of future work on the system.
 
