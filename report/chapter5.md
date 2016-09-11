@@ -2,13 +2,13 @@
 
 >> *"The act of writing a unit test is more an act of design than of verification."*[^martin]
 
-[^martin]: Martin, 2003.
+[^martin]: Martin, 2003, Chapter 4.
 
 This chapter describes the process followed to produce the suite of tests that
 verify the functioning of the system at the level of core logic and the higher
 level system behaviour. This chapter also describes the process of
 classifier evaluation provided by the classification package.
-The full test coverage results and categorizer evaluation listings are found in
+The full test coverage results and machine learning evaluation listings are found in
 Appendices B and C.
 
 ## Testing Strategy
@@ -49,7 +49,7 @@ def test_work():
         assert found, reply
 ~~~
 This test first resets the conversation to the "practical" topic in the RiveScript
-brain, then sends topic pertinent user chat messages to the bot for processing.
+brain, then sends topic-pertinent user chat messages to the bot for processing.
 The both reply is tested at each message against a set of pertinent replies (which
     represent the replies that have been coded into the chatbot
   brain for that particular type of topic). This and other tests like it are
@@ -80,23 +80,12 @@ that the logic of the class can be scrutinized without external interferences.
 Third, it leads to self-documenting code. The tests
 describe how to use the system and as long as the tests
 are continuously made to pass, they will never be out of date as comments and
-Javadoc are always at risk of becoming[^notall].
-
-For example, the following function of the messagelog package
+Docstrings are always at risk of becoming[^notall].For example, the following function of the messagelog package
 integration test demonstrates how to use both the chatbot and message
 logging facilities provided by the present package in a way that is technically
 accurate and intuitive
 enough that programmers should be able to understand how to use
-it without further guidance:
-
-``` python
-def _sendUserMessageAndLog(userid, message):
-    ConversationLogger.logUserMessage(message)
-    reply = bot.reply(message)
-    assert reply is not None
-    ConversationLogger.logSystemReplyForUser(reply, userid)
-    return reply
-```
+it without further guidance (*_sendUserMessageAndLog(userid, message)* in code listing E.8 Appendix E).
 
 [^TDD]: TDD is not free of controversy, see Hansson (2014) and Fowler et al (2014).
 
@@ -127,8 +116,8 @@ label being tested for, and either macro- or micro-averaging should be used
 to extract global classifier effectiveness metrics (Sebastiani, ibid p.33;
 Yang and Liu, 1999, p.43).
 
-The type of data we wanted to produce a label for was a short chat
-message. The label had to be in the specified range of categories (Chapter 2.1.1), in order to
+The type of data we want to produce a label for is a short chat
+message. The label has to be in the specified range of categories (Section 2.1.1), in order to
 better inform the chatbot with the capacity for generalization of a machine learning
 approach. There is no corpus of pairs of message - label of the relevant kind.
 Therefore, the author created a survey which Dr Ramachandran asked the team to
@@ -137,6 +126,9 @@ This resulted in 222 data points.
 
 [^survey]: The survey can be found here: <https://goo.gl/forms/ylkI50XckV9yvCCm2>.
 
+The survey is a series of questions the chatbot may ask, grouped by topic. The
+label for each answer gathered is inferred from the implicit topic of the quesiton.
+For example: a question about physical pain belongs to the physical concerns label.
 Since all of the data extracted via the questionnaire
 has a balanced number of expected labels for categories, there is no
 concern about the training data being skewed with low positive cases for any one

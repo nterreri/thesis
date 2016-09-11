@@ -47,7 +47,10 @@ The project was first proposed by Dr Ramachandran, who also organized meetings
 between the chatbot team and Macmillan staff (including the technical lead of the Macmillan eHNA,
 Andrew Brittle). The original plan was to have both the author and Rim Ahsaini
 working on the core chatbot system, with the full questionnaire being completed
-by the user exclusively through conversation with the chatbot.
+by the user exclusively through conversation with the chatbot. The initial
+requirements for the system included the use of text categorization and
+sentiment analysis to extract user concerns from the conversation, in
+combination with the conversational agent.
 
 During the first meeting with Macmillan, the idea of a specialized search engine
 was presented. Rim Ahsaini decided to make this search engine her project focus. From there

@@ -37,7 +37,7 @@ number, alongside the patient's name and date of birth.
 
 ### The Concerns Checklist {#ConcernsChecklist}
 Given the variety of different versions of the questionnaire, the team was advised
-to focus on the one that is most commonly used: the Concerns Checklist (NCSI, 2012).
+by the client to focus on the one that is most commonly used: the Concerns Checklist (NCSI, 2012).
 
 In this version of the questionnaire, the patient selects their concerns from a
 range of more than 50 individual issues, each falling into one of 10 categories,
@@ -52,7 +52,7 @@ a full list):
 - Spiritual concerns
 
 ## Patient Data for Research in the UK
-As mentioned in Chapter 1.2, handling confidential
+As mentioned in Section 1.2, handling confidential
 patient data poses particular challenges to eHealth related projects. Just before
 the start of the project, the
 whole PEACH team underwent training about handling patient data and the relevant
@@ -76,7 +76,7 @@ party.
 
 For this reason, the implementation of the current project does not share any of
 the data extracted from user input with external third parties although the
-architecture will allow for such a choice to be made in a future iteration of
+architecture will allow for such a choice to be made in future iterations of
 the chatbot project.
 
 ## The Chatbot
@@ -125,13 +125,13 @@ the web hosting solutions of Amazon or Microsoft (AWS, 2016; Azure 2016).
 For the reasons outlined in the above section on the particular legal issues around
 the problem domain, it was deemed unfeasible to use external services that would
 host the chatbot service and as a consequence receive and process patient
-information (even in anonymized form) [^chatbotSources].
+information (even in anonymized form)[^chatbotSources].
 
 [^chatbotSources]: The main sources for this section of
 the report are the individual websites of the tools explored, and the forum of
 <https://www.chatbots.org/ai_zone/> and related readings (Morton, 2011; Wilcox, 2011).
 
-In the architecture model proposed above, these systems make
+In the architecture model proposed above, the open source resources available make
  it easy to write documents that define the patterns and templates of a "frame-based"
 system, simplifying the process to build all three of the above defined layers.
 We now proceed to review the various options, and motivate the choice of tool
@@ -148,10 +148,9 @@ back to the user by decorating the template (for examples see: Wallace, 2014).
 AiML also provides ways to define topics as restrictions over the set of match-able
 patterns. Entering a topic effectively means restricting the patterns that user
 input can match to the ones associated with the topic. It is also possible to
-set and read internal variables tied to one user, and use this state in conditionals
+set and read internal variables tied to one user, and use this state conditionally
 to decide which template to use in the output; it is possible to refer back to
-the previously matched input, for example to read a follow up to a yes-no question
-[^yesno].
+the previously matched input, for example to read a follow up to a yes-no question[^yesno].
 
 [^yesno]: See <http://www.alicebot.org/aiml.html>; Wallace, 2014.
 
@@ -160,7 +159,7 @@ to follow to implement a AiML reader (or "interpreter"). The set of files making
 the AiML "bot" are commonly called the chatbot "brain" and
 there are a number of interpreters available for AiML in various programming languages.
 There are freely available "libraries" of AiML files for others to include
-into their own chatbot[^base] (Wallace, 2011).
+into their own chatbot (Wallace, 2011)[^base].
 
 [^base]: <https://github.com/pandorabots/rosie/>,         
 <http://www.alicebot.org/downloads/sets.html>,          
@@ -171,10 +170,9 @@ RiveScript is an alternative standard to AiML that aims to be
 as expressive and useful as AiML, but with a simpler syntax, getting rid of the XML
 (Petherbridge, 2009; Petherbridge, 2012; <https://www.rivescript.com/compare/aiml>). Like AiML,
 RiveScript has support for topics, remote procedure calls, conditionals, redirections
-and other features. One thing that will be particularly relevant for the remainder
-of the discussion is the possibility to define "arrays" or sets of equivalent terms.
-This seemed useful to define synonyms and allow certain patterns of user
-expression to be captured if they matched some synonym.
+and other features[^arrayss].
+
+[^arrayss]: See Section 2.5 for a discussion of RiveScript arrays and synonyms.
 
 But what made RiveScript particularly attractive was not just its simpler syntax,
 it was rather the fact that there is an official Python RiveScript interpreter
@@ -190,12 +188,12 @@ implementations at the time of writing, leaving only a couple standing
 
 #### ChatScript
 ChatScript is in many ways similar to RiveScript in that instead of extending XML
-it wishes to have a very easy to read syntax (Wilcox, 2011; Wilcox, 2016b).
+it provides a very easy to read syntax (Wilcox, 2011; Wilcox, 2016b).
 In ChatScript, it is possible to
 define "concepts" like RiveScript "arrays". ChatScript also is also integrated in WordNet: a
 lexical database for the English language that primarily models synonymy and hyponymy
 between English words (Fellbaum, 2005).
-ChatScript, like the others, supports external procedure calls, wildcards, optional sub-patterns
+Like the others, ChatScript supports external procedure calls, wildcards, optional sub-patterns
 and the other pattern matching features of the previous standards.
 
 #### SuperScript
@@ -207,6 +205,10 @@ preceding conversation.
 
 The core issue with this system is the fact that it is only made for NodeJS, in
 particular, only versions 0.12 or 0.5x[^node].
+This may create problems where this project is used in conjunction with NodeJS
+in other applications (on the webserver for example), and while there are workarounds
+to having to keep multiple versions of Node, there is the risk of making it more
+and more difficult to maintain the system as Node and SuperScript evolve[^mota].
 
 [^node]: While the author is personally unfamiliar
 with Node, this came across as a red flag. The recommended version of NodeJS for
@@ -214,14 +216,6 @@ most users at the time of writing is 4.5.0, while the latest build version is
 6.4.0 (Node Core Technical Committee and Collaborators, 2016;         
 <https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V4.md#2016-08-15-version-450-argon-lts-thealphanerd>,          
  <https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V6.md#2016-08-15-version-640-current-cjihrig>).
-
-This may create problems where this project is used in conjunction with NodeJS
-in other applications (on the webserver for example), and while there are workarounds
-to having to keep multiple versions of Node, there is the risk of making it more
-and more difficult to maintain the system as Node and SuperScript evolve[^mota].
-Secondly, given the stated personal aim of the author to explore the Python programming
-language, the choice of a system only meant to work with JavaScript made it a less than
-ideal candidate.
 
 [^mota]: See Mota, 2016 here for how to manage multiple NodeJS versions:
  <https://www.sitepoint.com/quick-tip-multiple-versions-node-nvm/>.
@@ -251,10 +245,10 @@ from the system to the user. Of the four, RiveScript is the only one that explic
 supports topic inheritance, which seemed useful with respect to creating a hierarchy
 of macro and micro topics: for example, having a global scope with general purpose
 commands (such as change topic) with sub-scopes like "family" and "physical" which
-could be further sub-scoped to have issue-specific matchers, such as matchers that
+could be further sub-scoped to have issue-specific matchers, for example matchers that
 are only relevant to respiratory problems and would not occur in the related
 physical category of nausea problems, although both would share more general matchers
-about physical issues (Petherbridge, 2009[^petherbridge2009]).
+about physical issues (Petherbridge, 2009)[^petherbridge2009].
 ChatScript also allows "enqueuing" of topics with the concept
 of "pending topics" and also control of context via "rejoinders" (Wilcox, 2016a, pp.9--;
 Wilcox, 2016b, pp.5--).
@@ -264,9 +258,10 @@ Wilcox, 2016b, pp.5--).
 Another point of interest (again, given the author's aim to explore Python) is
 the open source software available for use with the project. Given the considerations
 already provided, SuperScript seemed like the least comfortable option from this
-perspective, with ChatScript (whose only interpreter is in C++) being second least.
+perspective (Node), with ChatScript (whose only interpreter is in C++) being second least.
 This would leave RiveScript and AiML, with RiveScript's simpler but expressive
-syntax being the final deciding factor for the current implementation.
+syntax and its currently maintained Python interpreter being the final deciding
+factor for the current implementation.
 
 ## Natural Language Processing
 As stated in Chapter 1, part of the author personal aims included learning about
@@ -314,11 +309,9 @@ and Ding, Liu and Yu, 2008 for more information on the topic.
 
 The open source NLP libraries that were considered as part of the project were
 the ones that could easily be used with the Python programming language (in line with
-the author's personal aims), so long as the open source tools available for Python
-proved sufficient for the project purposes. This excluded, for example, the
+the author's personal aims). This excluded, for example, the
 OpenNLP Apache library, due to its focus on Java (Apache, 2015).
-The other reason was to have a common NLP base for all PEACH subprojects.
-
+Another requirement was to have a common NLP base for all PEACH subprojects.
 It was decided, primarily based on the experience of the members of the
 PEACH team that had previously worked with NLP to use the Natural Language Tool-Kit
 (NLTK) as a baseline (Bird et al, 2014).
@@ -327,11 +320,11 @@ other suites such as the Stanford CoreNLP, due to lack of extensive Python bindi
 from the Java implementation (Manning et al, 2014; Smith, 2014).
 The present project thus made primarily use of the NLTK, and packages built on
 top of it.
-
 The NLTK exposes a range of natural language corpora and ready available implementations of
 various types of classifiers, exposing an intuitive API (Bird et al, 2014, Chapter 6 see also
-Manning et al, 2009, pp.271--).
-An obvious problem
+Manning et al, 2009, pp.271--)[^nodata].
+
+[^nodata]: An obvious problem
 with the present project is that no data of the relevant shape was available whatsoever.
 See Chapter 5 and Appendix C for more information on the solution adopted.
 
@@ -351,7 +344,7 @@ discovered in the use of English words through unsupervised learning. This
 is at the core of what the word2vec algorithm does: it discovers these regularities
 based on the position words are used in sentences (Ellenberg, 2016). For each word in the training
 data (the vocabulary) the algorithm constructs a vector representing the positional
-regularities discovered in the training data.
+regularities discovered between words in the training data.
 
 Similarities between the use of words can be then expressed in geometric-algebraic
 terms as the cosine distance between vectors representing the words
@@ -362,8 +355,8 @@ way to automatically generate synonyms for use with the chatbot.
 
 The Gensim library (Rehurek, 2014; Rehurek and Sojka, 2010)[^gensimlibrary]
 is another natural language processing tool for use with Python specialized
-in document similarity computations and related tasks. It seemed straightforward to
-use word2vec for the state purpose in combination with Gensim (McCormick, 2016a).
+in document similarity computations and related tasks. The easiest way to
+use word2vec for the stated purpose is through Gensim (McCormick, 2016a).
 
 [^gensimlibrary]: <https://github.com/RaRe-Technologies/gensim>
 
