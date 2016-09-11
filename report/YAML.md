@@ -4,21 +4,22 @@ fontsize: 12pt
 linestretch: 1.5
 papersize: a4
 classoption: twoside
-<!-- geometry: margin=4cm -->
 
 title: A Conversational Chatbot Architecture for eHealth Systems
-author: Niccoló Terreri, Master of Science in Computer Science candidate
+author: Niccoló Terreri
 
 toc: true
 secnumdepth: 2
 
-bibliography: bibl.bib
 header-includes:
     - \usepackage[a4paper]{geometry}
     - \usepackage{pbox}
     - \usepackage[table,xcdraw]{xcolor}
     - \usepackage{url}
     - \usepackage{breakurl}
+    - \usepackage{mdframed}
+    - \usepackage[backend=bibtex]{biblatex-chicago}
+    - \bibliography{MSC16.bib}
 
 abstract: "This project is about the architecture and design of the core backend
 of a conversational agent for eHealth applications. It is part of a larger team

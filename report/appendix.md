@@ -1186,4 +1186,5 @@ def test_systemreplylogged():
 < topic
 ~~~
 
-# References
+\renewcommand\bibname{References}\label{references}
+\printbibliography

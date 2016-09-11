@@ -9,6 +9,7 @@
     bottomline=true,
     leftline=true,
     rightline=true,
+    outermargin=-1.95cm,
     skipabove=\topsep,
     skipbelow=\topsep
 ]{siderules}
