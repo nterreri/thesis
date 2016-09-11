@@ -664,4 +664,581 @@ incorporate them within the current project. See for example, "pomegranate"
 Partial code listings follow. The full source code can be obtained following
 the instructions in Appendix A.
 
+~~~ python
+#chatbot\botinterface\bot_rivescript.py
+'''Module to define one implementation of the general interface to the chatbot'''
+import interpreter
+import message_processor
+import bot_abstract
+
+
+class BotRivescript(bot_abstract.BotInterface):
+    '''Concrete class to define a general interface for the chatbot'''
+    def __init__(self, preprocessor=None,
+                       interpreter=None,
+                       postprocessor=None):
+        '''The chatbot interface includes an optional message preprocessing and
+        reply postprocessing layers'''
+        self._preprocessor = preprocessor
+        self._interpreter = interpreter
+        self._postprocessor = postprocessor
+
+    def createUserSession(self, userInfo):
+        self._interpreter.createUserSession(userInfo)
+
+    def reply(self, message):
+        userid = message.getUserid()
+        messagecontent = self._preprocess(message.getContent())
+        reply = self._interpreter.reply(userid, messagecontent)
+        reply = self._postprocess(reply)
+
+        return reply
+
+    def _preprocess(self, message):
+        '''To tell the preprocessor to preprocess the message (if the
+        preprocessor has been initialized)'''
+        if self._preprocessor is not None:
+            return self._preprocessor.process(message)
+        else:
+            return  message
+
+    def _postprocess(self, reply):
+        '''To tell the postprocessor to postprocess the message (if the
+        postprocessor has been initialized)'''
+        if self._postprocessor is not None:
+            return self._postprocessor.process(reply)
+        else:
+            return reply
+
+~~~
+
+~~~ python
+#chatbot\preprocess\preprocessor.py
+'''Module to provide an implementation of a preprocessor'''
+
+
+class MessagePreprocessor(object):
+    '''Class to implement the interface of a message processor'''
+    def __init__(self, tokenizer, stopwordRemover, stemmer):
+        '''To set appropriate objects to the properties of the preprocessor'''
+        self.tokenizer = tokenizer
+        self.stopwordRemover = stopwordRemover
+        self.stemmer = stemmer
+
+    def process(self, sentence):
+        tokens = self._tokenize(sentence)
+        tokens = self._removeStopwords(tokens)
+        tokens = self._stem(tokens)
+
+        processedSentence = self._join(tokens)
+        return processedSentence
+
+    def _stem(self, tokens):
+        '''To return a stemmed set of tokens'''
+        return [self.stemmer.stemWord(token) for token in tokens]
+
+    def _removeStopwords(self, tokens):
+        '''To return a set of tokens where stopwords have been removed'''
+        return self.stopwordRemover.removeStopwords(tokens)
+
+    def _tokenize(self, sentence):
+        '''To split a sentence into tokens'''
+        return self.tokenizer.tokenize(sentence)
+
+    def _join(self, tokens):
+        '''To join the split tokens back together'''
+        return " ".join(tokens)
+
+~~~
+
+~~~ python
+#chatbot\postprocess\postprocessor.py
+'''Module to define a concrete system reply processor'''
+
+
+class MessagePostprocessor(object):
+    '''Class to postprocess a system reply by decorating it with the result
+    of a search query, if the system reply cointained a template to decorate
+    with such result'''
+    def __init__(self, keywordExtractor, searchAdapter, messageDecorator):
+        self._keywordExtractor = keywordExtractor
+        self._searchEngineAdapter = searchAdapter
+        self._messageDecorator = messageDecorator
+
+    def process(self, message):
+        self._validateMessage(message)
+
+        keywordFound = self._extractKeyword(message)
+        result = self._search(keywordFound)
+        decoratedMessage = self._decorateMessage(message, result)
+
+        return decoratedMessage
+
+    def _validateMessage(self, message):
+        if message is None:
+            raise TypeError("Invalid type '{}' was passed to the "
+                    "MessagePostprocessor".format(type(message)))
+
+    def _extractKeyword(self, message):
+        '''To extract a search keyword from the message'''
+        return self._keywordExtractor.parseSearchParameter(message)
+
+    def _search(self, keyword):
+        '''To perform a search by the keyword'''
+        return self._searchEngineAdapter.search(keyword)
+
+    def _decorateMessage(self, message, result):
+        '''To decorate a message with the result'''
+        return self._messageDecorator.decorateMessageWith(message, result)
+
+~~~
+
+~~~ python
+#chatbot\botinterface\rivescript_proxy.py
+'''To define a proxy to the RiveScript package'''
+import interpreter
+import rivescript
+import rivescript_loader
+
+
+class RiveScriptProxy(interpreter.Interpreter):
+    def __init__(self, brain="./brain",rivescriptInterpreter=rivescript.RiveScript()):
+        self._rivescriptInterpreter =\
+                    rivescript_loader.loadBrain(rivescriptInterpreter, brain)
+
+    def createUserSession(self, userInfo):
+        # userinfo is expected to be just the userid *by this implementation!*
+        userid = userInfo
+        self._enterGlobalTopicFor(userid)
+        self._moveToFirstConcernFor(userid)
+
+    def _enterGlobalTopicFor(self, userid):
+        '''To enter the global topic on behalf of the user'''
+        reply = self._rivescriptInterpreter.reply(userid, "set glob")
+
+    def _moveToFirstConcernFor(self, userid):
+        '''To move to the first concern on behalf of the user'''
+        reply = self._rivescriptInterpreter.reply(userid,
+                                "internal matcher to start the conversation")
+
+    def reply(self, userid, message):
+        return self._rivescriptInterpreter.reply(userid, message)
+
+~~~
+
+~~~ python
+#chatbot\preprocess\stopwords_remover.py
+'''Module to define stopword remover interface'''
+
+
+class StopwordRemover(object):
+    '''Abstract class to define the stopwords remover interface, provides base
+    implementation of stopwords removal that subclasses may wish to override.
+    Subclasses are expected to have a self.stopwords property defining the set
+    of tokens to filter out.'''
+
+    def __init__(self):
+        raise NotImplementedError("StopwordRemover is an abstract class")
+
+    def removeStopwords(self, tokens):
+        '''To return a sentence without stopwords'''
+        tokens_without_stopwords = self._excludeStopwords(tokens)
+
+        return tokens_without_stopwords
+
+    def _excludeStopwords(self, tokens):
+        '''To return a filtered list of tokens'''
+        tokens_without_stopwords = []
+
+        for token in tokens:
+            if not self._isStopword(token):
+                tokens_without_stopwords.append(token)
+
+        return tokens_without_stopwords
+
+    def _isStopword(self, word):
+        '''To decide whether a word is a stopword'''
+        word = str(word).lower()
+        if word in self.stopwords:
+            return True
+        else:
+            return False
+
+~~~
+
+~~~ python
+#chatbot\postprocess\keyword_extractor_single.py
+'''Module to define a concrete keyword extractor that extracts only the first
+keyword it finds in the message'''
+import re
+import keyword_extractor
+
+
+class SingleKeywordExtractor(keyword_extractor.KeywordExtractor):
+    '''Class to extract the first keyword from the set of templates'''
+    def __init__(self):
+        self._substringStart = "{{"
+        self._substringEnd = "}}"
+        self._keywordDelimiter = '\''
+
+    def parseSearchParameter(self, message):
+        return self._parseSearchParameter(message)
+
+    def _parseSearchParameter(self, message):
+        '''To parse search parameters within the system output message'''
+        containerContent = self._parseKeywordContainer(message)
+        keyword = self._parseKeyword(containerContent)
+
+        return keyword.strip()
+
+    def _parseKeywordContainer(self, message):
+        '''To retrieve the content of the first keyword container found'''
+        keywordContainerRE = self._compileRegularExpression(self._substringStart, self._substringEnd)
+        containerContent = self._getMatchingGroups(message, keywordContainerRE)
+
+        return containerContent
+
+    def _parseKeyword(self, substringWithKeywords):
+        '''To extract the content of the first keyword found within a keyword
+        container'''
+        keywordDelimiterRE = self._compileRegularExpression(self._keywordDelimiter, self._keywordDelimiter)
+        keyword = self._getMatchingGroups(substringWithKeywords, keywordDelimiterRE)
+
+        return keyword
+
+    def _getMatchingGroups(self, searchSubject, regularExpression):
+        '''To get the first element of the groups matching the regularExpression
+        within the searchSubject'''
+        try:
+            results = re.search(regularExpression, searchSubject)
+            target = results.groups()[0]
+        except (TypeError, AttributeError):
+            target = ""
+
+        return target
+
+    def _compileRegularExpression(self, startingRE, endingRE):
+        '''To build up a regular expression that will extract the content of
+        isolated instances of the specified delimiters'''
+        return "{start}([^{end}]*){end}".format(start=startingRE, end=endingRE)
+
+~~~
+
+~~~ python
+#chatbot\postprocess\message_decorator_single.py
+'''Module to define the message decorating logic for a single decoration'''
+import string
+import message_decorator
+
+
+class MessageDecoratorSingle(message_decorator.MessageDecorator):
+    '''Class to define the message decorating logic for a single decoration'''
+    def __init__(self):
+        self._substringStart = "{{"
+        self._substringEnd = "}}"
+
+    def decorateMessageWith(self, message, toDecorateWith):
+        return self._decorateMessage(message, toDecorateWith)
+
+    def _decorateMessage(self, message, toDecorateWith):
+        '''To define the process of decorating'''
+        templatedMessage = self._replaceDelimitedSubstring(message)
+        decoratedMessage = self._substituteTemplateWith(templatedMessage, toDecorateWith)
+
+        return decoratedMessage
+
+    def _replaceDelimitedSubstring(self, message):
+        '''To replace substrings delimited by the private properties of this
+        class with templates'''
+        try:
+            beginningMessageSlice, endingMessageSlice = self._sliceMessage(message)
+        except ValueError:
+            # this is raised when the expected substrings indicating the start
+            # and end of the message are found. The design of the class should
+            # be improved to allow this comment to be removed.
+            return message
+
+        templatedMessage = "{}{}{}".format(
+                                beginningMessageSlice,
+                                "$toReplace",
+                                endingMessageSlice)
+
+        return templatedMessage
+
+    def _sliceMessage(self, message):
+        '''To slice the message based on its structure as parsed'''
+        startingIndexOfSubstringToReplace = message.index(self._substringStart)
+        endingIndexOfSubstringToReplace = message.index(self._substringEnd) + len(self._substringEnd)
+
+        beginningMessageSlice = message[:startingIndexOfSubstringToReplace]
+        endingMessageSlice = message[endingIndexOfSubstringToReplace:]
+        return beginningMessageSlice, endingMessageSlice
+
+    def _substituteTemplateWith(self, message, result):
+        '''To replace template with information to decorate the message with'''
+        template = string.Template(message)
+        decoratedMessage = template.substitute(toReplace=result)
+
+        return decoratedMessage
+
+~~~
+
+~~~ python
+//chatbot\brain\python.rive
+! version = 2.0
+
+// See:
+// http://rivescript.readthedocs.io/en/latest/rivescript.html#module-rivescript.python
+// http://rivescript.readthedocs.io/en/latest/rivescript.html#module-rivescript.rivescript
+// For an explanation of the references to an "rs" python object throughout the
+// following macros.
+
+> object increase python
+    '''To increase the value of a uservariable passed in as an argument'''
+    from concerns import rivescriptmacros
+    rivescriptInterpreter = rs
+
+    rivescriptmacros.validateParametersNumber(args)
+    uservarName = args[0]
+
+    currentUser = rivescriptInterpreter.current_user()
+    currentValue = rivescriptInterpreter.get_uservar(currentUser, uservarName)
+    newValue = rivescriptmacros.increase(currentValue)
+
+    rivescriptInterpreter.set_uservar(currentUser, uservarName, newValue)
+< object
+
+> object decrease python
+    '''To descrease the value of a uservariable passed in as an argument'''
+    from concerns import rivescriptmacros
+    rivescriptInterpreter = rs
+
+    rivescriptmacros.validateParametersNumber(args)
+    uservarName = args[0]
+
+    currentUser = rivescriptInterpreter.current_user()
+    currentValue = rivescriptInterpreter.get_uservar(currentUser, uservarName)
+    newValue = rivescriptmacros.decrease(currentValue)
+
+    rivescriptInterpreter.set_uservar(currentUser, uservarName, newValue)
+< object
+
+> object getNextConcern python
+    '''To echo into the reply what the next concern is'''
+    from concerns import rivescriptmacros
+    rivescriptInterpreter = rs
+    currentUserid = rivescriptInterpreter.current_user()
+    return rivescriptmacros.getNextConcern(currentUserid)
+< object
+
+> object getNextConcernMacroTopic python
+    '''To echo into the rivescript the macrotopic for the next concern, or None
+    if none are left'''
+    from concerns import rivescriptmacros
+    from concerns import topics
+    rivescriptInterpreter = rs
+    currentUserid = rivescriptInterpreter.current_user()
+
+    nextConcern = rivescriptmacros.getNextConcern(currentUserid)
+    if nextConcern is None:
+        return "None"
+    else:
+        macrotopic = topics.macrotopicFor[nextConcern]
+        return macrotopic
+< object
+
+> object setAnotherUserVar python
+    '''To set another uservar for the purpose of demonstrating the inconsistent
+    internal state caused by setting uservariables through python macros while
+    also using the <get> rivescript tag during the processing of the same reply'''
+    currentUserid = rs.current_user()
+    rs.set_uservar(currentUserid, "anotherUserVar", "anotherValue")
+< object
+
+> object setAnotherNumericalVar python
+    '''To set another numerical uservar for the purpose of demonstrating the
+    inconsistent internal state caused by setting uservariables through python
+    macros while also using the <get> rivescript tag during the processing of
+    the same reply'''
+    currentUserid = rs.current_user()
+    currentValue = rs.get_uservar(currentUserid, "anotherNumericalVar")
+    newValue = int(currentValue) - 1
+    rs.set_uservar(currentUserid, "anotherNumericalVar", str(newValue))
+< object
+
+> object moveToNextTopic python
+    '''To send a message to the rivescript to match against an internal trigger
+    and trigger a topic change'''
+    rivescriptInterpreter = rs
+
+    currentUserid = rivescriptInterpreter.current_user()
+    rivescriptInterpreter.reply(currentUserid, "internal matcher to move to the next topic")
+    return rivescriptInterpreter.reply(currentUserid, "next top")
+< object
+
+> object setNextTopic python
+    '''To set the next topic within the parameter uservariable passed in as an
+    argument for the userid for which the reply containing the macro call is
+    being executed. Will set this variable to None when there are no topics left'''
+    from concerns import rivescriptmacros
+    from concerns import topics
+    rivescriptInterpreter = rs
+
+    rivescriptmacros.validateParametersNumber(args)
+    uservarName = args[0]
+
+    currentUserid = rivescriptInterpreter.current_user()
+
+    nextConcern = rivescriptmacros.getNextConcern(currentUserid)
+    if nextConcern is None:
+        microtopic = nextConcern
+        macrotopic = "None"
+        rivescriptInterpreter.set_uservar(currentUserid, uservarName, macrotopic)
+        rivescriptInterpreter.set_uservar(currentUserid, "microtopic", microtopic)
+    else:
+        microtopic = nextConcern
+        macrotopic = topics.macrotopicFor[nextConcern]
+        rivescriptInterpreter.set_uservar(currentUserid, uservarName, macrotopic)
+        rivescriptInterpreter.set_uservar(currentUserid, "microtopic", microtopic)
+< object
+
+> object shouldMakeQuery python
+    '''To decide whether a query should be made'''
+    from concerns import rivescriptmacros
+    rivescriptInterpreter = rs
+    currentUserid = rivescriptInterpreter.current_user()
+    currentConcern = rivescriptInterpreter.get_uservar(currentUserid, "microtopic")
+    decision = rivescriptmacros.isDistressSignificantFor(currentUserid, currentConcern)
+    return decision
+< object
+
+> object showUservars python
+    '''To echo in the rivescript the content of the internal uservars lookup
+    table for the current user; for the purpose of demonstrating the
+    inconsistent internal state caused by setting uservariables through python
+    macros while also using the <get> rivescript tag during the processing of
+    the same reply'''
+    rivescriptInterpreter = rs
+    currentUserid = rivescriptInterpreter.current_user()
+    topic = rivescriptInterpreter.get_uservars(currentUserid)
+    return topic
+< object
+
+> object resetUservars python
+    '''To reset all uservariables for the current user'''
+    rivescriptInterpreter = rs
+    currentUserid = rivescriptInterpreter.current_user()
+
+    rivescriptInterpreter.clear_uservars(currentUserid)
+< object
+
+> object dummy python
+    '''dummy experiment'''
+    from concerns import rivescriptmacros
+
+    return rivescriptmacros.dummy_f()
+< object
+
+~~~
+
+~~~
+//chatbot\brain\physical.rive
+! version = 2.0
+
+//
+! array respiratory = respir|breath|gasp|wheez|asthm
+//
+! array urinary = urin|pee|piss
+//                                                              |fecal matter|feces|
+! array constipation = constip|stool|defec|poop|shit|crap|dung|excr|fec mat|fec|diarrhoe|diarrhe|loos stool
+//                        |feed|                |hunger|appetence
+! array eating = eat|appetit|fee|injest|hav meal|hung|appet
+//
+! array indigestion = indigest
+
+//              sore mouth|   |aching mouth|
+! array mouth = sor mou|dry mou|ach mou|inflam mou|mou inflam|mou pain
+//                                              |heave|
+! array nausea = nause|vomit|queasy|regurgit|sick|heav|puk|throw up
+//
+! array sleeping = sleep|sleepy|nightm|dorm|snooz|bad dream
+//
+! array fatigue = fatigu|lethargy|letharg|weary|exhaust|feebl|tir|sleepy|faint
+//                              |belly|
+! array swelling = swel|limb|tummy|bel|abdom|arm|leg
+//
+! array fever = fev|high temp|burn up
+
+//
+! array walking = walk|get around
+//
+! array tingling = tingl|goos bump
+//
+! array pain = pain|ach|agony|burn|cramp|il|injury|irrit|sick|hurt
+//                          |sweat|
+! array hotflushes = hot flush|swe|clammy
+//
+! array skin = dry skin|itch|itchy skin|sor skin
+//                                             |damage|lesion||incision|section|opening
+! array woundcare = wound care|aft surgery|surgery|dam|les|pain|incid|sect|op|cut
+
+//
+! array weight = weight chang|mass chang|diff weight|gain|los|loss|lost
+//                                                       |concentration|
+! array concentration = mem|recollect|rememb|thought|recal|cont|focusing|study|read
+//                                |image|
+! array sensory = sens|sensual|see|im|vis|look|view|watch|star|gaz|glar|read|ey|hear|list|audit|aur|ear|audiov|hallucin|tast|flavo|sweet|bit|tongu
+//                                                                 |vocal|          |tone|
+! array speaking = speak|talk|say|shout|tel|voic|whisp|convers|mumbl|voc|sound|speech|ton|yel|song|sing
+//                         |image|presentation|countenace       |complexion|pale
+! array appearance = appear|look|im|pres|count|fac|fig|guis|sembl|complect|pal
+//                                                                       |arousal|
+! array sexuality = sex|feminin|masculin|homosex|lesb|bisex|man|woman|gend|ar
+
+> topic physical includes global
+
+    // [discuss] (some physical problem)
+    + {weight=1000}[*]
+    ^ (@respiratory|@urinary|@constipation|@eating|@indigestion|@mouth|@nausea|
+    ^ @sleeping|@fatigue|@swelling|@fever|@walking|@concentration|@sensory|
+    ^ @speaking|@appearance|@sexuality) [*]
+    * <get physicalissue> ne None => {@ *}
+    - <set physicalissue=<star1>>
+    ^ <set counter=0>
+    ^ Does the problem present itself in particular conditions?
+    //^ Are you having trouble sleeping in general, or is there somthing in\s
+    //^ particular that is preventing you from sleeping well?
+
+    //follow up questions are asked twice before moving to the next topic
+    //(keeping track of them through the counter uservariable)
+    + *
+    * <get counter> > 2 => I think that is enough information for the moment. {@ internal matcher to check if should make query}
+    - How severe is your <get physicalissue> problem?<call>increase counter</call>
+    - Have you often had similar problems in the past?<call>increase counter</call>
+    - Is your <get physicalissue> problem affecting other areas of your life?<call>increase counter</call>
+    // According to the documentation, <add counter=1> here could be used to
+    // the same effect, however, an error is thrown with the present version
+    // when this is used:
+    // platform cygwin -- Python 2.7.10, pytest-2.9.2, py-1.4.31, pluggy-0.3.1
+    // Rivescript version: 1.14.1
+    // "TypeError: coercing to Unicode: need string or buffer, int found"
+
+    + internal matcher to check if should make query
+    * <call>shouldMakeQuery</call> == True => {topic=query}Before we move on would you like me to look for some information that might help with this?
+    - <call>moveToNextTopic</call>
+
+< topic
+
+> topic query includes global
+
+    + (@yes)
+    - You can find more information here: {{ '<get microtopic>' }}<call>moveToNextTopic</call>
+
+    + (@not)
+    - <call>moveToNextTopic</call>
+
+< topic
+
+~~~
+
 # References
