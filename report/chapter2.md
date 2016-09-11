@@ -112,15 +112,6 @@ call "dialogue acts". These more advanced systems are sometimes referred to
 "information-state" systems as opposed to "frame-based" systems that coerce
 the conversation to a very specific task (Jurafsky and Martin, ibid, pp.874-875).
 
-For the purposes of the problem at hand, it is difficult to decide which of these
-would be ideal. For one, the tight control over the topics in the conversation
-provides a good way to ensure the user does not get distracted into trying
-to ask the system questions that are irrelevant to the gathering and extraction
-of user concerns. On the other hand, especially where the system is being used
-without previously gathered knowledge about what the categories of concerns of the
-user are, it may be more suitable to have a general purpose "information-state"
-system, capable of carrying out a conversation with the user.
-
 ### The Chatbot "Brain" Market
 
 This section aims at describing the options that were discovered while researching
