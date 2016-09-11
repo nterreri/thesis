@@ -22,7 +22,7 @@ in order for latex to know what to do with it.
 
 # Edit 2:
 ~~~
-\pagenumbering{arabic}
+\pagenumbering{roman}
 {
 \setcounter{tocdepth}{2}
 \tableofcontents
