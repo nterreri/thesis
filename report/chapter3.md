@@ -14,7 +14,7 @@ eHealth sphere taking into account UK legislation over the use of patient data.
 This is inspired by the Macmillan Cancer Support charity eHNA system, that is
 just finishing its extended trial period and aims at extending the coverage
 of support cancer patients receive in the UK with personalized care plans
-(Mac Voice, 2014). The introduction of this UI is intended to help streamlining
+(Rowe, 2014). The introduction of this UI is intended to help streamlining
 the process of filling out the eHNA for the patients, and gather insight into the
 patient issues ahead of the in-person review, shortening the time
 needed for the creation of the care plan in order to facilitate its creation,
@@ -37,7 +37,7 @@ used in professionally developed software (Vinyals and Le, 2015; Jurafsky and Ma
 Wilcox, 2011).
 
 The aim of the project is therefore to engineer this architecture and provide
-a basic proof-of-concept implementation of the system, with the core of the
+a basic proof-of-concept implementation of the system, with the core framework of the
 chatbot system being an easy to replace implementation detail rather than the core focus of
 the project effort.
 
@@ -77,7 +77,7 @@ Table 3.1 lists the requirements gathered according to the MoSCoW method.
 ## Use Cases
 
 Given the role of the project in the larger team effort, use case modelling was
-considered inadequate to describing the project requirements, and more suited
+considered inadequate to describing the project requirements, being more suited
 to a user-facing system. Therefore, no use cases were produced.
 
 \newgeometry{top=2cm}

@@ -82,7 +82,8 @@ for more details). Furthermore,
 the succession of assignments within the public *reply()* method serve to clarify
 the process to the (human) reader and enforce proper temporal succession
 by requiring the next method in the sequence to take in as argument the return
-value of the previous method (Martin, 2009, pp.302-303). This pattern is repeated
+value of the previous method (instead of having side-effects
+Martin, 2009, pp.302-303). This pattern is repeated
 elsewhere throughout the project (see *reply(message)* method in code listing E.1 in Appendix E).
 
 #### BotBuilder
@@ -98,7 +99,7 @@ do not have to instantiate the concrete subtypes of the interfaces themselves (F
 see also Appendix A, Section A.2.1).
 
 [^interfaces]: While dynamically typed languages (such as Python) do not require inheritance
-for polymorphism, having the interface clearly defined help specify the expectation
+for polymorphism, having the interface clearly defined helps specifying the expectation
 to other programmers. Therefore, interfaces are specified and inherited from in the code.
 
 ### The Preprocessing Layer
@@ -143,15 +144,15 @@ preprocessor, is also a façade. The role of the postprocessor in the current
 implementation relates to the integration with the external search engine component
 (Figure 4.5; code listing E.3 Appendix E).
 
-The modules it defers to extract a keyword from the system output message,
-perform a query with that keyword and then decorate the message with the result
+The modules it defers to extract keywords from the system output message,
+perform a query with the keywords and then decorate the message with the results
 before returning this to the main façade. We can see that the postprocessor subsystem
 is also defined within its own sub-package, currently using simple implementations aiming at
 extracting a single keyword from the system output message, then putting a single
 search query result back into the message[^notrivescript].
 
 [^notrivescript]: Note that RiveScript can achieve the same behaviour via macros.
-However, this approach decouples the integration with the external system from
+However, this approach decouples the integration with the search engine from
 the chatbot package of choice (it does not matter if it is replaced in the future).
 Furthermore, it affords more control: the decorated system reply may be a
 complex object made of a message content and list of search results for the
@@ -183,7 +184,7 @@ discussing how messages and conversations are modelled (Figure 4.2).
 
 The *brain/* folder contains the RiveScript language files.
 These define the matchable
-patterns and reply templates
+patterns, reply templates
 and topics structure as seen from the brain. Topics limit the scope of pattern
 matchers depending on the stage of the conversation between user and system,
 allowing only responses pertinent to the topic to be returned to the user.
@@ -204,7 +205,7 @@ the user concerns so that these can be queried by the brain to decide how to
 move the conversation forward. The conversation concern logic
 is accessed through Python object macros written into the *python.rive* brain file (see above).
 
-The Python statements in these macros import the rivescriptmacros module (Figure 4.6). This module
+The Python statements in these macros import the *rivescriptmacros* module (Figure 4.6). This module
 communicates with the *ConversationDriver* interface, which decides
 what topic to talk about next, and whether a query via the search engine
 should be made (Figure 4.7). This is accessed through a static *UserConcernsFactory* module
@@ -221,7 +222,7 @@ Finally, the topics package contains hard-coded information about the relation
 of microtopics to macrotopics, inferred from the CC (see Chapter 2). This is
 used to control the internal state of the brain with respect to conversations
 with users, changing the available set of pattern matchers based on the macrotopic
-being discussed.
+being discussed and on the user ID received with the message.
 
 ### Conversation and Message Models
 
@@ -297,8 +298,8 @@ language model through the use of the Gensim library (McCormick, 2016a; Rehurek 
 This can then be asked to produce synonyms for a given word.
 The synonyms produced are then used to produce RiveScript arrays.
 
-These are represented in Python by the *RivescriptArray* class, the \__str__() method
-(equivalent to Java's toString())
+These are represented as Python objects by the *RivescriptArray* class,
+the \__str__() method (equivalent to Java's toString())
 of which is used by the *RivescriptArrayWriter* to write syntactically correct
 RiveScript arrays to file[^streaming].
 

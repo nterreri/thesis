@@ -24,11 +24,11 @@ needed. Macmillan began trialling an electronic version of the questionnaire in
 2010, progressively extending provision of the eHNA to more and more sites
 (Rowe, 2014).
 
-This project is a about the use of an intelligent conversational system
+This project is about the use of an intelligent conversational system
 to gather further information about the patient's concerns through an electronic
 self-assessment tool, ahead of the creation of a patient care plan. This is primarily
 an attempt at introducing the conversational User Interface in electronic
-health applications generally, investigate related natural language processing (NLP) and
+health applications generally, investigate related natural language processing (NLP)
 tasks, and in particular explore the applicability of
 computer advisors to Macmillan's eHNA in an effort to improve the
 quality of support cancer patients receive across the UK.
@@ -37,7 +37,7 @@ Intelligent conversation systems have enjoyed an increasing amount of media
 attention over the last year (numerous articles among which: The Economist, 2016;
 Berger, 2016; Knowledge@Wharton, 2016; Finextra Research, 2016; Yuan, 2016; French, 2016).
 With applications of artificial
-intelligence to using natural language inputs for different purposes, including
+intelligence being applied to natural language inputs for different purposes, including
 general purpose mobile device interfaces (Viv Labs, 2016; Dillet, 2016). Furthermore, several technology
 companies have started offering "Artificial Intelligence as a Service" (AIaaS) products.
 Among these are BloomsburyAI and other companies such as
@@ -109,7 +109,7 @@ of Test Driven Development.
 A top-down system design and implementation was also adopted, with the next largest system
 abstraction being prioritized first in order to always have a
 working system being progressively refined (Brooks, 1995, pp.143-144, 200-201,
-  267-271; Martin, 2009, pp.121-133; 2003, chapter
+  267-271; Martin, 2009, pp.121-133; Martin, 2003, chapter
  2, 4, 5; Beck and Andres, 2004, pp.46-47; Beck et al, 2001).
 
 ## Report overview

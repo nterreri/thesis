@@ -59,17 +59,18 @@ on the topics that have been discussed throughout the conversation, and other
 criteria (such as whether it is appropriate to make a query through the search
   engine). All units and integration tests were made to pass.
 
-One other important form of testing is acceptance testing. The lack of this sort
-of testing from the project is due to the tight schedule of project delivery and
-the fact that while there were initial hopes of getting cancer patients to try
-out the software these were later dismissed as concerns were raised about
-getting access to the general public via the UCL Hospital.
+One other important form of testing is acceptance testing (Martin, 2009,
+Chapter 4). The lack of this sort of testing from the project is due to
+the tight schedule of project delivery and the fact that while there
+were initial hopes of getting cancer patients to try out the software
+these were later dismissed as concerns were raised about getting access
+to the general public via the UCL Hospital.
 
 ## Test Driven Development
 
 The test-first strategy for testing the core logic of the project is TDD (Martin, 2009, pp.122-123)[^TDD].
 There are three main benefits associated with this practice. The first is that
-it encourages to take on the perspective of the caller of the code, before any
+it encourages to take on the perspective of the caller of the code before any
 code has been written which makes the code easy to call and use to the programmer
 who is going to consume it. Secondly, it encourages a loosely coupled design.
 Testing the BotRivescript class in isolation, for example, requires that its
@@ -128,7 +129,7 @@ This resulted in 222 data points.
 
 The survey is a series of questions the chatbot may ask, grouped by topic. The
 label for each answer gathered is inferred from the implicit topic of the question.
-For example: a question about physical pain belongs to the physical concerns label.
+For example: a question about physical pain belongs to the physical concerns label (Section 2.1.1).
 Since all of the data extracted via the questionnaire
 has a balanced number of expected labels for categories, there is no
 concern about the training data being skewed with low positive cases for any one

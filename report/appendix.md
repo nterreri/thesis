@@ -12,7 +12,7 @@ The full project source code
 is available at[^alsopeach]: <https://github.com/nterreri/peach-bot/tree/only-nic>.
 In order to obtain the code it is possible to download the repository as a zip
 file from the relevant github.com webpage, or use git software to clone into the
-repository (*$ git clone https://github.com/nterreri/peach-bot*).
+repository (*$ git clone https://github.com/nterreri/peach-bot/tree/only-nic*).
 
 The project is meant to be compiled through a Python 2.7 interpreter, no support
 is provided for Python 3.x. This is primarily because of the preference of members
@@ -100,7 +100,7 @@ that changes the state of the *DistressConversationDriver* data model for the us
 to move on to the next topic. It is not articulate because little time was
 spent working on the brain implementation, given the focus on system architecture and design.
 
-Furthermore hand written rules that frameworks like RiveScript
+Furthermore, hand written rules frameworks like RiveScript use
 take a significant amount of time to write and test, more than common programming languages.
 Secondly, numerous issues were encountered during development, including textbook use of RiveScript language syntax
 constructs causing uncaught exceptions to be thrown from within the external framework,
@@ -273,6 +273,8 @@ All tests pass. Test coverage data follows[^legend]:
 module, "Miss" for statements not executed by any test, "Cover" is the percentage
 of statements covered by the tests.
 
+\pagebreak
+
 \rule{14.75cm}{0.4pt}
 ~~~
 ---------- coverage: platform cygwin, python 2.7.10-final-0 ----------
@@ -380,7 +382,8 @@ and is in fact impossible to test in isolation (Appendix E.9). This is because
 the RiveScript object instance "rs" accessible within these
 macros cannot be called from inside separate and isolated methods (as it was the
 author's original intention) and will raise an error if it is passed as a variable
-to an externally defined unit of Python code (Appendix A.2). This aspect of RiveScript is poorly documented, and
+to an externally defined unit of Python code (Appendix A.2.2).
+This aspect of RiveScript is poorly documented, and
 another reason to move away from the framework in the future (Petherbridge, 2009;
 Petherbridge, 2016)[^frameworkinfuture].
 
@@ -405,6 +408,8 @@ Jurafsky and Martin, 2014, Chapter 7).
 
 The data splitting logic in the *categorize* package by default simply takes
 10% of the labelled data set for training, and another 10% for development:
+
+\pagebreak
 
 ~~~ python
 #categorize/dataset_splitting.py
@@ -646,10 +651,10 @@ incorporate them within the current project. See for example, "pomegranate"
 # Code Listing
 
 Partial code listings follow, adapted from the source code,
-focusing the central message processing
+focusing one the core message processing
 logic and presenting examples of RiveScript code.
 The full source code can be obtained following
-the instructions in Appendix A.
+the instructions in Appendix A[^latexsource].
 
 ## bot_rivescript.py
 ~~~ python
@@ -1184,7 +1189,7 @@ def test_systemreplylogged():
 < topic
 ~~~
 
-\renewcommand\bibname{References}[^latexsource]\label{references}
+\renewcommand\bibname{References}\label{references}
 \printbibliography
 
 [^latexsource]: The raw format of this report can be obtained from:

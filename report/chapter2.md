@@ -121,7 +121,7 @@ the web hosting solutions of Amazon or Microsoft (AWS, 2016; Azure 2016).
 For the reasons outlined in the above section on the particular legal issues around
 the problem domain, it was deemed unfeasible to use external services that would
 host the chatbot service and as a consequence receive and process patient
-information (even in anonymized form)].
+information (even in anonymized form).
 
 In the architecture model proposed above, the open source resources available make
  it easy to write documents that define the patterns and templates of a "frame-based"
@@ -317,7 +317,7 @@ from the Java implementation (Manning et al, 2014; Smith, 2014).
 The present project thus made primarily use of the NLTK, and packages built on
 top of it.
 The NLTK exposes a range of natural language corpora and ready available implementations of
-various types of classifiers, exposing an intuitive API (Bird et al, 2014, Chapter 6 see also
+various types of classifiers, with an intuitive API (Bird et al, 2014, Chapter 6 see also
 Manning et al, 2009, pp.271--)[^nodata].
 
 [^nodata]: An obvious problem
@@ -328,16 +328,14 @@ See Chapter 5 and Appendix C for more information on the solution adopted.
 
 Given the conclusion of using a software package that works based on input patterns matchers
 and output templates, which have to be hard coded, investigation began into automated
-generation of matchers and templates. One area that it became clear early on
-could benefit from automated generation was with patterns to match not against a
-particular set of terms, defined inline into the pattern, but English words close
-in meaning.
+generation of matchers and templates. In particular, the automated generation of
+pattern matchers made of English words close in meaning was investigated.
 
 ### The word2vec Algorithm
 
 One way to automatically generate synonyms is by looking at regularities
 discovered in the use of English words through unsupervised learning. This
-is at the core of what the word2vec algorithm does: it discovers these regularities
+is at the core of what the word2vec algorithm does: it discovers regularities
 based on the position words are used in sentences (Ellenberg, 2016). For each word in the training
 data (the vocabulary) the algorithm constructs a vector representing the positional
 regularities discovered between words in the training data.
@@ -351,7 +349,7 @@ way to automatically generate synonyms for use with the chatbot.
 
 The Gensim library (Rehurek, 2014; Rehurek and Sojka, 2010)[^gensimlibrary]
 is another natural language processing tool for use with Python specialized
-in document similarity computations and related tasks. The easiest way to
+in document similarity computations and related tasks. A very straightforward way to
 use word2vec for the stated purpose is through Gensim (McCormick, 2016a).
 
 [^gensimlibrary]: <https://github.com/RaRe-Technologies/gensim>
@@ -364,9 +362,9 @@ Google News data (McCormick, 2016a).
 
 ### Alternatives
 
-WordNet (Fellbaum, 2005) is perhaps a better alternative. There are ways to
+WordNet (Fellbaum, 2005) is another alternative. There are ways to
 interface with it via the NTLK (see http://www.nltk.org/howto/wordnet.html), but,
-as emphasized in the chatbot brain discussion
+as mentioned in the chatbot brain discussion
 above, some chatbot frameworks other than the one used for the current implementation
 (RiveScript) already offer similar WordNet integrations out of the box (see for
 ChatScript: Wilcox, 2016b, pp.10-11).

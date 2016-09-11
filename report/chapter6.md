@@ -12,17 +12,16 @@ his thoughts on the project going forward.
 
 The goals and aims introduced in Chapter 1 are here reviewed.
 All references to "RQ" below refer to the requirements
-table in Chapter 3.
+table in Chapter 3. The project achieved all key requirements and
+several additional requirements[^missedreqs].
 
 1. Design and implement a chatbot architecture tailored to the issues surrounding
 software systems in healthcare.
 
-As discussed in Chapter 2, there are crucial compliance concerns around the sensitivity
+As discussed in Chapter 2, there are crucial concerns around the sensitivity
 of patient data that have driven the implementation decision not to employ third
 party APIs for the processing of natural language user input, even where this
 may have significantly simplified the chatbot brain implementation task (see RQNF0, RQ1).
-From this it is possible to see the project achieved all key requirements and
-several additional requirements[^missedreqs].
 
 2. To integrate with a specialized search engine.
 
@@ -31,7 +30,7 @@ was completed, a clear reference on how to integrate between the systems had
 been provided (and materialized in the integration testing *MockSearch* class
 and shown integrated at the postprocessing stage; see also RQ5 and Section 5.2).
 
-3. To explore other applications of NLP that could be useful to extract information from natural language data**
+3. To explore other applications of NLP that could be useful to extract information from natural language data
 
 NLP was used to investigate a hybrid approach to chatbot
 technology, making use of both rule or grammar based technologies and machine
@@ -68,8 +67,8 @@ pattern matchers in the chatbot brain.
 natural language processing.
 
 As mentioned in the previous section, the author investigated the use of NLP
-to text classification and synonym generation, in addition to significantly
-more reading in NLP than resulted useful for the project.
+to text classification and synonym generation (in addition to significantly
+more reading in NLP than resulted useful for the project).
 
 3. Learn about applications of machine learning in natural language processing.
 
@@ -115,7 +114,7 @@ across multiple subpackages of the system (Gamma et al, 1995, Chapter 4.5).
 There are various ways in which the project could be extended. First of all,
 the author advises exploring an open source framework different from RiveScript
 given the limitations discovered within it during this project (or if the client believes
-it appropriate using third party remote APIs.). See Appendix A (A.2.2)
+it appropriate using third party remote APIs). See Appendix A (A.2.2)
 for instructions on how to replace RiveScript, and
 Chapter 2 for a discussion of alternatives.
 
@@ -130,8 +129,8 @@ following up on the initial results with the synonym generation package (Section
 
 Finally and most importantly, it may be desirable to investigate information-retrieval techniques to
 extract information from the conversation data gathered during conversations,
-not as a way to fill the questionnaire (as originally intended, see Section 3.2)
-but to produce summaries of user concerns for the clinician.
+not necessarily as a way to fill the questionnaire (as originally intended, see Section 3.2)
+but to focus on producing summaries of user concerns for the clinician.
 One of the biggest obstacles to providing cancer patients with better care is the
 time it takes to create a care plan. Through the extraction
 of information about the patient's concerns ahead of time, it may be possible
