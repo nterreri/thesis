@@ -1,15 +1,19 @@
 # Edit 1:
 ~~~
-- \usepackage[unicode=true, breaklinks]{hyperref}
-- \usepackage{url}
-- \usepackage{breakurl}
-
-either:
-- \usepackage{natbib}
-- \bibliographystyle{abbrvnat}
-or:
--\usepackage[backend=bibtex]{biblatex-chicago}
--\bibliography{MSC16.bib}
+\usepackage[unicode=true, breaklinks]{hyperref}
+\usepackage{url}
+\usepackage{breakurl}
+\usepackage{mdframed}
+\newmdenv[
+    topline=true,
+    bottomline=true,
+    leftline=true,
+    rightline=true,
+    skipabove=\topsep,
+    skipbelow=\topsep
+]{siderules}
+\usepackage[backend=bibtex]{biblatex-chicago}
+\bibliography{MSC16.bib}
 ~~~
 The above has to be put the latex manually to get the urls to format properly
 in the references.
@@ -92,21 +96,34 @@ The \pagenumbering{roman} command must appear around the above area.
 \begin{minipage}[t]{0.4\textwidth}
 \begin{flushleft} \large
 \emph{Author:}\\
-\href{http://www.johnsmith.com}{\authorname} % Author name - remove the \href bracket to remove the link
+{\authorname} % Author name - remove the \href bracket to remove the link
 \end{flushleft}
 \end{minipage}
 \begin{minipage}[t]{0.4\textwidth}
 \begin{flushright} \large
 \emph{Supervisor:} \\
-\href{http://www.jamessmith.com}{\supname} % Supervisor name - remove the \href bracket to remove the link
+{\supname} % Supervisor name - remove the \href bracket to remove the link
 \end{flushright}
 \end{minipage}\\[2cm]
-
 
 {\today}\\[4cm] % Date
 
 \vfill
+\emph{Disclaimer}
 \end{center}
+This report is submitted as part requirement for the MSc Computer Science
+degree at UCL. It is substantially the result of my own work except where
+explicitly indicated in the text. The report may be freely copied and
+distributed provided the source is explicitly acknowledged.
 \end{titlepage}
 ~~~
 Frontpage edit, appears in place of begin{document} and maketitle
+
+# Edit 4
+
+Wrap final code listings in:
+~~~
+\begin{siderules}
+ ...
+\end{siderules}
+~~~
